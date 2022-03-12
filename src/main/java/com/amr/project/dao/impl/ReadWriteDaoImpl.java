@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+
 public class ReadWriteDaoImpl<T, K> implements ReadWriteDao<T, K> {
     private final Class<T> clazz;
 
