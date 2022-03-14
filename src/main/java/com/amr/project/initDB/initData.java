@@ -2,18 +2,19 @@ package com.amr.project.initDB;
 
 import com.amr.project.initDB.repository.*;
 import com.amr.project.model.entity.*;
+import com.amr.project.model.enums.Gender;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.model.enums.Status;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Set;
 
 @Component
@@ -32,6 +33,10 @@ public class initData {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final ShopRepository shopRepository;
+    private final AddressRepository addressRepository;
+    private final UserInfoRepository userInfoRepository;
+    private final CartItemRepository cartItemRepository;
+    private final MessageRepository messageRepository;
 
     public initData(ReviewRepository reviewRepository, OrdersRepository ordersRepository,
                     ItemRepository itemRepository, FeedBackRepository feedBackRepository,
@@ -39,7 +44,7 @@ public class initData {
                     CouponRepository couponRepository, CountryRepository countryRepository,
                     CityRepository cityRepository, ChatRepository chatRepository,
                     CategoryRepository categoryRepository, UserRepository userRepository,
-                    ShopRepository shopRepository) {
+                    ShopRepository shopRepository, AddressRepository addressRepository, UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository, MessageRepository messageRepository) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -53,51 +58,54 @@ public class initData {
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.shopRepository = shopRepository;
+        this.addressRepository = addressRepository;
+        this.userInfoRepository = userInfoRepository;
+        this.cartItemRepository = cartItemRepository;
+        this.messageRepository = messageRepository;
     }
 
     @PostConstruct
     public void initializationDB() {
-        City Berlin = City.builder().name("Berlin").build();
-        City LosSantos = City.builder().name("LosSantos").build();
-        City SanAndreas = City.builder().name("SanAndreas").build();
-        City Vegas = City.builder().name("Vegas").build();
-        City Frankfurt = City.builder().name("Frankfurt").build();
+/////////////////////////////////////////////////Country////////////////////////////////////////////////////////////
+        Country USA = new Country();
+        USA.setName("USA");
+        Country Germany = new Country();
+        Germany.setName("Germany");
+        countryRepository.save(USA);
+        countryRepository.save(Germany);
+/////////////////////////////////////////////////City////////////////////////////////////////////////////////////
+        City Berlin = City.builder().name("Berlin").country(Germany).build();
+        City LosSantos = City.builder().name("LosSantos").country(USA).build();
+        City SanAndreas = City.builder().name("SanAndreas").country(USA).build();
+        City Vegas = City.builder().name("Vegas").country(USA).build();
+        City Frankfurt = City.builder().name("Frankfurt").country(Germany).build();
         cityRepository.save(Berlin);
         cityRepository.save(LosSantos);
         cityRepository.save(SanAndreas);
         cityRepository.save(Vegas);
         cityRepository.save(Frankfurt);
-
-/////////////////////////////////////////////////Country////////////////////////////////////////////////////////////
-        Country USA = new Country();
-        USA.setName("USA");
-        //USA.setCities(Set.of(LosSantos, Vegas, SanAndreas));
-
-        Country Germany = new Country();
-        Germany.setName("Germany");
-        //Germany.setCities(Set.of(Berlin, Frankfurt));
-
-        countryRepository.save(USA);
-        countryRepository.save(Germany);
 /////////////////////////////////////////////////Address////////////////////////////////////////////////////////////
         Address address1 = Address.builder()
-                .city(Berlin)
-                .cityIndex("11111")
+                .city(Vegas)
+                .cityIndex("123")
                 .street("user1_street")
                 .house("user1_house")
                 .build();
         Address address2 = Address.builder()
-                .city(Berlin)
-                .cityIndex("11111")
+                .city(LosSantos)
+                .cityIndex("456")
                 .street("user2_street")
                 .house("user2_house")
                 .build();
         Address address3 = Address.builder()
                 .city(Berlin)
-                .cityIndex("11111")
+                .cityIndex("789")
                 .street("user3_street")
                 .house("user3_house")
                 .build();
+        addressRepository.save(address1);
+        addressRepository.save(address2);
+        addressRepository.save(address3);
 /////////////////////////////////////////////////User////////////////////////////////////////////////////////////
         User user1 = User.builder()
                 .email("user1@mail.com")
@@ -110,7 +118,7 @@ public class initData {
                 .role(Roles.USER)
                 .userInfo(null)
                 .favorite(null)
-                .address(null)
+                .address(addressRepository.findAddressById(1L))
                 .images(null)
                 .coupons(null)
                 .cart(null)
@@ -133,7 +141,7 @@ public class initData {
                 .role(Roles.USER)
                 .userInfo(null)
                 .favorite(null)
-                .address(null)
+                .address(addressRepository.findAddressById(2L))
                 .images(null)
                 .coupons(null)
                 .cart(null)
@@ -156,7 +164,7 @@ public class initData {
                 .role(Roles.USER)
                 .userInfo(null)
                 .favorite(null)
-                .address(null)
+                .address(addressRepository.findAddressById(3L))
                 .images(null)
                 .coupons(null)
                 .cart(null)
@@ -179,7 +187,7 @@ public class initData {
                 .description("shop1_description")
                 .count(0)
                 .rating(0)
-                .location(null)
+                .location(Germany)
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -188,7 +196,7 @@ public class initData {
                 .feedback(null)
                 .discounts(null)
                 .favorites(null)
-                .address(null)
+                .address(address1)
                 .coupons(null)
                 .isModerated(true)
                 .isModerateAccept(true)
@@ -202,16 +210,16 @@ public class initData {
                 .description("shop2_description")
                 .count(0)
                 .rating(0)
-                .location(null)
+                .location(USA)
                 .items(null)
                 .reviews(null)
                 .logo(null)
-                .user(user1)
+                .user(user2)
                 .cartItem(null)
                 .feedback(null)
                 .discounts(null)
                 .favorites(null)
-                .address(null)
+                .address(address2)
                 .coupons(null)
                 .isModerated(true)
                 .isModerateAccept(true)
@@ -225,16 +233,16 @@ public class initData {
                 .description("shop3_description")
                 .count(0)
                 .rating(0)
-                .location(null)
+                .location(USA)
                 .items(null)
                 .reviews(null)
                 .logo(null)
-                .user(user1)
+                .user(user3)
                 .cartItem(null)
                 .feedback(null)
                 .discounts(null)
                 .favorites(null)
-                .address(null)
+                .address(address3)
                 .coupons(null)
                 .isModerated(true)
                 .isModerateAccept(true)
@@ -398,19 +406,24 @@ public class initData {
         feedBackRepository.save(feedback1);
         feedBackRepository.save(feedback2);
 /////////////////////////////////////////////////Coupons////////////////////////////////////////////////////////////
-        Coupon coupon1 = new Coupon();
-        Coupon coupon2 = new Coupon();
-        Coupon coupon3 = new Coupon();
+        Coupon coupon1 = Coupon.builder()
+                .start(Calendar.getInstance())
+                .end(Calendar.getInstance())
+                .user(user1)
+                .build();
+        Coupon coupon2 = Coupon.builder()
+                .start(Calendar.getInstance())
+                .end(Calendar.getInstance())
+                .user(user2)
+                .build();
+        Coupon coupon3 = Coupon.builder()
+                .start(Calendar.getInstance())
+                .end(Calendar.getInstance())
+                .user(user3)
+                .build();
         couponRepository.save(coupon1);
         couponRepository.save(coupon2);
         couponRepository.save(coupon3);
-//        User userForCoupon1 = userRepository.findByEmail("user1@mail.com");
-//        User userForCoupon2 = userRepository.findByEmail("user1@mail.com");
-//        User userForCoupon3 = userRepository.findByEmail("user1@mail.com");
-        user1.setCoupons(Set.of(coupon1));
-        user2.setCoupons(Set.of(coupon1, coupon2));
-        user3.setCoupons(Set.of(coupon1, coupon3));
-        //userRepository.save(user1);
 /////////////////////////////////////////////////Discounts////////////////////////////////////////////////////////////
         Discount discount1 = Discount.builder()
                 .minOrder(1000)
@@ -426,48 +439,43 @@ public class initData {
                 .build();
         discountRepository.save(discount1);
         discountRepository.save(discount2);
-/////////////////////////////////////////////////Chat////////////////////////////////////////////////////////////
-//        Chat chat1 = Chat.builder()
-//                .users(Set.of(user1, user2))
-//                .build();
-//        Message message1Chat1 = Message.builder()
-//                .date(new Date())
-//                .textMessage("chert poberi1")
+/////////////////////////////////////////////////Chat//////////message//////////////////////////////////////////////////
+//        Chat chat1 = new Chat();
+//
+//        Message message1_chat1 = Message.builder()
+//                .date(Date.from(Instant.now()))
+//                .textMessage("message1text")
 //                .viewed(true)
 //                .user(user1)
 //                .chat(chat1)
 //                .build();
-//        Message message2Chat1 = Message.builder()
-//                .date(new Date())
-//                .textMessage("chert poberi2")
+//        Message message2_chat1 = Message.builder()
+//                .date(Date.from(Instant.now()))
+//                .textMessage("message2text")
 //                .viewed(true)
 //                .user(user2)
 //                .chat(chat1)
 //                .build();
-//
-//        chat1.setMessages(Set.of(message1Chat1, message2Chat1));
+//        chat1.setUsers(Set.of(user1, user2));
+//        chat1.setMessages(Set.of(message1_chat1, message2_chat1));
+//        chat1.setHash((long) (user1.hashCode() + user2.hashCode()));
 //        chatRepository.save(chat1);
 //
-//        Chat chat2 = Chat.builder()
-//                .users(Set.of(user2, user3))
-//                .build();
-//        Message message1Chat2 = Message.builder()
-//                //.date()
-//                .textMessage("chert!!!!!poberi1")
+//        Message message1_chat2 = Message.builder()
+//                .date(Date.from(Instant.now()))
+//                .textMessage("message1text")
 //                .viewed(true)
 //                .user(user2)
-//                .chat(chat2)
+//                .chat(null)
 //                .build();
-//        Message message2Chat2 = Message.builder()
-//                //.date()
-//                .textMessage("chert!!!!!poberi2")
+//        Message message2_chat2 = Message.builder()
+//                .date(Date.from(Instant.now()))
+//                .textMessage("message2text")
 //                .viewed(true)
 //                .user(user3)
-//                .chat(chat2)
+//                .chat(null)
 //                .build();
-//
-//        chat2.setMessages(Set.of(message1Chat2, message2Chat2));
-//        chatRepository.save(chat2);
+
 /////////////////////////////////////////////////Favourite////////////////////////////////////////////////////////////
         Favorite favorite1 = Favorite.builder()
                 .shops(Set.of(shop1))
@@ -488,30 +496,115 @@ public class initData {
         favoriteRepository.save(favorite2);
         favoriteRepository.save(favorite3);
 /////////////////////////////////////////////////Orders////////////////////////////////////////////////////////////
-//        Order order1 = Order.builder()
-//                .orderDate(Calendar.getInstance())
-//                .expectedDeliveryDate(Calendar.getInstance())
-//                .grandTotal(item1.getPrice().add(item2.getPrice()))
-//                .currency("dollar")
-//                .description("help me")
-//                .status(Status.START)
-//                .user(user1)
-//                .itemsInOrder(Set.of(item1, item2))
-//                .address(null)
-//                .build();
-//        Order order2 = Order.builder()
-//                .orderDate(Calendar.getInstance())
-//                .expectedDeliveryDate(Calendar.getInstance())
-//                .grandTotal(item3.getPrice().add(item2.getPrice()))
-//                .currency("dollar")
-//                .description("help me")
-//                .status(Status.START)
-//                .user(user1)
-//                .itemsInOrder(Set.of(item1, item2))
-//                .address(null)
-//                .build();
-//        ordersRepository.save(order1);
-//        ordersRepository.save(order2);
+        Order order1 = Order.builder()
+                .orderDate(Calendar.getInstance())
+                .expectedDeliveryDate(Calendar.getInstance())
+                .grandTotal(item1.getPrice().add(item2.getPrice()))
+                .currency("dollar")
+                .description("help me")
+                .status(Status.START)
+                .user(user1)
+                .address(address1)
+                //.itemsInOrder(Set.of(item1, item2))
+                .build();
+        Order order2 = Order.builder()
+                .orderDate(Calendar.getInstance())
+                .expectedDeliveryDate(Calendar.getInstance())
+                .grandTotal(item3.getPrice().add(item2.getPrice()))
+                .currency("dollar")
+                .description("help me")
+                .status(Status.DELIVERED)
+                .user(user3)
+                .address(address2)
+                //.itemsInOrder(Set.of(item3, item2))
+                .build();
+        ordersRepository.save(order1);
+        ordersRepository.save(order2);
+        //order1.setItemsInOrder(Set.of(item1));
 /////////////////////////////////////////////////Review////////////////////////////////////////////////////////////
+        Review reviewItem = Review.builder()
+                .date(GregorianCalendar.getInstance().getTime())
+                .dignity("dignity")
+                .flaw("flaw")
+                .text("textReview")
+                .rating(3)
+                .user(null)
+                .shop(null)
+                .item(null)
+                .isModerateAccept(false)
+                .isModerateAccept(false)
+                .moderatedRejectReason(null)
+                .build();
+        reviewRepository.save(reviewItem);
+        Review reviewShop = Review.builder()
+                .date(GregorianCalendar.getInstance().getTime())
+                .dignity("dignity")
+                .flaw("flaw")
+                .text("textReview")
+                .rating(2)
+                .user(null)
+                .shop(null)
+                .item(null)
+                .isModerateAccept(false)
+                .isModerateAccept(false)
+                .moderatedRejectReason(null)
+                .build();
+        reviewRepository.save(reviewShop);
+/////////////////////////////////////////////////UserInfo////////////////////////////////////////////////////////////
+        UserInfo userInfo1 = UserInfo.builder()
+                .age(44)
+                .phone("+5388881")
+                .firstName("Alex1")
+                .lastName("Vazovski1")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
+                .user(user1)
+                .build();
+        UserInfo userInfo2 = UserInfo.builder()
+                .age(44)
+                .phone("+5388882")
+                .firstName("Alex2")
+                .lastName("Vazovski2")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.FEMALE)
+                .user(user2)
+                .build();
+        UserInfo userInfo3 = UserInfo.builder()
+                .age(44)
+                .phone("+5388883")
+                .firstName("Alex3")
+                .lastName("Vazovski3")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.UNKNOWN)
+                .user(user3)
+                .build();
+        userInfoRepository.save(userInfo1);
+        userInfoRepository.save(userInfo2);
+        userInfoRepository.save(userInfo3);
+/////////////////////////////////////////////////CartItem////////////////////////////////////////////////////////////
+        CartItem cartItem1 = CartItem.builder()
+                .quantity(5)
+                .shop(shop1)
+                .user(user1)
+                .build();
+        CartItem cartItem2 = CartItem.builder()
+                .quantity(2)
+                .shop(shop2)
+                .user(user2)
+                .build();
+        CartItem cartItem3 = CartItem.builder()
+                .quantity(3)
+                .shop(shop3)
+                .user(user3)
+                .build();
+        CartItem cartItem4 = CartItem.builder()
+                .quantity(1)
+                .shop(shop1)
+                .user(user1)
+                .build();
+        cartItemRepository.save(cartItem1);
+        cartItemRepository.save(cartItem2);
+        cartItemRepository.save(cartItem3);
+        cartItemRepository.save(cartItem4);
     }
 }
