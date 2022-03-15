@@ -23,6 +23,7 @@ public class Image {
     @Column(name = "id")
     private Long id;
 
+    @Lob
     private byte[] picture;
 
     private Boolean isMain = false;

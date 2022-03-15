@@ -6,9 +6,13 @@ import com.amr.project.model.enums.Gender;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.model.enums.Status;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
+
 
 @Component
 public class initData {
@@ -37,6 +42,7 @@ public class initData {
     private final UserInfoRepository userInfoRepository;
     private final CartItemRepository cartItemRepository;
     private final MessageRepository messageRepository;
+    private final ImageRepository imageRepository;
 
     public initData(ReviewRepository reviewRepository, OrdersRepository ordersRepository,
                     ItemRepository itemRepository, FeedBackRepository feedBackRepository,
@@ -44,7 +50,7 @@ public class initData {
                     CouponRepository couponRepository, CountryRepository countryRepository,
                     CityRepository cityRepository, ChatRepository chatRepository,
                     CategoryRepository categoryRepository, UserRepository userRepository,
-                    ShopRepository shopRepository, AddressRepository addressRepository, UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository, MessageRepository messageRepository) {
+                    ShopRepository shopRepository, AddressRepository addressRepository, UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository, MessageRepository messageRepository, ImageRepository imageRepository) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -62,10 +68,47 @@ public class initData {
         this.userInfoRepository = userInfoRepository;
         this.cartItemRepository = cartItemRepository;
         this.messageRepository = messageRepository;
+        this.imageRepository = imageRepository;
     }
 
     @PostConstruct
-    public void initializationDB() {
+    public void initializationDB() throws IOException {
+        /////////////////////////////////////////////////Images////////////////////////////////////////////////////////////
+        File item1_image = ResourceUtils.getFile("classpath:static/images/items/item1.jpg");
+        byte[] arrayItemImage1 = Files.readAllBytes(item1_image.toPath());
+        Image itemImage1 = Image.builder().picture(arrayItemImage1).isMain(true).build();
+        File item2_image = ResourceUtils.getFile("classpath:static/images/items/item2.jpg");
+        byte[] arrayItemImage2 = Files.readAllBytes(item2_image.toPath());
+        Image itemImage2 = Image.builder().picture(arrayItemImage2).isMain(true).build();
+        File item3_image = ResourceUtils.getFile("classpath:static/images/items/item3.jpg");
+        byte[] arrayItemImage3 = Files.readAllBytes(item3_image.toPath());
+        Image itemImage3 = Image.builder().picture(arrayItemImage3).isMain(true).build();
+        File item4_image = ResourceUtils.getFile("classpath:static/images/items/item4.jpg");
+        byte[] arrayItemImage4 = Files.readAllBytes(item4_image.toPath());
+        Image itemImage4 = Image.builder().picture(arrayItemImage4).isMain(true).build();
+        imageRepository.save(itemImage1); //Data truncation: Data too long for column 'picture' at row 1/@Lob
+        imageRepository.save(itemImage2);
+        imageRepository.save(itemImage3);
+        imageRepository.save(itemImage4);
+
+        File shop1_image = ResourceUtils.getFile("classpath:static/images/shopLogo/shop1.jpg");
+        byte[] arrayShopImage1 = Files.readAllBytes(shop1_image.toPath());
+        Image shopImage1 = Image.builder().picture(arrayShopImage1).isMain(true).build();
+        File shop2_image = ResourceUtils.getFile("classpath:static/images/shopLogo/shop2.jpg");
+        byte[] arrayShopImage2 = Files.readAllBytes(shop2_image.toPath());
+        Image shopImage2 = Image.builder().picture(arrayShopImage2).isMain(true).build();
+        File shop3_image = ResourceUtils.getFile("classpath:static/images/shopLogo/shop3.jpg");
+        byte[] arrayShopImage3 = Files.readAllBytes(shop3_image.toPath());
+        Image shopImage3 = Image.builder().picture(arrayShopImage3).isMain(true).build();
+        imageRepository.save(shopImage1);
+        imageRepository.save(shopImage2);
+        imageRepository.save(shopImage3);
+
+        File logo1_image = ResourceUtils.getFile("classpath:static/images/logo/logo1.jpg");
+        byte[] arrayLogoImage1 = Files.readAllBytes(logo1_image.toPath());
+        Image logoImage1 = Image.builder().picture(arrayLogoImage1).isMain(true).build();
+        imageRepository.save(logoImage1);
+
 /////////////////////////////////////////////////Country////////////////////////////////////////////////////////////
         Country USA = new Country();
         USA.setName("USA");
@@ -73,6 +116,7 @@ public class initData {
         Germany.setName("Germany");
         countryRepository.save(USA);
         countryRepository.save(Germany);
+
 /////////////////////////////////////////////////City////////////////////////////////////////////////////////////
         City Berlin = City.builder().name("Berlin").country(Germany).build();
         City LosSantos = City.builder().name("LosSantos").country(USA).build();
@@ -84,6 +128,7 @@ public class initData {
         cityRepository.save(SanAndreas);
         cityRepository.save(Vegas);
         cityRepository.save(Frankfurt);
+
 /////////////////////////////////////////////////Address////////////////////////////////////////////////////////////
         Address address1 = Address.builder()
                 .city(Vegas)
@@ -106,6 +151,7 @@ public class initData {
         addressRepository.save(address1);
         addressRepository.save(address2);
         addressRepository.save(address3);
+
 /////////////////////////////////////////////////User////////////////////////////////////////////////////////////
         User user1 = User.builder()
                 .email("user1@mail.com")
@@ -179,6 +225,30 @@ public class initData {
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+
+/////////////////////////////////////////////////Coupons////////////////////////////////////////////////////////////
+//        User user1Coupons = userRepository.findByEmail("user1@mail.com");
+//        User user2Coupons = userRepository.findByEmail("user2@mail.com");
+//        User user3Coupons = userRepository.findByEmail("user3@mail.com");
+        Coupon coupon1 = Coupon.builder()
+                .start(Calendar.getInstance())
+                .end(Calendar.getInstance())
+                .user(user1)
+                .build();
+        Coupon coupon2 = Coupon.builder()
+                .start(Calendar.getInstance())
+                .end(Calendar.getInstance())
+                .user(user2)
+                .build();
+        Coupon coupon3 = Coupon.builder()
+                .start(Calendar.getInstance())
+                .end(Calendar.getInstance())
+                .user(user3)
+                .build();
+        couponRepository.save(coupon1);
+        couponRepository.save(coupon2);
+        couponRepository.save(coupon3);
+
 /////////////////////////////////////////////////Shop////////////////////////////////////////////////////////////
         Shop shop1 = Shop.builder()
                 .name("shop1")
@@ -252,6 +322,7 @@ public class initData {
         shopRepository.save(shop1);
         shopRepository.save(shop2);
         shopRepository.save(shop3);
+
 /////////////////////////////////////////////////Category////////////////////////////////////////////////////////////
         Category category1 = Category.builder().name("cat1").build();
         Category category2 = Category.builder().name("cat2").build();
@@ -263,6 +334,7 @@ public class initData {
         categoryRepository.save(category3);
         categoryRepository.save(category4);
         categoryRepository.save(category5);
+
 /////////////////////////////////////////////////Item////////////////////////////////////////////////////////////
         Item item1 = Item.builder()
                 .name("item1")
@@ -274,7 +346,7 @@ public class initData {
                 .discount(0)
                 .category(category1)
                 .cartItem(null)
-                .images(null)
+                .images(null) //detached entity passed to persist: com.amr.project.model.entity.Image
                 .reviews(null)
                 .favorites(null)
                 .orders(null)
@@ -390,40 +462,27 @@ public class initData {
         itemRepository.save(item4);
         itemRepository.save(item5);
         itemRepository.save(item6);
+
 /////////////////////////////////////////////////FeedBack////////////////////////////////////////////////////////////
         Feedback feedback1 = Feedback.builder()
                 .reason("reason1")
                 .fullText("full_text_fb1")
                 .dateTime(LocalDate.now().atTime(12, 33))
                 .username(user1.getUsername())
+                .shop(shop1)
+                .user(user1)
                 .build();
         Feedback feedback2 = Feedback.builder()
                 .reason("reason2")
                 .fullText("full_text_fb2")
                 .dateTime(LocalDate.now().atTime(LocalTime.now()))
                 .username(user2.getUsername())
+                .shop(shop2)
+                .user(user2)
                 .build();
         feedBackRepository.save(feedback1);
         feedBackRepository.save(feedback2);
-/////////////////////////////////////////////////Coupons////////////////////////////////////////////////////////////
-        Coupon coupon1 = Coupon.builder()
-                .start(Calendar.getInstance())
-                .end(Calendar.getInstance())
-                .user(user1)
-                .build();
-        Coupon coupon2 = Coupon.builder()
-                .start(Calendar.getInstance())
-                .end(Calendar.getInstance())
-                .user(user2)
-                .build();
-        Coupon coupon3 = Coupon.builder()
-                .start(Calendar.getInstance())
-                .end(Calendar.getInstance())
-                .user(user3)
-                .build();
-        couponRepository.save(coupon1);
-        couponRepository.save(coupon2);
-        couponRepository.save(coupon3);
+
 /////////////////////////////////////////////////Discounts////////////////////////////////////////////////////////////
         Discount discount1 = Discount.builder()
                 .minOrder(1000)
@@ -437,44 +496,57 @@ public class initData {
                 .fixedDiscount(2)
                 .shop(shop2)
                 .build();
+        user1.setDiscounts(Set.of(discount1));
         discountRepository.save(discount1);
         discountRepository.save(discount2);
+
 /////////////////////////////////////////////////Chat//////////message//////////////////////////////////////////////////
-//        Chat chat1 = new Chat();
-//
-//        Message message1_chat1 = Message.builder()
-//                .date(Date.from(Instant.now()))
-//                .textMessage("message1text")
-//                .viewed(true)
-//                .user(user1)
-//                .chat(chat1)
-//                .build();
-//        Message message2_chat1 = Message.builder()
-//                .date(Date.from(Instant.now()))
-//                .textMessage("message2text")
-//                .viewed(true)
-//                .user(user2)
-//                .chat(chat1)
-//                .build();
-//        chat1.setUsers(Set.of(user1, user2));
-//        chat1.setMessages(Set.of(message1_chat1, message2_chat1));
-//        chat1.setHash((long) (user1.hashCode() + user2.hashCode()));
-//        chatRepository.save(chat1);
-//
-//        Message message1_chat2 = Message.builder()
-//                .date(Date.from(Instant.now()))
-//                .textMessage("message1text")
-//                .viewed(true)
-//                .user(user2)
-//                .chat(null)
-//                .build();
-//        Message message2_chat2 = Message.builder()
-//                .date(Date.from(Instant.now()))
-//                .textMessage("message2text")
-//                .viewed(true)
-//                .user(user3)
-//                .chat(null)
-//                .build();
+        Message message1_chat1 = Message.builder()
+                .date(Date.from(Instant.now()))
+                .textMessage("message1textChat1")
+                .viewed(true)
+                .user(user1)
+                .chat(null)
+                .build();
+        Message message2_chat1 = Message.builder()
+                .date(Date.from(Instant.now()))
+                .textMessage("message2textChat1")
+                .viewed(true)
+                .user(user2)
+                .chat(null)
+                .build();
+
+        Message message1_chat2 = Message.builder()
+                .date(Date.from(Instant.now()))
+                .textMessage("message1textChat2")
+                .viewed(true)
+                .user(user2)
+                .chat(null)
+                .build();
+        Message message2_chat2 = Message.builder()
+                .date(Date.from(Instant.now()))
+                .textMessage("message2textChat2")
+                .viewed(true)
+                .user(user3)
+                .chat(null)
+                .build();
+//        Chat chat1 = Chat.builder().users(Set.of(user1, user2)).build(); //no hash?!
+//        Chat chat2 = Chat.builder().users(Set.of(user2, user3)).build();
+        Chat chat1 = new Chat(Set.of(user1, user2));
+        Chat chat2 = new Chat(Set.of(user2, user3));
+
+        chatRepository.save(chat1);
+        chatRepository.save(chat2);
+
+        message1_chat1.setChat(chat1);
+        message2_chat1.setChat(chat1);
+        message1_chat2.setChat(chat2);
+        message2_chat2.setChat(chat2);
+
+        messageRepository.save(message1_chat1);
+        messageRepository.save(message2_chat1);
+        messageRepository.save(message1_chat2);
+        messageRepository.save(message2_chat2);
 
 /////////////////////////////////////////////////Favourite////////////////////////////////////////////////////////////
         Favorite favorite1 = Favorite.builder()
@@ -495,6 +567,7 @@ public class initData {
         favoriteRepository.save(favorite1);
         favoriteRepository.save(favorite2);
         favoriteRepository.save(favorite3);
+
 /////////////////////////////////////////////////Orders////////////////////////////////////////////////////////////
         Order order1 = Order.builder()
                 .orderDate(Calendar.getInstance())
@@ -520,7 +593,9 @@ public class initData {
                 .build();
         ordersRepository.save(order1);
         ordersRepository.save(order2);
-        //order1.setItemsInOrder(Set.of(item1));
+        item1.setOrders(Set.of(order1));
+        //itemRepository.save(item1);
+
 /////////////////////////////////////////////////Review////////////////////////////////////////////////////////////
         Review reviewItem = Review.builder()
                 .date(GregorianCalendar.getInstance().getTime())
@@ -528,9 +603,9 @@ public class initData {
                 .flaw("flaw")
                 .text("textReview")
                 .rating(3)
-                .user(null)
-                .shop(null)
-                .item(null)
+                .user(user1)
+                .shop(shop1)
+                .item(item1)
                 .isModerateAccept(false)
                 .isModerateAccept(false)
                 .moderatedRejectReason(null)
@@ -542,14 +617,15 @@ public class initData {
                 .flaw("flaw")
                 .text("textReview")
                 .rating(2)
-                .user(null)
-                .shop(null)
-                .item(null)
+                .user(user2)
+                .shop(shop2)
+                .item(item2)
                 .isModerateAccept(false)
                 .isModerateAccept(false)
                 .moderatedRejectReason(null)
                 .build();
         reviewRepository.save(reviewShop);
+
 /////////////////////////////////////////////////UserInfo////////////////////////////////////////////////////////////
         UserInfo userInfo1 = UserInfo.builder()
                 .age(44)
@@ -581,6 +657,7 @@ public class initData {
         userInfoRepository.save(userInfo1);
         userInfoRepository.save(userInfo2);
         userInfoRepository.save(userInfo3);
+
 /////////////////////////////////////////////////CartItem////////////////////////////////////////////////////////////
         CartItem cartItem1 = CartItem.builder()
                 .quantity(5)
@@ -606,5 +683,55 @@ public class initData {
         cartItemRepository.save(cartItem2);
         cartItemRepository.save(cartItem3);
         cartItemRepository.save(cartItem4);
+
+/////////////////////////////////////////////////Admin/Moderator//////////////////////////////////////////////////////
+        User admin1 = User.builder()
+                .email("admin1@mail.com")
+                .username("admin1")
+                .password("admin1")
+                .activate(true)
+                .activationCode("some_code")
+                .isUsingTwoFactorAuth(false)
+                .secret("secret?")
+                .role(Roles.ADMIN)
+                .userInfo(null)
+                .favorite(null)
+                .address(addressRepository.findAddressById(1L))
+                .images(null)
+                .coupons(null)
+                .cart(null)
+                .orders(null)
+                .reviews(null)
+                .shops(null)
+                .discounts(null)
+                .messages(null)
+                .chats(null)
+                .feedbacks(null)
+                .build();
+        User moderator1 = User.builder()
+                .email("moderator1@mail.com")
+                .username("moderator1")
+                .password("moderator1")
+                .activate(true)
+                .activationCode("some_code")
+                .isUsingTwoFactorAuth(false)
+                .secret("secret?")
+                .role(Roles.MODERATOR)
+                .userInfo(null)
+                .favorite(null)
+                .address(addressRepository.findAddressById(2L))
+                .images(null)
+                .coupons(null)
+                .cart(null)
+                .orders(null)
+                .reviews(null)
+                .shops(null)
+                .discounts(null)
+                .messages(null)
+                .chats(null)
+                .feedbacks(null)
+                .build();
+        userRepository.save(admin1);
+        userRepository.save(moderator1);
     }
 }
