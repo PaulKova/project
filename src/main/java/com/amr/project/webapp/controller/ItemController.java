@@ -1,17 +1,18 @@
 package com.amr.project.webapp.controller;
 
 
+import com.amr.project.converter.mappers.ItemMapper;
 import com.amr.project.model.dto.ItemDto;
-import com.amr.project.model.dto.UserDto;
+import com.amr.project.model.entity.Item;
 import com.amr.project.service.abstracts.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +25,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class ItemController {
 
 
@@ -39,12 +41,9 @@ public class ItemController {
 
 
     private final ItemService itemService;
+    private final ItemMapper itemMapper;
 
 
-    @Autowired
-    public ItemController(ItemService itemService) {
-        this.itemService = itemService;
-    }
 
 
 
@@ -129,6 +128,11 @@ public class ItemController {
     public ResponseEntity<HttpStatus> editItem(
             @PathVariable(name = "id") Long id,
             @RequestBody ItemDto itemDto) {
+        Item item = itemMapper.toEntity(itemDto);
+        Optional<Item> optionalItem = Optional.of(item);
+        if (optionalItem.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         itemService.updateItem(itemDto);
         logger.info(ITEM_UPDATED_LOG,itemDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);

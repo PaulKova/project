@@ -1,7 +1,9 @@
 package com.amr.project.webapp.controller;
 
+import com.amr.project.converter.mappers.UserMapper;
 import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.dto.UserDto;
+import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,6 +27,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
 
 
@@ -75,6 +78,11 @@ public class UserController {
     })
     @PutMapping("users/{id}")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+        User user = userMapper.toEntity(userDto);
+        Optional<User> optionalUser = Optional.of(user);
+        if (optionalUser.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         userService.updateUser(userDto);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
