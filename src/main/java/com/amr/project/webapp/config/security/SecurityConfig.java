@@ -16,24 +16,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final UserDetailsService userDetailsService;
-
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    @Bean
-    public UserDetailsService users() {
-        UserDetails user = User.builder() // UserDetails - минимальная информация о пользователях(Entity User можно приводить к этому виду)
-                .username("user").password("1234").role(Roles.USER).build();
-
-        UserDetails admin = User.builder() // UserDetails - минимальная информация о пользователях(Entity User можно приводить к этому виду)
-                .username("admin").password("1111").role(Roles.ADMIN).build();
-
-        return new InMemoryUserDetailsManager(user, admin);
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
