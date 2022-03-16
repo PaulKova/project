@@ -59,6 +59,11 @@ public class ShopController {
         return ResponseEntity.ok(shop.get());
     }
 
+    @Operation(summary = "get shop by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+
     @Operation(summary = "Returns list of shops")
     @ApiResponse(responseCode = "200", description = "Get all shops", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))})
     @GetMapping
