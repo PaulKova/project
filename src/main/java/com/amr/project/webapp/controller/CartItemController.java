@@ -26,27 +26,28 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CartItemController {
 
     private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
-    private static final String ID = "CartItemId";
-    private static final String NEW_CARTITEM_LOG = "New CartItem was created id:{}";
-    private static final String CARTITEM_UP_LOG = "CartItem:{} was updated";
-    private static final String GET_CARTITEM_LOG = "CartItem:{} is get";
+    private static final String NEW_CART_ITEM_LOG = "New Cart Item was created id: {}";
+    private static final String CART_ITEM_UP_LOG = "CartItem:{} was updated";
+    private static final String GET_CART_ITEMS_LOG = "{} cart item was loaded";
+    private static final String GET_CART_ITEM_LOG = "Cart item: id - {} was loaded";
+    private static final String DELETE_CART_ITEM = "Cart item: id - {} was deleted";
 
     private final CartItemService cartItemService;
 
-    @Operation(summary = "Returns list of cartitems")
-    @ApiResponse(responseCode = "200", description = "Get all cartitems",
+    @Operation(summary = "Returns list of cart items")
+    @ApiResponse(responseCode = "200", description = "Get all cart items",
             content = {@Content(mediaType = APPLICATION_JSON_VALUE,
                     schema = @Schema(implementation = CartItemDto.class))})
     @GetMapping("/cartItems")
     public ResponseEntity<List<CartItemDto>> getAllCartItems() {
         List<CartItemDto> cartItems = cartItemService.getAllCartItems();
-        logger.info(GET_CARTITEM_LOG);
+        logger.info(GET_CART_ITEMS_LOG,cartItems.size());
         return new ResponseEntity<>(cartItems, HttpStatus.OK);
     }
 
-    @Operation(summary = "get cartitem by id")
+    @Operation(summary = "get cart item by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Get one cartitem by id",
+            @ApiResponse(responseCode = "200", description = "Get one cart item by id",
                     content = {@Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = CartItemDto.class))}),
             @ApiResponse(responseCode = "404", description = "CartItem not found", content = @Content)})
@@ -56,7 +57,7 @@ public class CartItemController {
             return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         CartItemDto cartItemDto = cartItemService.getCartItemsById(id).get();
-        logger.info(GET_CARTITEM_LOG + ID + id);
+        logger.info(GET_CART_ITEM_LOG,id);
         return new ResponseEntity<>(cartItemDto, HttpStatus.OK);
     }
 
@@ -67,7 +68,7 @@ public class CartItemController {
     @PostMapping("/cartItems")
     public ResponseEntity<HttpStatus> addCartItem(@RequestBody CartItemDto cartitemDto) {
         cartItemService.saveCartItem(cartitemDto);
-        logger.info(NEW_CARTITEM_LOG);
+        logger.info(NEW_CART_ITEM_LOG, cartitemDto.getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -78,7 +79,7 @@ public class CartItemController {
     @DeleteMapping("/cartItems/{id}")
     public ResponseEntity<HttpStatus> deleteCartItem(@PathVariable(name = "id") Long id) {
         cartItemService.deleteCartItem(id);
-        logger.info("Deleted Item" + ID + id);
+        logger.info(DELETE_CART_ITEM, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -91,7 +92,7 @@ public class CartItemController {
             @PathVariable(name = "id") Long id,
             @RequestBody CartItemDto cartitemDto) {
         cartItemService.updateCartItem(cartitemDto);
-        logger.info(CARTITEM_UP_LOG + ID + id);
+        logger.info(CART_ITEM_UP_LOG, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
