@@ -1,20 +1,24 @@
 package com.amr.project.model.dto;
 
-import com.amr.project.model.entity.City;
-import com.amr.project.model.entity.Shop;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Set;
 
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class CountryDto {
 
+    private Long id;
     private String name;
 
-    private Set<ShopDto> shops;
 
-    @JsonIgnore
-    private Set<CityDto> cities;
+    private List<ShopDto> shops;
+    private List<CityDto> cities;
 }

@@ -17,7 +17,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class Chat {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,17 +31,10 @@ public class Chat {
                     CascadeType.DETACH},
             orphanRemoval = true
     )
-    private Set<Message> messages;
-
+    private List<Message> messages;
 
 
     @ManyToMany(mappedBy = "chats")
-    private Set<User> users;
+    private List<User> users;
 
-
-
-    public Chat(Set<User> members) {
-        this.users = members;
-        this.hash = members.stream().map(User::hashCode).mapToLong(e -> e).sum();
-    }
 }

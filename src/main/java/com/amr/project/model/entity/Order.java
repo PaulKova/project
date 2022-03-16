@@ -24,11 +24,12 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Long id;
 
-//    @Column(name = "data", nullable = false)
-//    private Calendar orderDate;//дата заказа
-//
-//    @Column(name = "delyv_data")
-//    private Calendar expectedDeliveryDate;//ожидаемая дата доставки
+
+    @Column(name = "data", nullable = false)
+    private Calendar orderDate;//дата заказа
+
+    @Column(name = "delyv_data")
+    private Calendar expectedDeliveryDate;//ожидаемая дата доставки
 
     @Column(name = "total")
     private BigDecimal grandTotal;
@@ -53,15 +54,13 @@ public class Order {
                     CascadeType.REFRESH,
                     CascadeType.DETACH})
     @JoinTable(name = "order_item",
-                joinColumns = @JoinColumn(name = "order_id"),
-                inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private Set<Item> itemsInOrder;
-
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
+    private List<Item> itemsInOrder;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
-
 
 
 }

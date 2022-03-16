@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,14 +27,14 @@ public class Favorite {
     @JoinTable(name = "favorite_shop",
             joinColumns = @JoinColumn(name = "favorite_id"),
             inverseJoinColumns = @JoinColumn(name = "shop_id"))
-    private Set<Shop> shops;
+    private List<Shop> shops;
 
 
     @ManyToMany
     @JoinTable(name = "favorite_item",
             joinColumns = @JoinColumn(name = "favorite_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private Set<Item> items;
+    private List<Item> items;
 
 
     @OneToOne(fetch = FetchType.LAZY)

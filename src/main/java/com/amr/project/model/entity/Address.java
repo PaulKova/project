@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,13 +21,13 @@ public class Address {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "city_index",nullable = false, unique = true)
+    @Column(name = "city_index", nullable = false, unique = true)
     private String cityIndex;
 
-    @Column(name = "street",nullable = false, unique = true)
+    @Column(name = "street", nullable = false, unique = true)
     private String street;
 
-    @Column(name = "house",nullable = false, unique = true)
+    @Column(name = "house", nullable = false, unique = true)
     private String house;
 
 
@@ -42,7 +43,7 @@ public class Address {
                     CascadeType.DETACH},
             orphanRemoval = true
     )
-    private Set<User> users;
+    private List<User> users;
 
 
     @OneToMany(
@@ -52,12 +53,12 @@ public class Address {
                     CascadeType.REFRESH,
                     CascadeType.DETACH},
             orphanRemoval = true
-           )
-    private Set<Shop> shops;
+    )
+    private List<Shop> shops;
 
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "address")
-    private Set<Order> orders;
+    private List<Order> orders;
 }

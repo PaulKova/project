@@ -6,13 +6,13 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+@Builder
 @Entity
 @Table(name = "shop")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@ToString
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,6 @@ public class Shop {
     private int count;
 
     private double rating;
-    // уточнить имя для связанной колонки
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Country location;
@@ -39,9 +37,9 @@ public class Shop {
     @OneToMany(
             mappedBy = "shop",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = false
     )
-    private Set<Item> items;
+    private List<Item> items;
 
 
     @OneToMany(
@@ -49,7 +47,7 @@ public class Shop {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Review> reviews;
+    private List<Review> reviews;
 
 
     @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL,
@@ -71,7 +69,7 @@ public class Shop {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Feedback> feedback;
+    private List<Feedback> feedbacks;
 
 
     @OneToMany(
@@ -81,11 +79,11 @@ public class Shop {
                     CascadeType.REFRESH,
                     CascadeType.DETACH},
             orphanRemoval = true)
-    private Set<Discount> discounts;
+    private List<Discount> discounts;
 
 
     @ManyToMany(mappedBy = "shops")
-    private Set<Favorite> favorites;
+    private List<Favorite> favorites;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -97,8 +95,7 @@ public class Shop {
             orphanRemoval = true
     )
     @JoinColumn(name = "shop_id")
-    private Set<Coupon> coupons;
-
+    private List<Coupon> coupons;
 
 
     private boolean isModerated = false;

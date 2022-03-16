@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Set;
 
 @Entity
 @Table(name = "coupon")
@@ -27,7 +26,6 @@ public class Coupon {
 
     @Column(name = "end")
     private Calendar end;
-
 
 
     @ManyToOne(fetch = FetchType.LAZY)

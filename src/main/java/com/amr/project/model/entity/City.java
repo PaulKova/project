@@ -33,11 +33,12 @@ public class City {
                     CascadeType.DETACH},
             orphanRemoval = true
     )
-    private Set<Address> addresses;
+    private List<Address> addresses;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Country country;
 
-
-
+    public City(Long id) {
+        this.id = id;
+    }
 }
