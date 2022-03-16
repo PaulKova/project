@@ -1,6 +1,6 @@
 package com.amr.project.initDB;
 
-import com.amr.project.initDB.repository.*;
+import com.amr.project.dao.*;
 import com.amr.project.model.entity.*;
 import com.amr.project.model.enums.Gender;
 import com.amr.project.model.enums.Roles;
@@ -16,23 +16,19 @@ import java.nio.file.Files;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Set;
+import java.util.*;
 
 
 @Component
 public class initData {
 
     private final ReviewRepository reviewRepository;
-    private final OrdersRepository ordersRepository;
+    private final OrderRepository ordersRepository;
     private final ItemRepository itemRepository;
-    private final FeedBackRepository feedBackRepository;
+    private final FeedbackRepository feedBackRepository;
     private final FavoriteRepository favoriteRepository;
     private final DiscountRepository discountRepository;
     private final CouponRepository couponRepository;
-    private final CountryRepository countryRepository;
     private final CityRepository cityRepository;
     private final ChatRepository chatRepository;
     private final CategoryRepository categoryRepository;
@@ -43,14 +39,18 @@ public class initData {
     private final CartItemRepository cartItemRepository;
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
+    private final CountryRepository countryRepository;
 
-    public initData(ReviewRepository reviewRepository, OrdersRepository ordersRepository,
-                    ItemRepository itemRepository, FeedBackRepository feedBackRepository,
+    public initData(ReviewRepository reviewRepository, OrderRepository ordersRepository,
+                    ItemRepository itemRepository, FeedbackRepository feedBackRepository,
                     FavoriteRepository favoriteRepository, DiscountRepository discountRepository,
-                    CouponRepository couponRepository, CountryRepository countryRepository,
+                    CouponRepository couponRepository,
                     CityRepository cityRepository, ChatRepository chatRepository,
                     CategoryRepository categoryRepository, UserRepository userRepository,
-                    ShopRepository shopRepository, AddressRepository addressRepository, UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository, MessageRepository messageRepository, ImageRepository imageRepository) {
+                    ShopRepository shopRepository, AddressRepository addressRepository,
+                    UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
+                    MessageRepository messageRepository, ImageRepository imageRepository,
+                    CountryRepository countryRepository) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -58,7 +58,6 @@ public class initData {
         this.favoriteRepository = favoriteRepository;
         this.discountRepository = discountRepository;
         this.couponRepository = couponRepository;
-        this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
         this.chatRepository = chatRepository;
         this.categoryRepository = categoryRepository;
@@ -69,6 +68,7 @@ public class initData {
         this.cartItemRepository = cartItemRepository;
         this.messageRepository = messageRepository;
         this.imageRepository = imageRepository;
+        this.countryRepository = countryRepository;
     }
 
     @PostConstruct
@@ -164,7 +164,7 @@ public class initData {
                 .role(Roles.USER)
                 .userInfo(null)
                 .favorite(null)
-                .address(addressRepository.findAddressById(1L))
+                .address(address1)
                 .images(null)
                 .coupons(null)
                 .cart(null)
@@ -187,7 +187,7 @@ public class initData {
                 .role(Roles.USER)
                 .userInfo(null)
                 .favorite(null)
-                .address(addressRepository.findAddressById(2L))
+                .address(address2)
                 .images(null)
                 .coupons(null)
                 .cart(null)
@@ -210,7 +210,7 @@ public class initData {
                 .role(Roles.USER)
                 .userInfo(null)
                 .favorite(null)
-                .address(addressRepository.findAddressById(3L))
+                .address(address3)
                 .images(null)
                 .coupons(null)
                 .cart(null)
@@ -263,7 +263,7 @@ public class initData {
                 .logo(null)
                 .user(user1)
                 .cartItem(null)
-                .feedback(null)
+                .feedbacks(null)
                 .discounts(null)
                 .favorites(null)
                 .address(address1)
@@ -286,7 +286,7 @@ public class initData {
                 .logo(null)
                 .user(user2)
                 .cartItem(null)
-                .feedback(null)
+                .feedbacks(null)
                 .discounts(null)
                 .favorites(null)
                 .address(address2)
@@ -309,7 +309,7 @@ public class initData {
                 .logo(null)
                 .user(user3)
                 .cartItem(null)
-                .feedback(null)
+                .feedbacks(null)
                 .discounts(null)
                 .favorites(null)
                 .address(address3)
@@ -532,8 +532,8 @@ public class initData {
                 .build();
 //        Chat chat1 = Chat.builder().users(Set.of(user1, user2)).build(); //no hash?!
 //        Chat chat2 = Chat.builder().users(Set.of(user2, user3)).build();
-        Chat chat1 = new Chat(Set.of(user1, user2));
-        Chat chat2 = new Chat(Set.of(user2, user3));
+        Chat chat1 = new Chat();
+        Chat chat2 = new Chat();
 
         chatRepository.save(chat1);
         chatRepository.save(chat2);
@@ -550,18 +550,18 @@ public class initData {
 
 /////////////////////////////////////////////////Favourite////////////////////////////////////////////////////////////
         Favorite favorite1 = Favorite.builder()
-                .shops(Set.of(shop1))
-                .items(Set.of(item1))
+                .shops(List.of(shop1))
+                .items(List.of(item1))
                 .user(user1)
                 .build();
         Favorite favorite2 = Favorite.builder()
-                .shops(Set.of(shop2))
-                .items(Set.of(item2))
+                .shops(List.of(shop2))
+                .items(List.of(item2))
                 .user(user2)
                 .build();
         Favorite favorite3 = Favorite.builder()
-                .shops(Set.of(shop3))
-                .items(Set.of(item3))
+                .shops(List.of(shop3))
+                .items(List.of(item3))
                 .user(user3)
                 .build();
         favoriteRepository.save(favorite1);
@@ -593,7 +593,7 @@ public class initData {
                 .build();
         ordersRepository.save(order1);
         ordersRepository.save(order2);
-        item1.setOrders(Set.of(order1));
+        item1.setOrders(List.of(order1));
         //itemRepository.save(item1);
 
 /////////////////////////////////////////////////Review////////////////////////////////////////////////////////////
@@ -696,7 +696,7 @@ public class initData {
                 .role(Roles.ADMIN)
                 .userInfo(null)
                 .favorite(null)
-                .address(addressRepository.findAddressById(1L))
+                .address(address1)
                 .images(null)
                 .coupons(null)
                 .cart(null)
@@ -719,7 +719,7 @@ public class initData {
                 .role(Roles.MODERATOR)
                 .userInfo(null)
                 .favorite(null)
-                .address(addressRepository.findAddressById(2L))
+                .address(address2)
                 .images(null)
                 .coupons(null)
                 .cart(null)
