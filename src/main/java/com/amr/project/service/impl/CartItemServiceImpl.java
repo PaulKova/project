@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +26,9 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public CartItemDto getCartItemsById(Long id) {
+    public Optional<CartItemDto> getCartItemsById(Long id) {
         CartItem cartItem = cartItemRepository.getById(id);
-        return cartItemMapper.toDto(cartItem);
+        return Optional.of(cartItemMapper.toDto(cartItem));
     }
 
     @Override
