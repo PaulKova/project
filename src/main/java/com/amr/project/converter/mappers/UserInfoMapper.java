@@ -1,6 +1,7 @@
 package com.amr.project.converter.mappers;
 
 
+import com.amr.project.converter.MapperInterface;
 import com.amr.project.model.dto.GenderDto;
 import com.amr.project.model.dto.UserInfoDto;
 import com.amr.project.model.entity.UserInfo;
@@ -12,19 +13,8 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = UserMapper.class)
-public interface UserInfoMapper {
+public interface UserInfoMapper extends MapperInterface<UserInfoDto, UserInfo> {
 
-    UserInfoDto toDto(UserInfo userInfo);
-
-    UserInfo toEntity(UserInfoDto userInfoDto);
-
-    List<UserInfoDto> toDtoList(List<UserInfo> userInfos);
-
-    List<UserInfo> toEntityList(List<UserInfoDto> userInfoDtoS);
-
-
-    /*@InheritInverseConfiguration
-    Gender genderDtoToGender(GenderDto genderDto)*/;
 
 
 }
