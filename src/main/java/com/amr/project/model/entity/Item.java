@@ -1,21 +1,18 @@
 package com.amr.project.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
+@Builder
 @Entity
 @Table(name = "item")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +21,28 @@ public class Item {
     @Column(name = "name", unique = true)
     private String name;
 
+    @Column(name = "base_price")
     private BigDecimal basePrice;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "count")
     private int count;
+
+    @Column(name = "rating")
     private double rating;
+
+
     private String description;
     private int discount;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,7 +53,7 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "item_id")
-    private Set<Image> images;
+    private List<Image> images;
 
 
     @OneToMany(
@@ -53,22 +61,33 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Review> reviews;
+    private List<Review> reviews;
 
 
     @ManyToMany(mappedBy = "items")
-    private Set<Favorite> favorites;
+    private List<Favorite> favorites;
 
 
     @ManyToMany(mappedBy = "itemsInOrder")
-    private Set<Order> orders;
+    private List<Order> orders;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
 
 
-    private boolean isModerated = false;
+    private boolean isModerated;
     private boolean isModerateAccept;
     private String moderatedRejectReason;
     private boolean isPretendedToBeDeleted;
+
+
+    public boolean isPretendedToBeDeleted() {
+        return isPretendedToBeDeleted;
+    }
+
+
+
+    public void setPretendedToBeDeleted(boolean pretendedToBeDeleted) {
+        isPretendedToBeDeleted = pretendedToBeDeleted;
+    }
 }

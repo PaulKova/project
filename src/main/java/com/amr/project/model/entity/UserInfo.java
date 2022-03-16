@@ -19,7 +19,6 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-
     private String phone;
     private String firstName;
     private String lastName;

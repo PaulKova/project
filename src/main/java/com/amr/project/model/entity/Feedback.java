@@ -29,7 +29,6 @@ public class Feedback {
     private String username;
 
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
 

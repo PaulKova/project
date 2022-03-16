@@ -1,8 +1,19 @@
 package com.amr.project.service.abstracts;
-
 import com.amr.project.model.entity.User;
 
-public interface UserService extends ReadWriteService<User, Long>{
-    User findByEmail(String email);
-    User findByUsername(String username);
+import java.util.List;
+
+public interface UserService {
+
+    List<User> getAllUsers();
+
+    User getUserById(Long id);
+
+    void updateUser(User user);
+
+    void deleteUserById(Long id);
+
+    void saveUser(User user);
+
+    User getUserByEmail(String email);
 }

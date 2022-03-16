@@ -1,43 +1,46 @@
 package com.amr.project.service.impl;
 
-import com.amr.project.dao.abstracts.ReadWriteDao;
-import com.amr.project.dao.abstracts.UserDao;
+import com.amr.project.dao.UserRepository;
 import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 @Service
-public class UserServiceImpl extends ReadWriteServiceImpl <User, Long> implements UserService {
+public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
-    public UserServiceImpl(ReadWriteDao<User, Long> dao, UserDao userDao) {
-        super(dao);
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public User persist(User user) {
-        return null;
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override
-    public void update(User user) {
-
+    public User getUserById(Long id) {
+        return userRepository.getById(id);
     }
 
     @Override
-    public void delete(User user) {
-
+    public void updateUser(User user) {
+        userRepository.saveAndFlush(user);
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userDao.findByEmail(email);
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    public User getUserByEmail (String email) {
+        return userRepository.getUserByEmail(email);
     }
 }

@@ -1,14 +1,12 @@
 package com.amr.project.model.entity;
 
 import com.amr.project.model.enums.Roles;
-import com.stripe.model.BalanceTransaction;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
@@ -19,12 +17,6 @@ import java.util.Set;
 @ToString(of = {"id", "email", "username", "password"})
 @EqualsAndHashCode(of = {"id", "email", "username"})
 public class User implements UserDetails {
-    //TODO надо продумать юзера, слишком много у него связей,
-    // нужны-ли они, возможно где-то вместо связи с ентити использовать id,
-    // иначе есть вероятность попасть в констрейнты и не отстроить нормальную структуру
-    // для взаимодействия с БД
-    // что-то ссылается на само себя в юзере()
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -58,10 +50,6 @@ public class User implements UserDetails {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
-
-
-
-
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
@@ -136,21 +124,26 @@ public class User implements UserDetails {
     private Set<Chat> chats;
 
 
-
     @OneToMany(
             mappedBy = "user",
             cascade = {CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.DETACH},
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     private Set<Feedback> feedbacks;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return new HashSet<Roles>(Arrays.asList(role));
     }
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    private List<Item> items;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -170,5 +163,15 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 }

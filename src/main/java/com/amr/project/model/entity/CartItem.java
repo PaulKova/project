@@ -41,5 +41,5 @@ public class CartItem {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Item> itemList;
+    private List<Item> itemList;
 }
