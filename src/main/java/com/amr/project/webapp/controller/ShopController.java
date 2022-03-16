@@ -103,6 +103,7 @@ public class ShopController {
 
 
 
+
     @Operation(summary = "Delete an Shop by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
