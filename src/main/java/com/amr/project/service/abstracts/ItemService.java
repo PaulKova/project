@@ -4,12 +4,13 @@ import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.entity.Item;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemService {
 
     List<ItemDto> getAllItems();
 
-    ItemDto getItemById(Long id);
+    Optional<ItemDto> getItemById(Long id);
 
     void saveItem(ItemDto itemDto);
 

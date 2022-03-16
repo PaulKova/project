@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -60,8 +61,11 @@ public class ItemController {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/{id}")
-    public ResponseEntity<ItemDto> getItem(@PathVariable(name = "id") Long id) {
-        ItemDto itemDto = itemService.getItemById(id);
+    public ResponseEntity<Optional<ItemDto>> getItem(@PathVariable(name = "id") Long id) {
+        if (!itemService.getItemById(id).isPresent()) {
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Optional<ItemDto> itemDto = itemService.getItemById(id);
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
 
@@ -155,10 +159,10 @@ public class ItemController {
     @DeleteMapping("/items/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<ItemDto> deleteAdminItem(@PathVariable(name = "id") Long id) {
-        ItemDto itemDto = itemService.getItemById(id);
+        Optional<ItemDto> optionalItemDto = itemService.getItemById(id);
+        ItemDto itemDto = optionalItemDto.get();
         itemDto.setPretendedToBeDeleted(true);
         logger.info("Item {id} marked as pretended to delete");
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
-
 }

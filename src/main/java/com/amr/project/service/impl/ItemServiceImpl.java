@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,9 +27,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDto getItemById(Long id) {
+    public Optional<ItemDto> getItemById(Long id) {
         Item item = itemRepository.getById(id);
-        return itemMapper.toDto(item);
+        ItemDto itemDto = itemMapper.toDto(item);
+        return Optional.of(itemDto);
     }
 
     @Override

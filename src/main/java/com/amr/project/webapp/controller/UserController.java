@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -42,8 +43,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("users/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable long id) {
-        UserDto userDto = userService.getUserById(id);
+    public ResponseEntity<Optional<UserDto>> getUserById(@PathVariable long id) {
+        Optional<UserDto> userDto = userService.getUserById(id);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 

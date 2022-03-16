@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -24,9 +26,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserById(Long id) {
+    public Optional<UserDto> getUserById(Long id) {
         User user = userRepository.getById(id);
-        return userMapper.toDto(user);
+        UserDto userDto = userMapper.toDto(user);
+        return Optional.of(userDto);
     }
 
     @Override

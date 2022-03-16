@@ -3,12 +3,13 @@ import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
     List<UserDto> getAllUsers();
 
-    UserDto getUserById(Long id);
+    Optional<UserDto> getUserById(Long id);
 
     void updateUser(UserDto user);
 
