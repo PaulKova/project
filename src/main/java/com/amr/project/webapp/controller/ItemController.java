@@ -2,6 +2,7 @@ package com.amr.project.webapp.controller;
 
 
 import com.amr.project.model.dto.ItemDto;
+import com.amr.project.model.dto.UserDto;
 import com.amr.project.service.abstracts.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -40,6 +41,12 @@ public class ItemController {
         this.itemService = itemService;
     }
 
+
+
+    @Operation(summary = "get all items")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items")
     public ResponseEntity<List<ItemDto>> getAllItems() {
         List<ItemDto> items = itemService.getAllItems();
@@ -47,6 +54,11 @@ public class ItemController {
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
+
+    @Operation(summary = "get item by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/{id}")
     public ResponseEntity<ItemDto> getItem(@PathVariable(name = "id") Long id) {
         ItemDto itemDto = itemService.getItemById(id);
@@ -54,6 +66,10 @@ public class ItemController {
     }
 
 
+    @Operation(summary = "get fist fow item by rating")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/top")
     public ResponseEntity<List<ItemDto>> getFistForItemsByRating() {
         List<ItemDto> itemDtos = itemService.findFirst4ByOrderByRatingAsc();
@@ -61,6 +77,10 @@ public class ItemController {
     }
 
 
+    @Operation(summary = "get item pretended to delete")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/todelete")
     public ResponseEntity<List<ItemDto>> getPretendedToDelete() {
         List<ItemDto> items = itemService.getPretendedToDelete();

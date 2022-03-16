@@ -1,33 +1,38 @@
 package com.amr.project.service.impl;
 
+import com.amr.project.converter.mappers.UserMapper;
 import com.amr.project.dao.UserRepository;
+import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return userMapper.toDtoList(users);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public UserDto getUserById(Long id) {
+        User user = userRepository.getById(id);
+        return userMapper.toDto(user);
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.getById(id);
-    }
-
-    @Override
-    public void updateUser(User user) {
-        userRepository.saveAndFlush(user);
+    public void updateUser(UserDto user) {
+        User user1 = userMapper.toEntity(user);
+        userRepository.saveAndFlush(user1);
     }
 
     @Override
@@ -36,10 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public void saveUser(UserDto user) {
+        User user1 = userMapper.toEntity(user);
+        userRepository.saveAndFlush(user1);
     }
 
+    @Override
     public User getUserByEmail (String email) {
         return userRepository.getUserByEmail(email);
     }
