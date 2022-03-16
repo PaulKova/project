@@ -5,22 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+public class FavoriteDto {
 
-public class MessageDTO {
     private Long id;
-    private Date date;
-    private String textMessage;
-    private boolean viewed;
 
-
-    private UserDTO user;
-    private ChatDTO chat;
-
+    private List<ShopDto> shops;
+    private List<ItemDto> items;
+    private UserDto user;
 }

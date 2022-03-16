@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewDTO {
+public class ReviewDto {
 
     private Long id;
     private String dignity;
@@ -20,9 +20,9 @@ public class ReviewDTO {
     private String text;
     private Date date;
     private int rating;
-    private UserDTO user;
-    private ShopDTO shop;
-    private ItemDTO item;
+    private UserDto user;
+    private ShopDto shop;
+    private ItemDto item;
 
 
 }

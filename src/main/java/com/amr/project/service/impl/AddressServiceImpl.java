@@ -2,7 +2,7 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.AddressMapper;
 import com.amr.project.dao.AddressRepository;
-import com.amr.project.model.dto.AddressDTO;
+import com.amr.project.model.dto.AddressDto;
 import com.amr.project.model.entity.Address;
 import com.amr.project.service.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
@@ -18,26 +18,26 @@ public class AddressServiceImpl implements AddressService {
     private final AddressMapper addressMapper;
 
     @Override
-    public List<AddressDTO> getAllAddresses() {
+    public List<AddressDto> getAllAddresses() {
         List<Address> addresses = addressRepository.findAll();
-        return addressMapper.toDTOList(addresses);
+        return addressMapper.toDtoList(addresses);
     }
 
     @Override
-    public AddressDTO getAddressById(Long id) {
+    public AddressDto getAddressById(Long id) {
         Address address = addressRepository.getById(id);
-        return addressMapper.toDTO(address);
+        return addressMapper.toDto(address);
     }
 
     @Override
-    public void saveAddress(AddressDTO addressDTO) {
-        Address address = addressMapper.toEntity(addressDTO);
+    public void saveAddress(AddressDto addressDto) {
+        Address address = addressMapper.toEntity(addressDto);
         addressRepository.saveAndFlush(address);
     }
 
     @Override
-    public void updateAddress(AddressDTO addressDTO) {
-        Address address = addressMapper.toEntity(addressDTO);
+    public void updateAddress(AddressDto addressDto) {
+        Address address = addressMapper.toEntity(addressDto);
         addressRepository.saveAndFlush(address);
     }
 

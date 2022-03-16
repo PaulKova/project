@@ -2,7 +2,7 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.CategoryMapper;
 import com.amr.project.dao.CategoryRepository;
-import com.amr.project.model.dto.CategoryDTO;
+import com.amr.project.model.dto.CategoryDto;
 import com.amr.project.model.entity.Category;
 import com.amr.project.service.abstracts.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -19,26 +19,26 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public List<CategoryDTO> getAllCategories() {
+    public List<CategoryDto> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
-        return categoryMapper.toDTOList(categories);
+        return categoryMapper.toDtoList(categories);
     }
 
     @Override
-    public CategoryDTO getCategoryById(Long id) {
+    public CategoryDto getCategoryById(Long id) {
         Category category = categoryRepository.getById(id);
-        return categoryMapper.toDTO(category);
+        return categoryMapper.toDto(category);
     }
 
     @Override
-    public void saveCategory(CategoryDTO categoryDTO) {
-        Category category = categoryMapper.toEntity(categoryDTO);
+    public void saveCategory(CategoryDto categoryDto) {
+        Category category = categoryMapper.toEntity(categoryDto);
         categoryRepository.saveAndFlush(category);
     }
 
     @Override
-    public void updateCategory(CategoryDTO categoryDTO) {
-        Category category = categoryMapper.toEntity(categoryDTO);
+    public void updateCategory(CategoryDto categoryDto) {
+        Category category = categoryMapper.toEntity(categoryDto);
         categoryRepository.saveAndFlush(category);
     }
 

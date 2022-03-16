@@ -3,8 +3,8 @@ package com.amr.project.service.impl;
 import com.amr.project.converter.mappers.UserInfoMapper;
 import com.amr.project.dao.UserInfoRepository;
 import com.amr.project.dao.UserRepository;
-import com.amr.project.model.dto.MessageDTO;
-import com.amr.project.model.dto.UserInfoDTO;
+import com.amr.project.model.dto.MessageDto;
+import com.amr.project.model.dto.UserInfoDto;
 import com.amr.project.model.entity.Message;
 import com.amr.project.model.entity.User;
 import com.amr.project.model.entity.UserInfo;
@@ -23,24 +23,24 @@ public class UserInfoServiceImpl implements UserInfoService {
     private final UserInfoMapper userInfoMapper;
 
     @Override
-    public List<UserInfoDTO> getAllUserInfo() {
-        return userInfoMapper.toDTOList(userInfoRepository.findAll());
+    public List<UserInfoDto> getAllUserInfo() {
+        return userInfoMapper.toDtoList(userInfoRepository.findAll());
     }
 
     @Override
-    public UserInfoDTO getUserInfoById(Long id) {
-        return userInfoMapper.toDTO(userInfoRepository.getById(id));
+    public UserInfoDto getUserInfoById(Long id) {
+        return userInfoMapper.toDto(userInfoRepository.getById(id));
     }
 
     @Override
-    public void saveUserInfo(UserInfoDTO userInfoDTO) {
-        UserInfo userInfo =  userInfoMapper.toEntity(userInfoDTO);
+    public void saveUserInfo(UserInfoDto userInfoDto) {
+        UserInfo userInfo =  userInfoMapper.toEntity(userInfoDto);
         userInfoRepository.saveAndFlush(userInfo);
     }
 
     @Override
-    public void updateUserInfo(UserInfoDTO userInfoDTO) {
-        UserInfo userInfo =  userInfoMapper.toEntity(userInfoDTO);
+    public void updateUserInfo(UserInfoDto userInfoDto) {
+        UserInfo userInfo =  userInfoMapper.toEntity(userInfoDto);
         userInfoRepository.saveAndFlush(userInfo);
     }
 

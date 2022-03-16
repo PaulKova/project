@@ -1,19 +1,19 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.AddressDTO;
-import com.amr.project.model.dto.CategoryDTO;
+import com.amr.project.model.dto.AddressDto;
+import com.amr.project.model.dto.CategoryDto;
 
 import java.util.List;
 
 public interface AddressService {
 
-    List<AddressDTO> getAllAddresses();
+    List<AddressDto> getAllAddresses();
 
-    AddressDTO getAddressById(Long id);
+    AddressDto getAddressById(Long id);
 
-    void saveAddress(AddressDTO addressDTO);
+    void saveAddress(AddressDto addressDto);
 
-    void updateAddress(AddressDTO addressDTO);
+    void updateAddress(AddressDto addressDto);
 
     void deleteAddress(Long id);
 }

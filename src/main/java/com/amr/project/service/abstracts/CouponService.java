@@ -1,17 +1,17 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.CouponDTO;
+import com.amr.project.model.dto.CouponDto;
 
 import java.util.List;
 
 public interface CouponService {
-    List<CouponDTO> getAllCoupons();
+    List<CouponDto> getAllCoupons();
 
-    CouponDTO getCouponById(Long id);
+    CouponDto getCouponById(Long id);
 
-    void saveCoupon(CouponDTO couponDTO);
+    void saveCoupon(CouponDto couponDto);
 
-    void updateCoupon(CouponDTO couponDTO);
+    void updateCoupon(CouponDto couponDto);
 
     void deleteCoupon(Long id);
 }

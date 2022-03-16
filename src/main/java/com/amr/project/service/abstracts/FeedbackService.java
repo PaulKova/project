@@ -1,17 +1,17 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.FeedbackDTO;
+import com.amr.project.model.dto.FeedbackDto;
 
 import java.util.List;
 
 public interface FeedbackService {
-    List<FeedbackDTO> getAllFeedbacks();
+    List<FeedbackDto> getAllFeedbacks();
 
-    FeedbackDTO getFeedbackById(Long id);
+    FeedbackDto getFeedbackById(Long id);
 
-    void saveFeedback(FeedbackDTO feedbackDTO);
+    void saveFeedback(FeedbackDto feedbackDto);
 
-    void updateFeedback(FeedbackDTO feedbackDTO);
+    void updateFeedback(FeedbackDto feedbackDto);
 
     void deleteFeedback(Long id);
 }

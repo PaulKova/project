@@ -1,7 +1,7 @@
 package com.amr.project.converter.mappers;
 
 import ch.qos.logback.core.status.StatusManager;
-import com.amr.project.model.dto.OrderDTO;
+import com.amr.project.model.dto.OrderDto;
 import com.amr.project.model.entity.Order;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -11,13 +11,13 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {UserMapper.class, ItemMapper.class, AddressMapper.class, StatusManager.class})
 public interface OrderMapper {
 
-    OrderDTO toDto(Order order);
+    OrderDto toDto(Order order);
 
-    Order toEntity(OrderDTO orderDto);
+    Order toEntity(OrderDto orderDto);
 
-    List<Order> toEntityList(List<OrderDTO> dtos);
+    List<Order> toEntityList(List<OrderDto> dtos);
 
-    List<OrderDTO> toDTOList(List<Order> entities);
+    List<OrderDto> toDtoList(List<Order> entities);
 
 }
 

@@ -1,6 +1,6 @@
 package com.amr.project.converter.mappers;
 
-import com.amr.project.model.dto.ShopDTO;
+import com.amr.project.model.dto.ShopDto;
 import com.amr.project.model.entity.Shop;
 import org.mapstruct.Mapper;
 
@@ -11,11 +11,11 @@ import java.util.List;
         AddressMapper.class, FeedbackMapper.class, DiscountMapper.class, FavoriteMapper.class, ReviewMapper.class})
 public interface ShopMapper {
 
-    ShopDTO toDTO(Shop shop);
+    ShopDto toDto(Shop shop);
 
-    Shop toEntity(ShopDTO shopDto);
+    Shop toEntity(ShopDto shopDto);
 
-    List<ShopDTO> toDTOList(List<Shop> shops);
+    List<ShopDto> toDtoList(List<Shop> shops);
 
-    List<Shop> toEntityList(List<ShopDTO> shopDTOS);
+    List<Shop> toEntityList(List<ShopDto> shopDtoS);
 }

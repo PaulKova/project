@@ -5,18 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
 
 
-@Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CouponDTO {
+@Data
+@Builder
+public class CountryDto {
 
     private Long id;
-    private Calendar start;
-    private Calendar end;
+    private String name;
 
-    private UserDTO user;
+
+    private List<ShopDto> shops;
+    private List<CityDto> cities;
 }

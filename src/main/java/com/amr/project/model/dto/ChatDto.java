@@ -10,13 +10,14 @@ import java.util.Set;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDTO {
+@NoArgsConstructor
+public class ChatDto {
 
     private Long id;
-    private String name;
+    private Long hash;
 
-    private List<ItemDTO> items;
+    private List<MessageDto> messages;
+    private List<UserDto> users;
 
 }

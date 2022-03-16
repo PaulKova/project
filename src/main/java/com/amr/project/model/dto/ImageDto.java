@@ -1,23 +1,21 @@
 package com.amr.project.model.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Set;
-
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatDTO {
-
+@Builder
+public class ImageDto {
     private Long id;
-    private Long hash;
+    private byte[] picture;
+    private Boolean isMain = false;
 
-    private List<MessageDTO> messages;
-    private List<UserDTO> users;
+    private ShopDto shop;
+
 
 }

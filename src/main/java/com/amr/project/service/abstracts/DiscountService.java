@@ -1,17 +1,17 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.DiscountDTO;
+import com.amr.project.model.dto.DiscountDto;
 
 import java.util.List;
 
 public interface DiscountService {
-    List<DiscountDTO> getAllDiscounts();
+    List<DiscountDto> getAllDiscounts();
 
-    DiscountDTO getDiscountById(Long id);
+    DiscountDto getDiscountById(Long id);
 
-    void saveDiscount(DiscountDTO discountDTO);
+    void saveDiscount(DiscountDto discountDto);
 
-    void updateDiscount(DiscountDTO discountDTO);
+    void updateDiscount(DiscountDto discountDto);
 
     void deleteDiscount(Long id);
 }

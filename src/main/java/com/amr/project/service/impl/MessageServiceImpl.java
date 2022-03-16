@@ -5,8 +5,8 @@ import com.amr.project.converter.mappers.MessageMapper;
 import com.amr.project.dao.ItemRepository;
 import com.amr.project.dao.MessageRepository;
 import com.amr.project.dao.UserRepository;
-import com.amr.project.model.dto.ItemDTO;
-import com.amr.project.model.dto.MessageDTO;
+import com.amr.project.model.dto.ItemDto;
+import com.amr.project.model.dto.MessageDto;
 import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Message;
 import com.amr.project.model.entity.User;
@@ -25,24 +25,24 @@ public class MessageServiceImpl implements MessageService {
     private final MessageMapper messageMapper;
 
     @Override
-    public List<MessageDTO> getAllMessages() {
-        return messageMapper.toDTOList(messageRepository.findAll());
+    public List<MessageDto> getAllMessages() {
+        return messageMapper.toDtoList(messageRepository.findAll());
     }
 
     @Override
-    public MessageDTO getMessageById(Long id) {
-        return messageMapper.toDTO(messageRepository.getById(id));
+    public MessageDto getMessageById(Long id) {
+        return messageMapper.toDto(messageRepository.getById(id));
     }
 
     @Override
-    public void saveMessage(MessageDTO messageDTO) {
-        Message message = messageMapper.toEntity((messageDTO));
+    public void saveMessage(MessageDto messageDto) {
+        Message message = messageMapper.toEntity((messageDto));
         messageRepository.saveAndFlush(message);
     }
 
     @Override
-    public void updateMessage(MessageDTO messageDTO) {
-        Message message = messageMapper.toEntity((messageDTO));
+    public void updateMessage(MessageDto messageDto) {
+        Message message = messageMapper.toEntity((messageDto));
         messageRepository.saveAndFlush(message);
     }
 

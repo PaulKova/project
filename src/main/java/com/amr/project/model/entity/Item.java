@@ -85,6 +85,8 @@ public class Item {
         return isPretendedToBeDeleted;
     }
 
+
+
     public void setPretendedToBeDeleted(boolean pretendedToBeDeleted) {
         isPretendedToBeDeleted = pretendedToBeDeleted;
     }

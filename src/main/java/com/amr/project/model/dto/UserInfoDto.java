@@ -12,7 +12,7 @@ import java.util.Calendar;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfoDTO {
+public class UserInfoDto {
     private Long id;
 
     private String phone;
@@ -21,7 +21,7 @@ public class UserInfoDTO {
     private int age;
 
 
-    private GenderDTO gender;
+    private GenderDto gender;
     private Calendar birthday;
-    private UserDTO user;
+    private UserDto user;
 }

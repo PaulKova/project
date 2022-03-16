@@ -1,15 +1,13 @@
 package com.amr.project.webapp.controller;
 
-import com.amr.project.converter.mappers.ItemMapper;
-import com.amr.project.model.dto.ItemDTO;
-import com.amr.project.model.entity.Item;
+
+import com.amr.project.model.dto.ItemDto;
 import com.amr.project.service.abstracts.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +41,30 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public ResponseEntity<List<ItemDTO>> getAllItems() {
-        List<ItemDTO> items = itemService.getAllItems();
+    public ResponseEntity<List<ItemDto>> getAllItems() {
+        List<ItemDto> items = itemService.getAllItems();
         logger.info(GET_ITEM_LOG);
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
     @GetMapping("/items/{id}")
-    public ResponseEntity<ItemDTO> getItem(@PathVariable(name = "id") Long id) {
-        ItemDTO itemDTO = itemService.getItemById(id);
-        return new ResponseEntity<>(itemDTO, HttpStatus.OK);
+    public ResponseEntity<ItemDto> getItem(@PathVariable(name = "id") Long id) {
+        ItemDto itemDto = itemService.getItemById(id);
+        return new ResponseEntity<>(itemDto, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/items/top")
+    public ResponseEntity<List<ItemDto>> getFistForItemsByRating() {
+        List<ItemDto> itemDtos = itemService.findFirst4ByOrderByRatingAsc();
+        return new ResponseEntity<>(itemDtos, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/items/todelete")
+    public ResponseEntity<List<ItemDto>> getPretendedToDelete() {
+        List<ItemDto> items = itemService.getPretendedToDelete();
+        return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
 
@@ -61,16 +73,14 @@ public class ItemController {
             @ApiResponse(responseCode = "201",
                     description = "Item is created",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDTO.class)))
+                            schema = @Schema(implementation = ItemDto.class)))
     })
     @PostMapping("/items")
-    public ResponseEntity<ItemDTO> addItem(@RequestBody ItemDTO itemDTO) {
-        itemService.saveItem(itemDTO);
+    public ResponseEntity<ItemDto> addItem(@RequestBody ItemDto itemDto) {
+        itemService.saveItem(itemDto);
         logger.info(NEW_ITEM_LOG);
-        return new ResponseEntity<>( HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-
 
 
     @Operation(summary = "Update an Item by its ID")
@@ -78,21 +88,19 @@ public class ItemController {
             @ApiResponse(responseCode = "200",
                     description = "Item was updated",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDTO.class))),
+                            schema = @Schema(implementation = ItemDto.class))),
             @ApiResponse(responseCode = "404",
                     description = "Item not found",
                     content = @Content)
     })
     @PutMapping("/items/{id}")
-    public ResponseEntity<ItemDTO> editItem(
+    public ResponseEntity<ItemDto> editItem(
             @PathVariable(name = "id") Long id,
-            @RequestBody ItemDTO itemDTO) {
-        itemService.updateItem(itemDTO);
+            @RequestBody ItemDto itemDto) {
+        itemService.updateItem(itemDto);
         logger.info(ITEM_UPDATED_LOG);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
 
     @Operation(summary = "Delete an Item by its ID")
@@ -100,7 +108,7 @@ public class ItemController {
             @ApiResponse(responseCode = "200",
                     description = "Item was updated",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDTO.class))),
+                            schema = @Schema(implementation = ItemDto.class))),
             @ApiResponse(responseCode = "404",
                     description = "Item not found",
                     content = @Content)
@@ -114,25 +122,23 @@ public class ItemController {
     }
 
 
-
-
-
     @Operation(summary = "Mark item as pretended to delete")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Item was updated",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDTO.class))),
+                            schema = @Schema(implementation = ItemDto.class))),
             @ApiResponse(responseCode = "404",
                     description = "Item not found",
                     content = @Content)
     })
     @DeleteMapping("/items/user/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
-    public ResponseEntity<ItemDTO> deleteAdminItem(@PathVariable(name = "id") Long id) {
-        ItemDTO itemDTO = itemService.getItemById(id);
-        itemDTO.setPretendedToBeDeleted(true);
+    public ResponseEntity<ItemDto> deleteAdminItem(@PathVariable(name = "id") Long id) {
+        ItemDto itemDto = itemService.getItemById(id);
+        itemDto.setPretendedToBeDeleted(true);
         logger.info("Item {id} marked as pretended to delete");
-        return new ResponseEntity<>(itemDTO, HttpStatus.OK);
+        return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
+
 }

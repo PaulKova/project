@@ -13,15 +13,15 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressDTO {
+public class AddressDto {
     private Long id;
     private String cityIndex;
     private String street;
     private String house;
 
 
-    private CityDTO city;
-    private List<UserDTO> users;
-    private List<ShopDTO> shops;
-    private List<OrderDTO> orders;
+    private CityDto city;
+    private List<UserDto> users;
+    private List<ShopDto> shops;
+    private List<OrderDto> orders;
 }

@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO {
+public class OrderDto {
 
     private Long id;
     private Calendar orderDate;
@@ -25,10 +25,10 @@ public class OrderDTO {
     private String description;
 
 
-    private StatusDTO status;
-    private UserDTO user;
-    private List<ItemDTO> itemsInOrder;
-    private AddressDTO address;
+    private StatusDto status;
+    private UserDto user;
+    private List<ItemDto> itemsInOrder;
+    private AddressDto address;
 
 
 }

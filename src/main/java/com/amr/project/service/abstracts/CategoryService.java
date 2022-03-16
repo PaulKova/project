@@ -1,19 +1,19 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.CategoryDTO;
-import com.amr.project.model.dto.ItemDTO;
+import com.amr.project.model.dto.CategoryDto;
+import com.amr.project.model.dto.ItemDto;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<CategoryDTO> getAllCategories();
+    List<CategoryDto> getAllCategories();
 
-    CategoryDTO getCategoryById(Long id);
+    CategoryDto getCategoryById(Long id);
 
-    void saveCategory(CategoryDTO itemDTO);
+    void saveCategory(CategoryDto itemDto);
 
-    void updateCategory(CategoryDTO itemDTO);
+    void updateCategory(CategoryDto itemDto);
 
     void deleteCategory(Long id);
 }

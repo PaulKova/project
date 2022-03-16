@@ -2,7 +2,7 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.FeedbackMapper;
 import com.amr.project.dao.FeedbackRepository;
-import com.amr.project.model.dto.FeedbackDTO;
+import com.amr.project.model.dto.FeedbackDto;
 import com.amr.project.model.entity.Feedback;
 import com.amr.project.service.abstracts.FeedbackService;
 import lombok.RequiredArgsConstructor;
@@ -18,26 +18,26 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final FeedbackMapper feedbackMapper;
 
     @Override
-    public List<FeedbackDTO> getAllFeedbacks() {
+    public List<FeedbackDto> getAllFeedbacks() {
         List<Feedback> feedbacks = feedbackRepository.findAll();
         return null;
     }
 
     @Override
-    public FeedbackDTO getFeedbackById(Long id) {
+    public FeedbackDto getFeedbackById(Long id) {
         Feedback feedback = feedbackRepository.getById(id);
-        return feedbackMapper.toDTO(feedback);
+        return feedbackMapper.toDto(feedback);
     }
 
     @Override
-    public void saveFeedback(FeedbackDTO feedbackDTO) {
-        Feedback feedback = feedbackMapper.toEntity(feedbackDTO);
+    public void saveFeedback(FeedbackDto feedbackDto) {
+        Feedback feedback = feedbackMapper.toEntity(feedbackDto);
         feedbackRepository.saveAndFlush(feedback);
     }
 
     @Override
-    public void updateFeedback(FeedbackDTO feedbackDTO) {
-        Feedback feedback = feedbackMapper.toEntity(feedbackDTO);
+    public void updateFeedback(FeedbackDto feedbackDto) {
+        Feedback feedback = feedbackMapper.toEntity(feedbackDto);
         feedbackRepository.saveAndFlush(feedback);
     }
 

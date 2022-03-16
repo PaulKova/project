@@ -1,5 +1,6 @@
 package com.amr.project.model.dto;
 
+import com.amr.project.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,13 +12,14 @@ import java.util.Set;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class FavoriteDTO {
-
+@NoArgsConstructor
+public class CartItemDto {
     private Long id;
+    private int quantity;
+    private User user;
 
-    private List<ShopDTO> shops;
-    private List<ItemDTO> items;
-    private UserDTO user;
+
+    private ShopDto shop;
+    private List<ItemDto> itemList;
 }

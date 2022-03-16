@@ -1,6 +1,6 @@
 package com.amr.project.converter.mappers;
 
-import com.amr.project.model.dto.CityDTO;
+import com.amr.project.model.dto.CityDto;
 import com.amr.project.model.entity.City;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -12,11 +12,11 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {AddressMapper.class, CountryMapper.class})
 public interface CityMapper {
 
-    CityDTO toDTO(City city);
+    CityDto toDto(City city);
 
-    City toEntity(CityDTO cityDTO);
+    City toEntity(CityDto cityDto);
 
-    List<CityDTO> toDTOList(List<City> cities);
+    List<CityDto> toDtoList(List<City> cities);
 
-    List<City> toEntityList(List<CityDTO> cityDTOS);
+    List<City> toEntityList(List<CityDto> cityDtoS);
 }

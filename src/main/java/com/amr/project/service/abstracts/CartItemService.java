@@ -1,19 +1,19 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.AddressDTO;
-import com.amr.project.model.dto.CartItemDTO;
+import com.amr.project.model.dto.AddressDto;
+import com.amr.project.model.dto.CartItemDto;
 
 import java.util.List;
 
 public interface CartItemService {
 
-    List<CartItemDTO> getAllCartItems();
+    List<CartItemDto> getAllCartItems();
 
-    CartItemDTO getCartItemsById(Long id);
+    CartItemDto getCartItemsById(Long id);
 
-    void saveCartItem(CartItemDTO cartItemDTO);
+    void saveCartItem(CartItemDto cartItemDto);
 
-    void updateCartItem(CartItemDTO cartItemDTO);
+    void updateCartItem(CartItemDto cartItemDto);
 
     void deleteCartItem(Long id);
 }

@@ -2,7 +2,7 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.ChatMapper;
 import com.amr.project.dao.ChatRepository;
-import com.amr.project.model.dto.ChatDTO;
+import com.amr.project.model.dto.ChatDto;
 import com.amr.project.model.entity.Chat;
 import com.amr.project.model.entity.Item;
 import com.amr.project.service.abstracts.ChatService;
@@ -20,26 +20,26 @@ public class ChatServiceImpl implements ChatService {
 
 
     @Override
-    public List<ChatDTO> getAllChats() {
+    public List<ChatDto> getAllChats() {
         List<Chat> chats = chatRepository.findAll();
-        return chatMapper.toDTOList(chats);
+        return chatMapper.toDtoList(chats);
     }
 
     @Override
-    public ChatDTO getChatById(Long id) {
+    public ChatDto getChatById(Long id) {
         Chat chat = chatRepository.getById(id);
-        return chatMapper.toDTO(chat);
+        return chatMapper.toDto(chat);
     }
 
     @Override
-    public void saveChat(ChatDTO chatDTO) {
-        Chat chat = chatMapper.toEntity(chatDTO);
+    public void saveChat(ChatDto chatDto) {
+        Chat chat = chatMapper.toEntity(chatDto);
         chatRepository.saveAndFlush(chat);
     }
 
     @Override
-    public void updateChat(ChatDTO chatDTO) {
-        Chat chat = chatMapper.toEntity(chatDTO);
+    public void updateChat(ChatDto chatDto) {
+        Chat chat = chatMapper.toEntity(chatDto);
         chatRepository.saveAndFlush(chat);
     }
 

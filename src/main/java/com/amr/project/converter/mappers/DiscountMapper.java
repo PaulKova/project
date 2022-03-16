@@ -1,6 +1,6 @@
 package com.amr.project.converter.mappers;
 
-import com.amr.project.model.dto.DiscountDTO;
+import com.amr.project.model.dto.DiscountDto;
 import com.amr.project.model.entity.Discount;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -10,11 +10,11 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = ShopMapper.class)
 public interface DiscountMapper {
 
-    DiscountDTO toDTO(Discount discount);
+    DiscountDto toDto(Discount discount);
 
-    Discount toEntity(DiscountDTO discountDTO);
+    Discount toEntity(DiscountDto discountDto);
 
-    List<DiscountDTO> toDTOList(List<Discount> discounts);
+    List<DiscountDto> toDtoList(List<Discount> discounts);
 
-    List<Discount> toEntityList(List<DiscountDTO> discountDTOS);
+    List<Discount> toEntityList(List<DiscountDto> discountDtoS);
 }

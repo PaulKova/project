@@ -1,6 +1,6 @@
 package com.amr.project.converter.mappers;
 
-import com.amr.project.model.dto.CouponDTO;
+import com.amr.project.model.dto.CouponDto;
 import com.amr.project.model.entity.Coupon;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,11 +11,11 @@ import java.util.Set;
 @Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface CouponMapper {
 
-    CouponDTO toDTO(Coupon coupon);
+    CouponDto toDto(Coupon coupon);
 
-    Coupon toEntity(CouponDTO couponDTO);
+    Coupon toEntity(CouponDto couponDto);
 
-    List<CouponDTO> toDTOList(List<Coupon> coupons);
+    List<CouponDto> toDtoList(List<Coupon> coupons);
 
-    List<Coupon> toEntityList(List<CouponDTO> couponDTO);
+    List<Coupon> toEntityList(List<CouponDto> couponDto);
 }

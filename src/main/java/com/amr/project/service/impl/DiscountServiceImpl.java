@@ -2,7 +2,7 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.DiscountMapper;
 import com.amr.project.dao.DiscountRepository;
-import com.amr.project.model.dto.DiscountDTO;
+import com.amr.project.model.dto.DiscountDto;
 import com.amr.project.model.entity.Discount;
 import com.amr.project.service.abstracts.DiscountService;
 import lombok.RequiredArgsConstructor;
@@ -18,26 +18,26 @@ public class DiscountServiceImpl implements DiscountService {
     private final DiscountMapper discountMapper;
 
     @Override
-    public List<DiscountDTO> getAllDiscounts() {
+    public List<DiscountDto> getAllDiscounts() {
         List<Discount> discounts = discountRepository.findAll();
-        return discountMapper.toDTOList(discounts);
+        return discountMapper.toDtoList(discounts);
     }
 
     @Override
-    public DiscountDTO getDiscountById(Long id) {
+    public DiscountDto getDiscountById(Long id) {
         Discount discount = discountRepository.getById(id);
-        return discountMapper.toDTO(discount);
+        return discountMapper.toDto(discount);
     }
 
     @Override
-    public void saveDiscount(DiscountDTO discountDTO) {
-        Discount discount = discountMapper.toEntity(discountDTO);
+    public void saveDiscount(DiscountDto discountDto) {
+        Discount discount = discountMapper.toEntity(discountDto);
         discountRepository.saveAndFlush(discount);
     }
 
     @Override
-    public void updateDiscount(DiscountDTO discountDTO) {
-        Discount discount = discountMapper.toEntity(discountDTO);
+    public void updateDiscount(DiscountDto discountDto) {
+        Discount discount = discountMapper.toEntity(discountDto);
         discountRepository.saveAndFlush(discount);
     }
 

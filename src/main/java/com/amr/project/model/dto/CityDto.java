@@ -13,12 +13,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-public class CityDTO {
+public class CityDto {
 
     private Long id;
     private String name;
 
-    private List<AddressDTO> addresses;
-    private CountryDTO country;
+    private List<AddressDto> addresses;
+    private CountryDto country;
 
 }

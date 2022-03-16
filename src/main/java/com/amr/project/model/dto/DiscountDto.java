@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class DiscountDTO {
+public class DiscountDto {
 
     private Long id;
     private Integer minOrder;
     private Integer percentage;
     private Integer fixedDiscount;
 
-    private ShopDTO shop;
+    private ShopDto shop;
 
 
 }

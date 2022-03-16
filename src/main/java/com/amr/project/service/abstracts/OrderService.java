@@ -1,19 +1,19 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.OrderDTO;
+import com.amr.project.model.dto.OrderDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface OrderService {
-    List<OrderDTO> getAllOrders();
+    List<OrderDto> getAllOrders();
 
-    OrderDTO getOrderById(Long id);
+    OrderDto getOrderById(Long id);
 
-    void saveOrder(OrderDTO orderDTO);
+    void saveOrder(OrderDto orderDto);
 
-    void updateOrder(OrderDTO orderDTO);
+    void updateOrder(OrderDto orderDto);
 
     void deleteOrder(Long id);
 }

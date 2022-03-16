@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShopDTO {
+public class ShopDto {
 
     private Long id;
     private String name;
@@ -23,15 +23,15 @@ public class ShopDTO {
 
     private double rating;
     private Country location;
-    private List<ItemDTO> items;
-    private List<ReviewDTO> reviews;
-    private ImageDTO logo;
-    private UserDTO user;
-    private CartItemDTO cartItem;
-    private List<FeedbackDTO> feedbacks;
-    private List<DiscountDTO> discounts;
-    private List<FavoriteDTO> favorites;
-    private AddressDTO address;
-    private List<CouponDTO> coupons;
+    private List<ItemDto> items;
+    private List<ReviewDto> reviews;
+    private ImageDto logo;
+    private UserDto user;
+    private CartItemDto cartItem;
+    private List<FeedbackDto> feedbacks;
+    private List<DiscountDto> discounts;
+    private List<FavoriteDto> favorites;
+    private AddressDto address;
+    private List<CouponDto> coupons;
 
 }

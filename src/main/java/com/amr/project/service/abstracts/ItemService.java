@@ -1,21 +1,23 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.ItemDTO;
+import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.entity.Item;
 
 import java.util.List;
 
 public interface ItemService {
 
-    List<ItemDTO> getAllItems();
+    List<ItemDto> getAllItems();
 
-    ItemDTO getItemById(Long id);
+    ItemDto getItemById(Long id);
 
-    void saveItem(ItemDTO itemDTO);
+    void saveItem(ItemDto itemDto);
 
-    void updateItem(ItemDTO itemDTO);
+    void updateItem(ItemDto itemDto);
 
     void deleteItem(Long id);
 
-    List<Item> findFirst4ByOrderByRatingAsc();
+    List<ItemDto> findFirst4ByOrderByRatingAsc();
+
+    List<ItemDto> getPretendedToDelete();
 }

@@ -12,14 +12,14 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FeedbackDTO {
+public class FeedbackDto {
     private Long id;
     private String reason;
     private String fullText;
     private LocalDateTime dateTime;
     private String username;
 
-    private ShopDTO shop;
-    private UserDTO user;
+    private ShopDto shop;
+    private UserDto user;
 
 }

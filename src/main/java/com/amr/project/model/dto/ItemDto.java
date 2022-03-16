@@ -13,7 +13,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDTO {
+public class ItemDto {
 
     private Long id;
 
@@ -25,13 +25,13 @@ public class ItemDTO {
     private String description;
     private int discount;
 
-    private CategoryDTO category;
-    private CartItemDTO cartItem;
-    private List<ImageDTO> images;
-    private List<ReviewDTO> reviews;
-    private List<FavoriteDTO> favorites;
-    private List<OrderDTO> orders;
-    private ShopDTO shop;
+    private CategoryDto category;
+    private CartItemDto cartItem;
+    private List<ImageDto> images;
+    private List<ReviewDto> reviews;
+    private List<FavoriteDto> favorites;
+    private List<OrderDto> orders;
+    private ShopDto shop;
 
     private boolean isModerated;
     private boolean isModerateAccept;

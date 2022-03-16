@@ -16,7 +16,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserDto {
 
     private Long id;
     private String email;
@@ -26,20 +26,20 @@ public class UserDTO {
     private String activationCode;
     private boolean isUsingTwoFactorAuth;
     private String secret;
-    private RolesDTO role;
-    private UserInfoDTO userInfo;
-    private FavoriteDTO favorite;
-    private AddressDTO address;
-    private List<ImageDTO> images;
+    private RolesDto role;
+    private UserInfoDto userInfo;
+    private FavoriteDto favorite;
+    private AddressDto address;
+    private List<ImageDto> images;
 
-    private List<CouponDTO> coupons;
-    private List<CartItemDTO> cart;
-    private List<OrderDTO> orders;
-    private List<ReviewDTO> reviews;
-    private List<ShopDTO> shops;
-    private List<DiscountDTO> discounts;
-    private List<MessageDTO> messages;
-    private List<ChatDTO> chats;
-    private List<FeedbackDTO> feedbacks;
+    private List<CouponDto> coupons;
+    private List<CartItemDto> cart;
+    private List<OrderDto> orders;
+    private List<ReviewDto> reviews;
+    private List<ShopDto> shops;
+    private List<DiscountDto> discounts;
+    private List<MessageDto> messages;
+    private List<ChatDto> chats;
+    private List<FeedbackDto> feedbacks;
 
 }

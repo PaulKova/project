@@ -1,6 +1,6 @@
 package com.amr.project.converter.mappers;
 
-import com.amr.project.model.dto.ReviewDTO;
+import com.amr.project.model.dto.ReviewDto;
 import com.amr.project.model.entity.Review;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -10,11 +10,11 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {UserMapper.class, ShopMapper.class, ItemMapper.class})
 public interface ReviewMapper {
 
-    ReviewDTO toDTO(Review review);
+    ReviewDto toDto(Review review);
 
-    Review toEntity(ReviewDTO reviewDto);
+    Review toEntity(ReviewDto reviewDto);
 
-    List<Review> toEntityList(List<ReviewDTO> dtos);
+    List<Review> toEntityList(List<ReviewDto> dtos);
 
-    List<ReviewDTO> toDTOList(List<Review> entities);
+    List<ReviewDto> toDtoList(List<Review> entities);
 }

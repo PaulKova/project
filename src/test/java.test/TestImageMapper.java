@@ -36,11 +36,11 @@ public class TestImageMapper {
     public void shouldMapCityToDto() {
         City city = new City(1L);
 
-        CityDTO cityDTO = CityMapper.INSTANCE.toDTO(city);
+        CityDto cityDto = CityMapper.INSTANCE.toDto(city);
 
-        Assertions.assertNotNull(cityDTO);
-        Assertions.assertEquals(city.getId(), cityDTO.getId());
-        Assertions.assertEquals(city.getName(), cityDTO.getName());
+        Assertions.assertNotNull(cityDto);
+        Assertions.assertEquals(city.getId(), cityDto.getId());
+        Assertions.assertEquals(city.getName(), cityDto.getName());
 
     }*/
 }

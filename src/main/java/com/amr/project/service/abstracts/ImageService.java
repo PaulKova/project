@@ -1,17 +1,17 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.ImageDTO;
+import com.amr.project.model.dto.ImageDto;
 
 import java.util.List;
 
 public interface ImageService {
-    List<ImageDTO> getAllImages();
+    List<ImageDto> getAllImages();
 
-    ImageDTO getImageById(Long id);
+    ImageDto getImageById(Long id);
 
-    void saveImage(ImageDTO imageDTO);
+    void saveImage(ImageDto imageDto);
 
-    void updateImage(ImageDTO imageDTO);
+    void updateImage(ImageDto imageDto);
 
     void deleteImage(Long id);
 }

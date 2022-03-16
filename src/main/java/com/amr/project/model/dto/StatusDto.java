@@ -5,8 +5,11 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum GenderDTO {
-    MALE,
-    FEMALE,
-    UNKNOWN
+public enum StatusDto {
+    START,
+    COMPLETE,
+    WAITING,
+    PAID,
+    SENT,
+    DELIVERED
 }

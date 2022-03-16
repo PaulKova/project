@@ -1,19 +1,19 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.ReviewDTO;
+import com.amr.project.model.dto.ReviewDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface ReviewService {
-    List<ReviewDTO> getAllReview();
+    List<ReviewDto> getAllReview();
 
-    ReviewDTO getReviewById(Long id);
+    ReviewDto getReviewById(Long id);
 
-    void saveReview(ReviewDTO reviewDTO);
+    void saveReview(ReviewDto reviewDto);
 
-    void updateReview(ReviewDTO reviewDTO);
+    void updateReview(ReviewDto reviewDto);
 
     void deleteReview(Long id);
 }
