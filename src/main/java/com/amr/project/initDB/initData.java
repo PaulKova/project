@@ -5,6 +5,7 @@ import com.amr.project.model.entity.*;
 import com.amr.project.model.enums.Gender;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.model.enums.Status;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -41,6 +42,7 @@ public class initData {
     private final ImageRepository imageRepository;
     private final CountryRepository countryRepository;
 
+    @Autowired
     public initData(ReviewRepository reviewRepository, OrderRepository ordersRepository,
                     ItemRepository itemRepository, FeedbackRepository feedBackRepository,
                     FavoriteRepository favoriteRepository, DiscountRepository discountRepository,
