@@ -32,6 +32,10 @@ public class ItemController {
     private static final String NEW_ITEM_LOG = "New item was created id:{}";
     private static final String ITEM_UPDATED_LOG = "Item:{} was updated";
     private static final String GET_ITEM_LOG = "Item:{} is get";
+    private static final String GET_ITEMS_LOG = "{} items has been loaded";
+    private static final String ITEMS_TO_DELETE = "{} items has been marked to delete";
+    private static final String DELETE = "Deleted Item id: {}";
+    private static final String ITEM_TO_DELETE = "Item {} was marked to delete";
 
 
     private final ItemService itemService;
@@ -51,7 +55,7 @@ public class ItemController {
     @GetMapping("/items")
     public ResponseEntity<List<ItemDto>> getAllItems() {
         List<ItemDto> items = itemService.getAllItems();
-        logger.info(GET_ITEM_LOG);
+        logger.info(GET_ITEMS_LOG, items.size());
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
@@ -61,33 +65,37 @@ public class ItemController {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/{id}")
-    public ResponseEntity<Optional<ItemDto>> getItem(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ItemDto> getItem(@PathVariable(name = "id") Long id) {
         if (!itemService.getItemById(id).isPresent()) {
             return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Optional<ItemDto> itemDto = itemService.getItemById(id);
+        Optional<ItemDto> optionalItemDto = itemService.getItemById(id);
+        ItemDto itemDto = optionalItemDto.get();
+        logger.info(GET_ITEM_LOG, itemDto.getId());
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
 
 
-    @Operation(summary = "get fist fow items by rating")
+    @Operation(summary = "get first four item by rating")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/top")
     public ResponseEntity<List<ItemDto>> getFistForItemsByRating() {
         List<ItemDto> itemDtos = itemService.findFirst4ByOrderByRatingAsc();
+        logger.info(GET_ITEMS_LOG, itemDtos.size());
         return new ResponseEntity<>(itemDtos, HttpStatus.OK);
     }
 
 
-    @Operation(summary = "get item pretended to delete")
+    @Operation(summary = "get items marked to delete")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/todelete")
     public ResponseEntity<List<ItemDto>> getPretendedToDelete() {
         List<ItemDto> items = itemService.getPretendedToDelete();
+        logger.info(ITEMS_TO_DELETE, items.size());
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
@@ -102,12 +110,12 @@ public class ItemController {
     @PostMapping("/items")
     public ResponseEntity<HttpStatus> addItem(@RequestBody ItemDto itemDto) {
         itemService.saveItem(itemDto);
-        logger.info(NEW_ITEM_LOG);
+        logger.info(NEW_ITEM_LOG,itemDto.getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
-    @Operation(summary = "Update an Item by its ID")
+    @Operation(summary = "Update an Item by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Item was updated",
@@ -122,12 +130,12 @@ public class ItemController {
             @PathVariable(name = "id") Long id,
             @RequestBody ItemDto itemDto) {
         itemService.updateItem(itemDto);
-        logger.info(ITEM_UPDATED_LOG);
+        logger.info(ITEM_UPDATED_LOG,itemDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
-    @Operation(summary = "Delete an Item by its ID")
+    @Operation(summary = "Delete an Item by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Item was updated",
@@ -141,12 +149,12 @@ public class ItemController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deleteItem(@PathVariable(name = "id") Long id) {
         itemService.deleteItem(id);
-        logger.info("Deleted Item");
+        logger.info(DELETE, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 
-    @Operation(summary = "Mark item as pretended to delete")
+    @Operation(summary = "Mark item to delete")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Item was updated",
@@ -162,7 +170,7 @@ public class ItemController {
         Optional<ItemDto> optionalItemDto = itemService.getItemById(id);
         ItemDto itemDto = optionalItemDto.get();
         itemDto.setPretendedToBeDeleted(true);
-        logger.info("Item {id} marked as pretended to delete");
+        logger.info(ITEM_TO_DELETE, itemDto.getId());
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
 }
