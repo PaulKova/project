@@ -66,7 +66,7 @@ public class ItemController {
     }
 
 
-    @Operation(summary = "get fist fow item by rating")
+    @Operation(summary = "get fist fow items by rating")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
@@ -79,7 +79,7 @@ public class ItemController {
 
     @Operation(summary = "get item pretended to delete")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/todelete")
     public ResponseEntity<List<ItemDto>> getPretendedToDelete() {
@@ -96,7 +96,7 @@ public class ItemController {
                             schema = @Schema(implementation = ItemDto.class)))
     })
     @PostMapping("/items")
-    public ResponseEntity<ItemDto> addItem(@RequestBody ItemDto itemDto) {
+    public ResponseEntity<HttpStatus> addItem(@RequestBody ItemDto itemDto) {
         itemService.saveItem(itemDto);
         logger.info(NEW_ITEM_LOG);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -114,7 +114,7 @@ public class ItemController {
                     content = @Content)
     })
     @PutMapping("/items/{id}")
-    public ResponseEntity<ItemDto> editItem(
+    public ResponseEntity<HttpStatus> editItem(
             @PathVariable(name = "id") Long id,
             @RequestBody ItemDto itemDto) {
         itemService.updateItem(itemDto);
@@ -133,7 +133,7 @@ public class ItemController {
                     description = "Item not found",
                     content = @Content)
     })
-    @DeleteMapping("/items/admin/{id}")
+    @DeleteMapping("/items/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deleteItem(@PathVariable(name = "id") Long id) {
         itemService.deleteItem(id);
@@ -152,7 +152,7 @@ public class ItemController {
                     description = "Item not found",
                     content = @Content)
     })
-    @DeleteMapping("/items/user/{id}")
+    @DeleteMapping("/items/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<ItemDto> deleteAdminItem(@PathVariable(name = "id") Long id) {
         ItemDto itemDto = itemService.getItemById(id);
