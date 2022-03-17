@@ -101,5 +101,7 @@ public class Shop {
     private boolean isModerated = false;
     private boolean isModerateAccept = false;
     private String moderatedRejectReason;
-    private boolean isPretendentToBeDeleted = false;
+    private boolean isPretenderToBeDeleted = false;
+
+
 }

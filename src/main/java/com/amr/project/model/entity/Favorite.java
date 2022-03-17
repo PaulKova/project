@@ -16,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Favorite {
-    //TODO избранные товары пользователя
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

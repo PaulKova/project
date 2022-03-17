@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,6 +61,7 @@ public class UserController {
                             schema = @Schema(implementation = ItemDto.class)))
     })
     @PostMapping( "/users")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<UserDto> addNewUser(@RequestBody UserDto userDto) {
         userService.saveUser(userDto);
         return new ResponseEntity<>(userDto, HttpStatus.OK);

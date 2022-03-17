@@ -16,7 +16,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItem {
-    //TODO товары в корзине, продумать какие поля им нужны, нужны-ли связи?
 
     @Id
     @Column(name = "id", nullable = false, unique = true)

@@ -19,4 +19,8 @@ public interface ShopService {
 
     List<ShopDto> findFirstByOrdOrderByRatingAsc();
 
+    List<ShopDto> findShopByNoModerated();
+
+    void saveShopAsNoModerated(ShopDto shop);
+
 }

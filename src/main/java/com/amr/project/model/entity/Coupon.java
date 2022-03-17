@@ -15,7 +15,7 @@ import java.util.Calendar;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Coupon {
-    //TODO разовый скидочный купон для покупателя, добавить поля
+    //TODO разовый скидочный купон для покупателя, добавить поля (например размер скидки)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)

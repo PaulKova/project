@@ -2,6 +2,8 @@ package com.amr.project.converter;
 
 import java.util.List;
 
+
+//TODO: ЛИКВИДИРОВАТЬ ЦИКЛИЧЕСКУЮ ЗАВИСИМОСТЬ В MAPSTRUCT (при работе со списками)
 public interface MapperInterface<D, E> {
 
     D toDto(E entity);
