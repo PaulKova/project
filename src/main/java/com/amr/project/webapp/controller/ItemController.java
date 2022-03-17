@@ -142,7 +142,7 @@ public class ItemController {
     @Operation(summary = "Delete an Item by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Item was updated",
+                    description = "Item was deleted",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ItemDto.class))),
             @ApiResponse(responseCode = "404",

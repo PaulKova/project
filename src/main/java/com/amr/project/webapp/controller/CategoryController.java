@@ -1,7 +1,9 @@
 package com.amr.project.webapp.controller;
 
 
+import com.amr.project.converter.mappers.CategoryMapper;
 import com.amr.project.model.dto.CategoryDto;
+import com.amr.project.model.entity.Category;
 import com.amr.project.service.abstracts.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,8 +32,12 @@ public class CategoryController {
     private static final String GET_CATEGORIES_LOG = "{} categories has been loaded";
     private static final String GET_CATEGORY_LOG = "Category:{} is get";
 
-    private final CategoryService categoryService;
+    private static final String NEW_CATEGORIES_LOG = "New Category was created id: {}";
+    private static final String CATEGORIES_LOG = "Category:{} was updated";
+    private static final String DELETE_CATEGORIES = "Category: id - {} was deleted";
 
+    private final CategoryService categoryService;
+    private final CategoryMapper categoryMapper;
 
     @Operation(summary = "get all categories")
     @ApiResponses(value = {
@@ -55,6 +61,61 @@ public class CategoryController {
         CategoryDto categoryDto = categoryService.getCategoryById(id);
         logger.info(GET_CATEGORY_LOG, categoryDto.getId());
         return new ResponseEntity<>(Optional.of(categoryDto), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Create a new Category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Category is created",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = CategoryDto.class)))
+    })
+    @PostMapping("/categories")
+    public ResponseEntity<HttpStatus> createCategory(@RequestBody CategoryDto categoryDto) {
+        categoryService.saveCategory(categoryDto);
+        logger.info(NEW_CATEGORIES_LOG, categoryDto.getId());
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Update an Category by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Category was updated",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = CategoryDto.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Category not found",
+                    content = @Content)
+    })
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<HttpStatus> editCategory(
+            @PathVariable(name = "id") Long id,
+            @RequestBody CategoryDto categoryDto) {
+        Category category = categoryMapper.toEntity(categoryDto);
+        Optional<Category> optionalCategory = Optional.of(category);
+        if (optionalCategory.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        categoryService.updateCategory(categoryDto);
+        logger.info(CATEGORIES_LOG, id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Delete an Category by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Category was deleted",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = CategoryDto.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Category not found",
+                    content = @Content)
+    })
+    @DeleteMapping("/categories/{id}")
+    public ResponseEntity<Long> deleteCategory(@PathVariable(name = "id") Long id) {
+        categoryService.deleteCategory(id);
+        logger.info(DELETE_CATEGORIES, id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }
