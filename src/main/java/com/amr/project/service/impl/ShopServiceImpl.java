@@ -67,4 +67,10 @@ public class ShopServiceImpl implements ShopService {
         List<Shop> shops = shopRepository.findExistsShops();
         return shopMapper.toDtoList(shops);
     }
+
+    @Override
+    public List<ShopDto> getShopsByPatternInName(String pattern) {
+        List<Shop> shops = shopRepository.selectShops(pattern);
+        return shopMapper.toDtoList(shops);
+    }
 }

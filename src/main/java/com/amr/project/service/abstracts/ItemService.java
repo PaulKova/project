@@ -21,4 +21,6 @@ public interface ItemService {
     List<ItemDto> findFirst4ByOrderByRatingAsc();
 
     List<ItemDto> getPretendedToDelete();
+
+    List<ItemDto> getItemsByPatternInName (String pattern);
 }
