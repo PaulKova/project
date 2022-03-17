@@ -1,10 +1,8 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.entity.Country;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +10,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 public class ShopDto {
 
     private Long id;
@@ -33,5 +33,10 @@ public class ShopDto {
     private List<FavoriteDto> favorites;
     private AddressDto address;
     private List<CouponDto> coupons;
+
+    private boolean isModerated = false;
+    private boolean isModerateAccept = false;
+    private String moderatedRejectReason;
+    private boolean isPretenderToBeDeleted = false;
 
 }

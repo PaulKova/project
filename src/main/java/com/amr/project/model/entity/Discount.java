@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 public class Discount {
-    //TODO скидка для постоянного покупателя
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

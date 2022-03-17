@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+//Картинки будем хранить в БД (для удобства, хотя это и плохая практика)
 @Entity
 @Table(name = "image")
 @Data
@@ -15,7 +16,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 public class Image {
-    //TODO картинки будем хранить в БД (для удобства, хотя это и плохая практика)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

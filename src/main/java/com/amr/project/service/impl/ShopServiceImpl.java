@@ -21,7 +21,6 @@ public class ShopServiceImpl implements ShopService {
 
 
 
-
     @Override
     public List<ShopDto> getAllShops() {
         List<Shop> shops = shopRepository.findAll();
@@ -56,4 +55,18 @@ public class ShopServiceImpl implements ShopService {
         List<Shop> shops = shopRepository.findFirstByOrdOrderByRatingAsc();
         return shopMapper.toDtoList(shops);
     }
+
+    @Override
+    public List<ShopDto> findShopByNoModerated() {
+        List<Shop> shopList = shopRepository.findShopByNoModerated();
+        return shopMapper.toDtoList(shopList);
+    }
+
+    @Override
+    public void saveShopAsNoModerated(ShopDto shop) {
+        shop.setModerated(false);
+        shopRepository.saveAndFlush(shopMapper.toEntity(shop));
+    }
+
+
 }

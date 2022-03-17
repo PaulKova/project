@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/shop")
 public class ShopController {
 
     private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
@@ -40,18 +41,20 @@ public class ShopController {
     private final ShopMapper shopMapper;
 
 
-    @Operation(summary = "get all shops")
+    //TODO добавить Optional во все методы, где необходимо
+
+    @Operation(summary = "Getting all shops")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/shops")
+            @ApiResponse(responseCode = "200", description = "List of shops created", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
+            @ApiResponse(responseCode = "404", description = "No any shop found", content = @Content)})
+    @GetMapping("")
     public ResponseEntity<List<ShopDto>> getAllShops() {
         List<ShopDto> shops = shopService.getAllShops();
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
 
-    @Operation(summary = "get shop by id")
+    @Operation(summary = "Getting shop by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
@@ -63,30 +66,71 @@ public class ShopController {
     }
 
 
-    @Operation(summary = "get fist fow shops by rating")
+    //TODO реализовать метод findFirstByOrdOrderByRatingAsc() в ShopRepository
+    @Operation(summary = "Getting fist four shops by rating")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/shops/top")
+            @ApiResponse(responseCode = "200", description = "Found list of shops", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
+            @ApiResponse(responseCode = "404", description = "No any shop found", content = @Content)})
+    @GetMapping("/top")
     public ResponseEntity<List<ShopDto>> getFistForShopsByRating() {
-        List<ShopDto> shopDtos = shopService.findFirstByOrdOrderByRatingAsc();
+        List<ShopDto> shopDtos = shopService.findFirstByOrdOrderByRatingAsc(); //ToDo add For
         return new ResponseEntity<>(shopDtos, HttpStatus.OK);
     }
 
 
+    //GetMapping на получение списка магазинов на модерацию ("User'ами созданы заявки на создание магазинов")
+    @Operation(summary = "Getting a list of shops to moderate")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+    @GetMapping("/request")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public ResponseEntity<List<ShopDto>> getShopsToCreate() {
+        List<ShopDto> shopDtos = shopService.findShopByNoModerated();
+        return new ResponseEntity<>(shopDtos, HttpStatus.OK);
+    }
 
-    @Operation(summary = "Create a new Shop")
+
+    @Operation(summary = "Create request for a new Shop")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
-                    description = "Shop is created",
+                    description = "Request is created",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ShopDto.class)))
+                            schema = @Schema(implementation = ShopDto.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Shop already exists",
+                    content = @Content)
     })
-    @PostMapping("/shops")
-    public ResponseEntity<ShopDto> addItem(@RequestBody ShopDto shopDto) {
-        shopService.saveShop(shopDto);
+    @PostMapping("/request")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<ShopDto> requestToCreateShop(@RequestBody ShopDto shopDto) {
+        //устанавливаем поле "isModerated" в "false" (магазин создан в БД,
+        //но требует модерации для "отображения" на страницах приложения)
+        shopService.saveShopAsNoModerated(shopDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
+
+    @Operation(summary = "Give the Shop permission to work")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Permission was changed",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ShopDto.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Shop not found",
+                    content = @Content)
+    })
+    @PutMapping("/permission/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public ResponseEntity<ShopDto> changeShopPermission(@RequestBody ShopDto shopDto) {
+        //TODO: где используется ID?
+        shopService.updateShopById(shopDto);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+
 
 
     @Operation(summary = "Update an Shop by its ID")
@@ -99,10 +143,11 @@ public class ShopController {
                     description = "Shop not found",
                     content = @Content)
     })
-    @PutMapping("/items/{id}")
-    public ResponseEntity<HttpStatus> editItem(
+    @PutMapping("/{id}")
+    public ResponseEntity<HttpStatus> editShop(
             @PathVariable(name = "id") Long id,
             @RequestBody ShopDto shopDto) {
+        //TODO: где используется ID?
         Shop shop =  shopMapper.toEntity(shopDto);
         Optional<Shop> optionalShop = Optional.of(shop);
         if (optionalShop.isEmpty()){
@@ -118,14 +163,15 @@ public class ShopController {
     @Operation(summary = "Delete an Shop by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Shop was updated",
+                    description = "Shop was deleted",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ItemDto.class))),
             @ApiResponse(responseCode = "404",
                     description = "Shop not found",
                     content = @Content)
     })
-    @DeleteMapping("/shops/{id}")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<Long> deleteShop(@PathVariable(name = "id") Long id) {
         shopService.deleteShopById(id);
         return new ResponseEntity<>(id, HttpStatus.OK);

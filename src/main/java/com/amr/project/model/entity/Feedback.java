@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-
+//Обратная связь от покупателей (книга жалоб и предложений :))
 @Entity
 @Data
 @Builder
@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "feedback")
 public class Feedback {
-    //TODO обратная связь от покупателей (книга жалоб и предложений :))
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
