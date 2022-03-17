@@ -2,8 +2,11 @@ package com.amr.project.webapp.controller;
 
 
 
+import com.amr.project.converter.mappers.ShopMapper;
 import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.dto.ShopDto;
+import com.amr.project.model.entity.Shop;
+import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -33,6 +37,7 @@ public class ShopController {
     private static final String GET_ITEM_LOG = "Shop:{} is get";
 
     private final ShopService shopService;
+    private final ShopMapper shopMapper;
 
 
     @Operation(summary = "get all shops")
@@ -51,9 +56,10 @@ public class ShopController {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/shops/{id}")
-    public ResponseEntity<ShopDto> getItem(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<Optional<ShopDto>> getItem(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
-        return new ResponseEntity<>(shopDto, HttpStatus.OK);
+        Optional<ShopDto> optionalShopDto = Optional.of(shopDto);
+        return new ResponseEntity<>(optionalShopDto, HttpStatus.OK);
     }
 
 
@@ -97,6 +103,11 @@ public class ShopController {
     public ResponseEntity<HttpStatus> editItem(
             @PathVariable(name = "id") Long id,
             @RequestBody ShopDto shopDto) {
+        Shop shop =  shopMapper.toEntity(shopDto);
+        Optional<Shop> optionalShop = Optional.of(shop);
+        if (optionalShop.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         shopService.updateShopById(shopDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }

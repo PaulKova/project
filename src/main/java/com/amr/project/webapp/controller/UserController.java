@@ -47,8 +47,9 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("users/{id}")
     public ResponseEntity<Optional<UserDto>> getUserById(@PathVariable long id) {
-        Optional<UserDto> userDto = userService.getUserById(id);
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+        UserDto userDto = userService.getUserById(id);
+        Optional<UserDto> optionalUserDto =Optional.of(userDto);
+        return new ResponseEntity<>(optionalUserDto, HttpStatus.OK);
     }
 
 
