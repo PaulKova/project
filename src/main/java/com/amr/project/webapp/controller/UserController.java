@@ -33,7 +33,8 @@ public class UserController {
 
     @Operation(summary = "get all users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
+            @ApiResponse(responseCode = "200", description = "Found the order", content =
+                    {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
@@ -43,7 +44,8 @@ public class UserController {
 
     @Operation(summary = "get user by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
+            @ApiResponse(responseCode = "200", description = "Found the order", content =
+                    {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("users/{id}")
     public ResponseEntity<Optional<UserDto>> getUserById(@PathVariable long id) {
