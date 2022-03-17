@@ -1,7 +1,9 @@
 package com.amr.project.webapp.controller;
 
 
+import com.amr.project.converter.mappers.CategoryMapper;
 import com.amr.project.model.dto.CategoryDto;
+import com.amr.project.model.entity.Category;
 import com.amr.project.service.abstracts.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,7 +33,7 @@ public class CategoryController {
     private static final String GET_CATEGORY_LOG = "Category:{} is get";
 
     private final CategoryService categoryService;
-
+    private final CategoryMapper categoryMapper;
 
     @Operation(summary = "get all categories")
     @ApiResponses(value = {
@@ -55,6 +57,34 @@ public class CategoryController {
         CategoryDto categoryDto = categoryService.getCategoryById(id);
         logger.info(GET_CATEGORY_LOG, categoryDto.getId());
         return new ResponseEntity<>(Optional.of(categoryDto), HttpStatus.OK);
+    }
+
+
+    @PostMapping("/categories")
+    public ResponseEntity<HttpStatus> createCategory(@RequestBody CategoryDto categoryDto) {
+        categoryService.saveCategory(categoryDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<HttpStatus> editCategory(
+            @PathVariable(name = "id") Long id,
+            @RequestBody CategoryDto categoryDto) {
+        Category category = categoryMapper.toEntity(categoryDto);
+        Optional<Category> optionalCategory = Optional.of(category);
+        if (optionalCategory.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        categoryService.updateCategory(categoryDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/categories/{id}")
+    public ResponseEntity<Long> deleteCategory(@PathVariable(name = "id") Long id) {
+        categoryService.deleteCategory(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }
