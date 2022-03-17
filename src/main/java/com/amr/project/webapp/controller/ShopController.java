@@ -73,7 +73,7 @@ public class ShopController {
 
 
     //GetMapping на получение списка магазинов на модерацию ("User'ами созданы заявки на создание магазинов")
-    @Operation(summary = "Getting a list of shops to create")
+    @Operation(summary = "Getting a list of shops to moderate")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
@@ -152,7 +152,7 @@ public class ShopController {
     @Operation(summary = "Delete an Shop by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Shop was updated",
+                    description = "Shop was deleted",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ItemDto.class))),
             @ApiResponse(responseCode = "404",
@@ -160,6 +160,7 @@ public class ShopController {
                     content = @Content)
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<Long> deleteShop(@PathVariable(name = "id") Long id) {
         shopService.deleteShopById(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
