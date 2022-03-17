@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 //Вывод представления
 public class MainPageController {
-    @GetMapping
+    @GetMapping()
     public String returnMainPage () {
         return "/index";
     }

@@ -6,6 +6,7 @@ import com.amr.project.model.enums.Gender;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.model.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -41,6 +42,7 @@ public class initData {
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
     private final CountryRepository countryRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public initData(ReviewRepository reviewRepository, OrderRepository ordersRepository,
@@ -52,7 +54,7 @@ public class initData {
                     ShopRepository shopRepository, AddressRepository addressRepository,
                     UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
-                    CountryRepository countryRepository) {
+                    CountryRepository countryRepository, PasswordEncoder passwordEncoder) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -71,6 +73,7 @@ public class initData {
         this.messageRepository = messageRepository;
         this.imageRepository = imageRepository;
         this.countryRepository = countryRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -690,7 +693,7 @@ public class initData {
         User admin1 = User.builder()
                 .email("admin1@mail.com")
                 .username("admin1")
-                .password("admin1")
+                .password(passwordEncoder.encode("admin1"))
                 .activate(true)
                 .activationCode("some_code")
                 .isUsingTwoFactorAuth(false)
