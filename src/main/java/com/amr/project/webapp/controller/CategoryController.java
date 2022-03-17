@@ -67,9 +67,8 @@ public class CategoryController {
     }
 
 
-    @PutMapping("/categories/{id}")
+    @PutMapping("/categories")
     public ResponseEntity<HttpStatus> editCategory(
-            @PathVariable(name = "id") Long id,
             @RequestBody CategoryDto categoryDto) {
         Category category = categoryMapper.toEntity(categoryDto);
         Optional<Category> optionalCategory = Optional.of(category);

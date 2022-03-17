@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDto> findFirst4ByOrderByRatingAsc() {
-        List<Item> items = itemRepository.findFirst4ByOrderByRatingAsc();
+        List<Item> items = itemRepository.findFirst4ByOrderByRatingDesc();
         return itemMapper.toDtoList(items);
     }
 

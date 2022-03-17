@@ -92,6 +92,7 @@ public class ItemController {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/todelete")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ItemDto>> getPretendedToDelete() {
         List<ItemDto> items = itemService.getPretendedToDelete();
         logger.info(ITEMS_TO_DELETE, items.size());
@@ -124,9 +125,8 @@ public class ItemController {
                     description = "Item not found",
                     content = @Content)
     })
-    @PutMapping("/items/{id}")
+    @PutMapping("/items")
     public ResponseEntity<HttpStatus> editItem(
-            @PathVariable(name = "id") Long id,
             @RequestBody ItemDto itemDto) {
         Item item = itemMapper.toEntity(itemDto);
         Optional<Item> optionalItem = Optional.of(item);
@@ -170,7 +170,7 @@ public class ItemController {
     })
     @DeleteMapping("/items/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
-    public ResponseEntity<ItemDto> deleteAdminItem(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ItemDto> markToDelete(@PathVariable(name = "id") Long id) {
         Optional<ItemDto> optionalItemDto = itemService.getItemById(id);
         ItemDto itemDto = optionalItemDto.get();
         itemDto.setPretendedToBeDeleted(true);

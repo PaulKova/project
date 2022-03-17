@@ -34,9 +34,9 @@ public class ShopDto {
     private AddressDto address;
     private List<CouponDto> coupons;
 
-    private boolean isModerated = false;
-    private boolean isModerateAccept = false;
+    private boolean isModerated;
+    private boolean isModerateAccept;
     private String moderatedRejectReason;
-    private boolean isPretenderToBeDeleted = false;
+    private boolean isPretenderToBeDeleted;
 
 }

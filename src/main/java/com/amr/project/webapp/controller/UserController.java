@@ -61,7 +61,7 @@ public class UserController {
             @ApiResponse(responseCode = "201",
                     description = "User is created",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDto.class)))
+                            schema = @Schema(implementation = UserDto.class)))
     })
     @PostMapping( "/users")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
@@ -71,17 +71,17 @@ public class UserController {
     }
 
 
-    @Operation(summary = "Update an User by its ID")
+    @Operation(summary = "Update an User")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "User was updated",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDto.class))),
+                            schema = @Schema(implementation = UserDto.class))),
             @ApiResponse(responseCode = "404",
                     description = "User not found",
                     content = @Content)
     })
-    @PutMapping("users/{id}")
+    @PutMapping("/users")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
         User user = userMapper.toEntity(userDto);
         Optional<User> optionalUser = Optional.of(user);
@@ -98,13 +98,14 @@ public class UserController {
             @ApiResponse(responseCode = "200",
                     description = "User was updated",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDto.class))),
+                            schema = @Schema(implementation = UserDto.class))),
             @ApiResponse(responseCode = "404",
                     description = "User not found",
                     content = @Content)
     })
-    @DeleteMapping("users/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable long id) {
+    @DeleteMapping("/users/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

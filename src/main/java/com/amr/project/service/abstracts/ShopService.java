@@ -1,7 +1,6 @@
 package com.amr.project.service.abstracts;
 
 import com.amr.project.model.dto.ShopDto;
-import com.amr.project.model.entity.Shop;
 
 import java.util.List;
 
@@ -17,10 +16,10 @@ public interface ShopService {
 
     void saveShop(ShopDto shop);
 
-    List<ShopDto> findFirstByOrdOrderByRatingAsc();
+    List<ShopDto> findFirst4ByOrdOrderByRatingAsc();
 
-    List<ShopDto> findShopByNoModerated();
+    List<ShopDto> findShopsForCreate();
 
-    void saveShopAsNoModerated(ShopDto shop);
+    List<ShopDto> findExistsShops();
 
 }

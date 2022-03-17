@@ -98,10 +98,10 @@ public class Shop {
     private List<Coupon> coupons;
 
 
-    private boolean isModerated = false;
-    private boolean isModerateAccept = false;
+    private boolean isModerated;
+    private boolean isModerateAccept;
     private String moderatedRejectReason;
-    private boolean isPretenderToBeDeleted = false;
+    private boolean isPretenderToBeDeleted;
 
 
 }
