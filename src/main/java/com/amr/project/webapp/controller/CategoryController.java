@@ -95,7 +95,7 @@ public class CategoryController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         categoryService.updateCategory(categoryDto);
-        logger.info(CATEGORIES_LOG, id);
+        logger.info(CATEGORIES_LOG, categoryDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
