@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CountryService {
 
-    List<CountryDto> getAlCountries();
+    List<CountryDto> getAllCountries();
 
     CountryDto getCountryById(Long id);
 
