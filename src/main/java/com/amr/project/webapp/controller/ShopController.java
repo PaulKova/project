@@ -35,7 +35,9 @@ public class ShopController {
     private static final String SHOP_UPDATED_LOG = "Shop:{} was updated";
     private static final String GET_SHOP_LOG = "Shop:{} is get";
     private static final String GET_SHOPS_LOG = "{} shops has been loaded";
+    private static final String GET_TOP_SHOPS_LOG = "{} shops has been loaded";
     private static final String GET_PRETENDED_TO_DELETE_SHOPS_LOG = "{} shops has been mark as pretended to delete";
+    private static final String GET_PRETENDED_TO_CREATE_SHOPS_LOG = "{} shops has been mark as pretended to create";
 
 
     private final ShopService shopService;
@@ -84,6 +86,7 @@ public class ShopController {
     @GetMapping("/top")
     public ResponseEntity<List<ShopDto>> getFistForShopsByRating() {
         List<ShopDto> shopDtos = shopService.findFirst4ByOrdOrderByRatingAsc();
+        logger.info(GET_TOP_SHOPS_LOG, shopDtos.size());
         return new ResponseEntity<>(shopDtos, HttpStatus.OK);
     }
 
@@ -106,6 +109,7 @@ public class ShopController {
     public ResponseEntity<ShopDto> userMarkShopToCreate(@RequestBody ShopDto shopDto) {
         shopDto.setModerated(true); // user mark a shop to create
         shopService.saveShop(shopDto);
+        logger.info(GET_PRETENDED_TO_CREATE_SHOPS_LOG, shopDto.getId());
         return new ResponseEntity<>(shopDto, HttpStatus.OK);
     }
 
@@ -134,6 +138,7 @@ public class ShopController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         shopService.updateShopById(shopDto);
+        logger.info(SHOP_UPDATED_LOG, shopDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

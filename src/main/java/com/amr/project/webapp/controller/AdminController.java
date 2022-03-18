@@ -36,6 +36,7 @@ public class AdminController {
     private static final String ITEMS_TO_DELETE = "{} items has been marked to delete";
     private static final String SHOPS_TO_DELETE = "{} shops has been marked to delete";
     private static final String SHOPS_TO_CREATE = "{} shops has been marked to create";
+    private static final String NEW_USER_LOG = "New user was created id:{}";
 
     private final ItemService itemService;
     private final ShopService shopService;
@@ -43,6 +44,7 @@ public class AdminController {
 
 
 
+    //Item
 
     @Operation(summary = "get items marked to delete")
     @ApiResponses(value = {
@@ -55,44 +57,6 @@ public class AdminController {
         logger.info(ITEMS_TO_DELETE, items.size());
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
-
-
-
-
-
-    @Operation(summary = "get shops marked to delete")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/admin/shops/pretended/delete")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public ResponseEntity<List<ShopDto>> getShopsPretendedToDelete() {
-        List<ShopDto> shops = shopService.getPretendedToDelete();
-        logger.info(SHOPS_TO_DELETE, shops.size());
-        return new ResponseEntity<>(shops, HttpStatus.OK);
-    }
-
-
-
-
-
-
-    @Operation(summary = "Getting a list of shops to moderate")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/admin/shops/pretended/create/request")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public ResponseEntity<List<ShopDto>> getShopsToCreate() {
-        List<ShopDto> shopDto = shopService.findShopsForCreate();
-        logger.info(SHOPS_TO_CREATE, shopDto.size());
-        return new ResponseEntity<>(shopDto, HttpStatus.OK);
-    }
-
-
-
 
 
 
@@ -118,6 +82,40 @@ public class AdminController {
 
 
 
+
+
+    //Shop
+
+    @Operation(summary = "get shops marked to delete")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = ShopDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+    @GetMapping("/admin/shops/pretended/delete")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public ResponseEntity<List<ShopDto>> getShopsPretendedToDelete() {
+        List<ShopDto> shops = shopService.getPretendedToDelete();
+        logger.info(SHOPS_TO_DELETE, shops.size());
+        return new ResponseEntity<>(shops, HttpStatus.OK);
+    }
+
+
+
+    @Operation(summary = "Getting a list of shops to moderate")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = ShopDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+    @GetMapping("/admin/shops/pretended/create/")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public ResponseEntity<List<ShopDto>> getShopsToCreate() {
+        List<ShopDto> shopDto = shopService.findShopsForCreate();
+        logger.info(SHOPS_TO_CREATE, shopDto.size());
+        return new ResponseEntity<>(shopDto, HttpStatus.OK);
+    }
+
+
+
     @Operation(summary = "Create request for a new Shop")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
@@ -137,8 +135,6 @@ public class AdminController {
         logger.info(NEW_SHOP_LOG, shopDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-
 
 
 
@@ -162,6 +158,9 @@ public class AdminController {
 
 
 
+
+
+    //User
     @Operation(summary = "Delete an User by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -178,5 +177,22 @@ public class AdminController {
         userService.deleteUserById(id);
         logger.info(DELETE_USER, id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
+    @Operation(summary = "Create a new User")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "User is created",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UserDto.class)))
+    })
+    @PostMapping( "/admin/create/user")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public ResponseEntity<UserDto> addNewUser(@RequestBody UserDto userDto) {
+        userService.saveUser(userDto);
+        logger.info(NEW_USER_LOG, userDto.getId());
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 }
