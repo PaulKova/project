@@ -24,5 +24,8 @@ public class ReviewDto {
     private ShopDto shop;
     private ItemDto item;
 
+    private boolean isModerated;
+    private boolean isModerateAccept;
+    private String moderatedRejectReason;
 
 }

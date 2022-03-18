@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "review")
+@Table()
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -49,8 +50,8 @@ public class Review {
     private Item item;
 
 
-    private boolean isModerated = false;
-    private boolean isModerateAccept = false;
+    private boolean isModerated;
+    private boolean isModerateAccept;
     private String moderatedRejectReason;
 
 }

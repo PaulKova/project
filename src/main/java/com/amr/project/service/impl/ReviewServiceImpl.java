@@ -2,15 +2,11 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.ReviewMapper;
 import com.amr.project.dao.ReviewRepository;
-import com.amr.project.dao.UserRepository;
-import com.amr.project.model.dto.MessageDto;
 import com.amr.project.model.dto.ReviewDto;
-import com.amr.project.model.entity.Message;
 import com.amr.project.model.entity.Review;
-import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.ReviewService;
-import com.amr.project.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +35,13 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public Review saveReviewAsNoModerated(ReviewDto reviewDto) {
+        Review review = reviewMapper.toEntity(reviewDto);
+        review.setModerated(false);
+        return reviewRepository.saveAndFlush(review);
+    }
+
+    @Override
     public void updateReview(ReviewDto reviewDto) {
         Review review = reviewMapper.toEntity(reviewDto);
         reviewRepository.saveAndFlush(review);
@@ -47,5 +50,31 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void deleteReview(Long id) {
         reviewRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ReviewDto> getAllNoModeratedReview() {
+        return reviewMapper.toDtoList(reviewRepository.findByIsModeratedIsFalseOrderByDateAsc(Sort.by(Sort.Direction.ASC)));
+    }
+
+    @Override
+    public List<ReviewDto> getAllUserReviewById(Long id) {
+        return reviewMapper.toDtoList(
+                reviewRepository
+                        .findByUser_IdIsAndIsModeratedIsTrueAndIsModerateAcceptIsTrueOrderByDateAsc(id));
+    }
+
+    @Override
+    public List<ReviewDto> getAllShopReviewById(Long id) {
+        return reviewMapper.toDtoList(
+                reviewRepository
+                        .findByShop_IdIsAndIsModeratedIsTrueAndIsModerateAcceptIsTrueOrderByDateAsc(id));
+    }
+
+    @Override
+    public List<ReviewDto> getAllItemReviewById(Long id) {
+        return reviewMapper.toDtoList(
+                reviewRepository
+                        .findByItem_IdIsAndIsModeratedIsTrueAndIsModerateAcceptIsTrueOrderByDateAsc(id));
     }
 }

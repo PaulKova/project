@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "discount")
+@Table()
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

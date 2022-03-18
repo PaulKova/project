@@ -7,9 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.*;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "user")
+@Table()
 @Data
 @Builder
 @AllArgsConstructor

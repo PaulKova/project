@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "chat")
+@Table()
 @Data
 @Builder
 @AllArgsConstructor

@@ -5,9 +5,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "user_info")
+@Table()
 @Data
 @Builder
 @AllArgsConstructor

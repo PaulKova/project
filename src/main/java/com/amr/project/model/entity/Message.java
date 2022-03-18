@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import org.springframework.data.relational.core.mapping.Table;
 
 
 @Entity
-@Table(name = "message")
+@Table()
 @Data
 @Builder
 @NoArgsConstructor

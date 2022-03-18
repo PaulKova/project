@@ -5,10 +5,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Builder
 @Entity
-@Table(name = "shop")
+@Table()
 @Getter
 @Setter
 @NoArgsConstructor

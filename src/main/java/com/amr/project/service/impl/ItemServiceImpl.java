@@ -59,9 +59,9 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemDto> getPretendedToDelete() {
         List<Item> items = itemRepository.findAll();
-        items.stream()
-                .filter(i -> i.isPretendedToBeDeleted())
-                .collect(Collectors.toList());
-        return itemMapper.toDtoList(items);
+        List<Item> result = items.stream()
+                                .filter(Item::isPretendedToBeDeleted)
+                                .collect(Collectors.toList());
+        return itemMapper.toDtoList(result);
     }
 }
