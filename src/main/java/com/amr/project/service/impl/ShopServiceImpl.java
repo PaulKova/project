@@ -6,7 +6,6 @@ import com.amr.project.model.dto.ShopDto;
 import com.amr.project.model.entity.Shop;
 import com.amr.project.service.abstracts.ShopService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,7 +52,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public List<ShopDto> findFirst4ByOrdOrderByRatingAsc() {
-        List<Shop> shops = shopRepository.findFirst4ByOrdOrderByRatingDesc();
+        List<Shop> shops = shopRepository.findFirst4ByOrderByRatingDesc();
         return shopMapper.toDtoList(shops);
     }
 

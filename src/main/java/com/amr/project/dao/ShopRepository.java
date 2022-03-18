@@ -12,7 +12,7 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
 
     //ToDo если дёргаем из базы флаги надо поднимать у DTO или у Entity
 
-    List<Shop> findFirst4ByOrdOrderByRatingDesc();
+    List<Shop> findFirst4ByOrderByRatingDesc();
 
 
     @Query("select s from Shop s where s.isModerated = true")
