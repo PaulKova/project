@@ -65,11 +65,10 @@ public class UserController {
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("users/{id}")
-    public ResponseEntity<Optional<UserDto>> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto userDto = userService.getUserById(id);
-        Optional<UserDto> optionalUserDto =Optional.of(userDto);
         logger.info(GET_USER_LOG, id);
-        return new ResponseEntity<>(optionalUserDto, HttpStatus.OK);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
 
@@ -87,10 +86,10 @@ public class UserController {
     })
     @PostMapping( "/admin/create/user")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public ResponseEntity<UserDto> addNewUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<HttpStatus> addNewUser(@RequestBody UserDto userDto) {
         userService.saveUser(userDto);
         logger.info(NEW_USER_LOG, userDto.getId());
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
@@ -109,7 +108,7 @@ public class UserController {
                     content = @Content)
     })
     @PutMapping("/users")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<HttpStatus> updateUser(@RequestBody UserDto userDto) {
         User user = userMapper.toEntity(userDto);
         Optional<User> optionalUser = Optional.of(user);
         if (optionalUser.isEmpty()){
@@ -117,7 +116,7 @@ public class UserController {
         }
         userService.updateUser(userDto);
         logger.info(USER_UPDATED_LOG, userDto.getId());
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

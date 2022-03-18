@@ -64,12 +64,8 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/{id}")
     public ResponseEntity<ItemDto> getItem(@PathVariable(name = "id") Long id) {
-        if (!itemService.getItemById(id).isPresent()) {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Optional<ItemDto> optionalItemDto = itemService.getItemById(id);
-        ItemDto itemDto = optionalItemDto.get();
-        logger.info(GET_ITEM_LOG, itemDto.getId());
+        ItemDto itemDto = itemService.getItemById(id);
+        logger.info(GET_ITEM_LOG, itemDto);
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
 
@@ -84,6 +80,7 @@ public class ItemController {
         logger.info(GET_ITEMS_LOG, itemDtos.size());
         return new ResponseEntity<>(itemDtos, HttpStatus.OK);
     }
+
 
 
 
@@ -115,6 +112,8 @@ public class ItemController {
         logger.info(NEW_ITEM_LOG,itemDto.getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
 
 
     @Operation(summary = "Update an Item by ID")
@@ -157,12 +156,13 @@ public class ItemController {
     @DeleteMapping("/items/mark/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<ItemDto> markToDelete(@PathVariable(name = "id") Long id) {
-        Optional<ItemDto> optionalItemDto = itemService.getItemById(id);
-        ItemDto itemDto = optionalItemDto.get();
+        ItemDto itemDto = itemService.getItemById(id);
         itemDto.setPretendedToBeDeleted(true);
         logger.info(ITEM_TO_DELETE, itemDto.getId());
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
+
+
 
 
     @Operation(summary = "Delete an Item by ID")

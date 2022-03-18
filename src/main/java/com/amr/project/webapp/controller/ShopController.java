@@ -70,11 +70,10 @@ public class ShopController {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/shops/{id}")
-    public ResponseEntity<Optional<ShopDto>> getShop(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ShopDto> getShop(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
-        Optional<ShopDto> optionalShopDto = Optional.of(shopDto);
         logger.info(GET_SHOP_LOG, shopDto);
-        return new ResponseEntity<>(optionalShopDto, HttpStatus.OK);
+        return new ResponseEntity<>(shopDto, HttpStatus.OK);
     }
 
 
@@ -140,11 +139,11 @@ public class ShopController {
     })
     @PostMapping("/request/to_create")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<ShopDto> userMarkShopToCreate(@RequestBody ShopDto shopDto) {
+    public ResponseEntity<HttpStatus> userMarkShopToCreate(@RequestBody ShopDto shopDto) {
         shopDto.setModerated(true); // user mark a shop to create
         shopService.saveShop(shopDto);
         logger.info(GET_PRETENDED_TO_CREATE_SHOPS_LOG, shopDto.getId());
-        return new ResponseEntity<>(shopDto, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

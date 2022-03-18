@@ -3,7 +3,9 @@ package com.amr.project.service.impl;
 import com.amr.project.converter.mappers.ItemMapper;
 import com.amr.project.dao.ItemRepository;
 import com.amr.project.model.dto.ItemDto;
+import com.amr.project.model.dto.ShopDto;
 import com.amr.project.model.entity.Item;
+import com.amr.project.model.entity.Shop;
 import com.amr.project.service.abstracts.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,10 +29,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Optional<ItemDto> getItemById(Long id) {
-        Item item = itemRepository.getById(id);
-        ItemDto itemDto = itemMapper.toDto(item);
-        return Optional.of(itemDto);
+    public ItemDto getItemById(Long id) {
+        Optional<Item> item = itemRepository.findById(id);
+        if (item.isEmpty()) {
+            throw new NullPointerException("Item not found");
+        }
+        ItemDto itemDto = itemMapper.toDto(item.get());
+        return itemDto;
     }
 
     @Override

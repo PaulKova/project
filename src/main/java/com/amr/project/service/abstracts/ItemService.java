@@ -10,7 +10,7 @@ public interface ItemService {
 
     List<ItemDto> getAllItems();
 
-    Optional<ItemDto> getItemById(Long id);
+    ItemDto getItemById(Long id);
 
     void saveItem(ItemDto itemDto);
 

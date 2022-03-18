@@ -3,12 +3,15 @@ package com.amr.project.service.impl;
 import com.amr.project.converter.mappers.ShopMapper;
 import com.amr.project.dao.ShopRepository;
 import com.amr.project.model.dto.ShopDto;
+import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.Shop;
+import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -29,8 +32,12 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public ShopDto getShopById(Long id) {
-        Shop shop = shopRepository.getById(id);
-        return shopMapper.toDto(shop);
+        Optional<Shop> shop = shopRepository.findById(id);
+        if (shop.isEmpty()) {
+            throw new NullPointerException("User not found");
+        }
+        ShopDto shopDto = shopMapper.toDto(shop.get());
+        return shopDto;
     }
 
     @Override

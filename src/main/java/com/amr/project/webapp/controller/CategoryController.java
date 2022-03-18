@@ -103,10 +103,6 @@ public class CategoryController {
     @PutMapping("/categories")
     public ResponseEntity<HttpStatus> editCategory( @RequestBody CategoryDto categoryDto) {
         Category category = categoryMapper.toEntity(categoryDto);
-        Optional<Category> optionalCategory = Optional.of(category);
-        if (optionalCategory.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         categoryService.updateCategory(categoryDto);
         logger.info(CATEGORIES_LOG, categoryDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
