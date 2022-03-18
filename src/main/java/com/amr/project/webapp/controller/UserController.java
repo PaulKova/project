@@ -1,7 +1,6 @@
 package com.amr.project.webapp.controller;
 
 import com.amr.project.converter.mappers.UserMapper;
-import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.UserService;
@@ -34,6 +33,8 @@ public class UserController {
     private static final String USER_UPDATED_LOG = "User:{} was updated";
     private static final String GET_USER_LOG = "User:{} is get";
     private static final String GET_USERS_LOG = "{} users has been loaded";
+    private static final String DELETE_USER = "Deleted User id: {}";
+    private static final String NEW_USER_LOG = "New user was created id:{}";
 
 
 
@@ -75,6 +76,28 @@ public class UserController {
 
 
 
+
+
+    @Operation(summary = "Create a new User")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "User is created",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UserDto.class)))
+    })
+    @PostMapping( "/admin/create/user")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public ResponseEntity<UserDto> addNewUser(@RequestBody UserDto userDto) {
+        userService.saveUser(userDto);
+        logger.info(NEW_USER_LOG, userDto.getId());
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+
+
+
+
+
     @Operation(summary = "Update an User")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -95,5 +118,28 @@ public class UserController {
         userService.updateUser(userDto);
         logger.info(USER_UPDATED_LOG, userDto.getId());
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+
+
+
+
+
+    @Operation(summary = "Delete an User by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "User was updated",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UserDto.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "User not found",
+                    content = @Content)
+    })
+    @DeleteMapping("/admin/delete/user/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
+        userService.deleteUserById(id);
+        logger.info(DELETE_USER, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -18,7 +18,7 @@ public interface ItemService {
 
     void deleteItem(Long id);
 
-    List<ItemDto> findFirst4ByOrderByRatingAsc();
+    List<ItemDto> findFirst4ByOrderByRatingDesc();
 
     List<ItemDto> getPretendedToDelete();
 }

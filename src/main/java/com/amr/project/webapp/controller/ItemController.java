@@ -35,10 +35,9 @@ public class ItemController {
     private static final String ITEM_UPDATED_LOG = "Item:{} was updated";
     private static final String GET_ITEM_LOG = "Item:{} is get";
     private static final String GET_ITEMS_LOG = "{} items has been loaded";
-    private static final String DELETE = "Deleted Item id: {}";
     private static final String ITEM_TO_DELETE = "Item {} was marked to delete";
-
-
+    private static final String ITEMS_TO_DELETE = "{} items has been marked to delete";
+    private static final String DELETE_ITEM = "Deleted Item id: {}";
 
     private final ItemService itemService;
     private final ItemMapper itemMapper;
@@ -81,11 +80,24 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/top")
     public ResponseEntity<List<ItemDto>> getFistForItemsByRating() {
-        List<ItemDto> itemDtos = itemService.findFirst4ByOrderByRatingAsc();
+        List<ItemDto> itemDtos = itemService.findFirst4ByOrderByRatingDesc();
         logger.info(GET_ITEMS_LOG, itemDtos.size());
         return new ResponseEntity<>(itemDtos, HttpStatus.OK);
     }
 
+
+
+    @Operation(summary = "get items marked to delete")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+    @GetMapping("/admin/items/pretended/delete")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public ResponseEntity<List<ItemDto>> getItemsPretendedToDelete() {
+        List<ItemDto> items = itemService.getPretendedToDelete();
+        logger.info(ITEMS_TO_DELETE, items.size());
+        return new ResponseEntity<>(items, HttpStatus.OK);
+    }
 
 
 
@@ -150,6 +162,25 @@ public class ItemController {
         itemDto.setPretendedToBeDeleted(true);
         logger.info(ITEM_TO_DELETE, itemDto.getId());
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
+    }
+
+
+    @Operation(summary = "Delete an Item by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Item was deleted",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ItemDto.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Item not found",
+                    content = @Content)
+    })
+    @DeleteMapping("/admin/delete/items/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Long> deleteItem(@PathVariable(name = "id") Long id) {
+        itemService.deleteItem(id);
+        logger.info(DELETE_ITEM, id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }
