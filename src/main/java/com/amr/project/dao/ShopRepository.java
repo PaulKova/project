@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
+    //ToDo если дёргаем из базы флаги надо поднимать у DTO или у Entity
+
     List<Shop> findFirst4ByOrdOrderByRatingDesc();
 
 

@@ -43,6 +43,10 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+
+
+
+
     @Operation(summary = "get user by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content =
@@ -93,20 +97,6 @@ public class UserController {
     }
 
 
-    @Operation(summary = "Delete an User by its ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "User was updated",
-                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = UserDto.class))),
-            @ApiResponse(responseCode = "404",
-                    description = "User not found",
-                    content = @Content)
-    })
-    @DeleteMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
-        userService.deleteUserById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+
+
 }

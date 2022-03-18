@@ -22,4 +22,6 @@ public interface ShopService {
 
     List<ShopDto> findExistsShops();
 
+    List<ShopDto> getPretendedToDelete();
+
 }

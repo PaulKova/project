@@ -52,6 +52,9 @@ public class CategoryController {
 
 
 
+
+
+
     @Operation(summary = "get category by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = CategoryDto.class))}),
@@ -62,6 +65,11 @@ public class CategoryController {
         logger.info(GET_CATEGORY_LOG, categoryDto.getId());
         return new ResponseEntity<>(Optional.of(categoryDto), HttpStatus.OK);
     }
+
+
+
+
+
 
     @Operation(summary = "Create a new Category")
     @ApiResponses(value = {
@@ -76,6 +84,11 @@ public class CategoryController {
         logger.info(NEW_CATEGORIES_LOG, categoryDto.getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
+
+
+
 
     @Operation(summary = "Update an Category by ID")
     @ApiResponses(value = {
@@ -98,6 +111,10 @@ public class CategoryController {
         logger.info(CATEGORIES_LOG, categoryDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+
+
 
     @Operation(summary = "Delete an Category by ID")
     @ApiResponses(value = {

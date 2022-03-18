@@ -35,9 +35,9 @@ public class ItemController {
     private static final String ITEM_UPDATED_LOG = "Item:{} was updated";
     private static final String GET_ITEM_LOG = "Item:{} is get";
     private static final String GET_ITEMS_LOG = "{} items has been loaded";
-    private static final String ITEMS_TO_DELETE = "{} items has been marked to delete";
     private static final String DELETE = "Deleted Item id: {}";
     private static final String ITEM_TO_DELETE = "Item {} was marked to delete";
+
 
 
     private final ItemService itemService;
@@ -87,17 +87,7 @@ public class ItemController {
     }
 
 
-    @Operation(summary = "get items marked to delete")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/items/todelete")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public ResponseEntity<List<ItemDto>> getPretendedToDelete() {
-        List<ItemDto> items = itemService.getPretendedToDelete();
-        logger.info(ITEMS_TO_DELETE, items.size());
-        return new ResponseEntity<>(items, HttpStatus.OK);
-    }
+
 
 
     @Operation(summary = "Create a new Item")
@@ -139,23 +129,7 @@ public class ItemController {
     }
 
 
-    @Operation(summary = "Delete an Item by ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Item was deleted",
-                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDto.class))),
-            @ApiResponse(responseCode = "404",
-                    description = "Item not found",
-                    content = @Content)
-    })
-    @DeleteMapping("/items/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Long> deleteItem(@PathVariable(name = "id") Long id) {
-        itemService.deleteItem(id);
-        logger.info(DELETE, id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
-    }
+
 
 
     @Operation(summary = "Mark item to delete")

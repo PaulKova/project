@@ -32,9 +32,11 @@ public class ShopController {
 
     private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
     private static final String ID = "shopId";
-    private static final String NEW_ITEM_LOG = "New shop was created id:{}";
-    private static final String ITEM_UPDATED_LOG = "Shop:{} was updated";
-    private static final String GET_ITEM_LOG = "Shop:{} is get";
+    private static final String SHOP_UPDATED_LOG = "Shop:{} was updated";
+    private static final String GET_SHOP_LOG = "Shop:{} is get";
+    private static final String GET_SHOPS_LOG = "{} shops has been loaded";
+    private static final String GET_PRETENDED_TO_DELETE_SHOPS_LOG = "{} shops has been mark as pretended to delete";
+
 
     private final ShopService shopService;
     private final ShopMapper shopMapper;
@@ -50,10 +52,9 @@ public class ShopController {
     @GetMapping("/shops")
     public ResponseEntity<List<ShopDto>> getAllShops() {
         List<ShopDto> shops = shopService.findExistsShops();
+        logger.info(GET_SHOPS_LOG, shops.size());
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
-
-
 
 
 
@@ -67,6 +68,7 @@ public class ShopController {
     public ResponseEntity<Optional<ShopDto>> getShop(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
         Optional<ShopDto> optionalShopDto = Optional.of(shopDto);
+        logger.info(GET_SHOP_LOG, shopDto);
         return new ResponseEntity<>(optionalShopDto, HttpStatus.OK);
     }
 
@@ -85,46 +87,6 @@ public class ShopController {
         return new ResponseEntity<>(shopDtos, HttpStatus.OK);
     }
 
-
-
-
-
-
-    //GetMapping на получение списка магазинов на модерацию ("User'ами созданы заявки на создание магазинов")
-    @Operation(summary = "Getting a list of shops to moderate")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/request")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public ResponseEntity<List<ShopDto>> getShopsToCreate() {
-        List<ShopDto> shopDtos = shopService.findShopsForCreate();
-        return new ResponseEntity<>(shopDtos, HttpStatus.OK);
-    }
-
-
-
-
-
-
-    @Operation(summary = "Create request for a new Shop")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201",
-                    description = "Request is created",
-                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ShopDto.class))),
-            @ApiResponse(responseCode = "404",
-                    description = "Shop already exists",
-                    content = @Content)
-    })
-    @PostMapping("/request")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public ResponseEntity<ShopDto> requestToCreateShop(@RequestBody ShopDto shopDto) {
-        shopDto.setModerateAccept(true);// admins accept create a shop
-        shopDto.setModerated(false);
-        shopService.saveShop(shopDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
 
 
@@ -163,6 +125,7 @@ public class ShopController {
                     content = @Content)
     })
     @PutMapping("/shop/update")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<HttpStatus> editShop(
             @RequestBody ShopDto shopDto) {
         Shop shop =  shopMapper.toEntity(shopDto);
@@ -176,13 +139,10 @@ public class ShopController {
 
 
 
-
-
-
-    @Operation(summary = "Delete an Shop by its ID")
+    @Operation(summary = "Mark shop to delete")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Shop was deleted",
+                    description = "Shop was updated",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ItemDto.class))),
             @ApiResponse(responseCode = "404",
@@ -190,9 +150,11 @@ public class ShopController {
                     content = @Content)
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ResponseEntity<Long> deleteShop(@PathVariable(name = "id") Long id) {
-        shopService.deleteShopById(id);
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Long> markAsDeleteShop(@PathVariable(name = "id") Long id) {
+        ShopDto shopDto = shopService.getShopById(id);
+        shopDto.setPretenderToBeDeleted(true);
+        logger.info(GET_PRETENDED_TO_DELETE_SHOPS_LOG, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

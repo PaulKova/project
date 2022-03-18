@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -65,6 +66,15 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public List<ShopDto> findExistsShops() {
         List<Shop> shops = shopRepository.findExistsShops();
+        return shopMapper.toDtoList(shops);
+    }
+
+    @Override
+    public List<ShopDto> getPretendedToDelete() {
+        List<Shop> shops = shopRepository.findAll();
+        shops.stream()
+                .filter(s -> s.isPretenderToBeDeleted())
+                .collect(Collectors.toList());
         return shopMapper.toDtoList(shops);
     }
 }
