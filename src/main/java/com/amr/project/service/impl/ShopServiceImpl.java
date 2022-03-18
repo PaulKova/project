@@ -62,6 +62,7 @@ public class ShopServiceImpl implements ShopService {
         return shopMapper.toDtoList(shopList);
     }
 
+
     @Override
     public List<ShopDto> findExistsShops() {
         List<Shop> shops = shopRepository.findExistsShops();
