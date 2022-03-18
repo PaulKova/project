@@ -1,6 +1,5 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.dto.ShopDto;
 
 import java.util.List;
@@ -23,6 +22,6 @@ public interface ShopService {
 
     List<ShopDto> findExistsShops();
 
-    List<ShopDto> getShopsByPatternInName (String pattern);
+    List<ShopDto> searchShopsByNameSortedByRatingDesc(String pattern);
 
 }

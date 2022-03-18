@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
-    List<Shop> findFirst4ByOrdOrderByRatingDesc();
+    List<Shop> findFirst4ByOrderByRatingDesc();
 
 
     @Query("select s from Shop s where s.isModerated = true")
@@ -23,6 +23,6 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     List<Shop> findExistsShops();
 
     //TODO протестировать, что запрос работает корректно (поиск по ключевому слову в имени вне зависимости от количества символов до и после
-    @Query(value = "SELECT * FROM shop WHERE name LIKE '% :searchString %' ORDER BY name DESC", nativeQuery = true)
-    List<Shop> selectShops(@Param("searchString")String searchString);
+    @Query("select s from Shop s where s.name like concat('%', :searchString, '%') order by s.rating desc")
+    List<Shop> searchShopsByNameSortedByRatingDesc (@Param("searchString")String searchString);
 }
