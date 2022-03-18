@@ -1,13 +1,7 @@
 package com.amr.project.webapp.controller;
 
-import com.amr.project.converter.mappers.FavoriteMapper;
-import com.amr.project.converter.mappers.UserMapper;
 import com.amr.project.model.dto.FavoriteDto;
-import com.amr.project.model.dto.UserDto;
-import com.amr.project.model.entity.Favorite;
-import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.FavoriteService;
-import com.amr.project.service.abstracts.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,11 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -43,10 +35,8 @@ public class FavoriteController {
     private final FavoriteService favoriteService;
 
     @Operation(summary = "get all favorites")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the favorites", content =
-                    {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = FavoriteDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Favorites not found", content = @Content)})
+    @ApiResponse(responseCode = "200", description = "Found the favorites", content =
+            {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = FavoriteDto.class))})
     @GetMapping("/favorites")
     public ResponseEntity<List<FavoriteDto>> getAllFavorites() {
         List<FavoriteDto> favoriteDto = favoriteService.getAllFavorites();
@@ -55,10 +45,8 @@ public class FavoriteController {
     }
 
     @Operation(summary = "get favorite by id")
-    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the favorite", content =
-                    {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = FavoriteDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Favorite not found", content = @Content)})
+                    {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = FavoriteDto.class))})
     @GetMapping("favorites/{id}")
     public ResponseEntity<FavoriteDto> getFavoriteById(@PathVariable Long id) {
         FavoriteDto favoriteDto = favoriteService.findById(id);
@@ -68,13 +56,11 @@ public class FavoriteController {
 
 
     @Operation(summary = "Create a new Favorite")
-    @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Favorite is created",
-                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = FavoriteDto.class)))
-    })
-    @PostMapping( "/favorites")
+                    content = {@Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = FavoriteDto.class))})
+    @PostMapping("/favorites")
     public ResponseEntity<HttpStatus> addNewFavorite(@RequestBody FavoriteDto favoriteDto) {
         favoriteService.saveFavorite(favoriteDto);
         logger.info(NEW_Favorite_LOG, favoriteDto.getId());
@@ -82,15 +68,10 @@ public class FavoriteController {
     }
 
     @Operation(summary = "Update an Favorite")
-    @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Favorite was updated",
-                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = FavoriteDto.class))),
-            @ApiResponse(responseCode = "404",
-                    description = "Favorite not found",
-                    content = @Content)
-    })
+                    content = {@Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = FavoriteDto.class))})
     @PutMapping("/favorites")
     public ResponseEntity<HttpStatus> updateFavorite(@RequestBody FavoriteDto favoriteDto) {
         favoriteService.updateFavorite(favoriteDto);
@@ -99,15 +80,10 @@ public class FavoriteController {
     }
 
     @Operation(summary = "Delete an Favorite by its ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Favorite was updated",
-                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = FavoriteDto.class))),
-            @ApiResponse(responseCode = "404",
-                    description = "Favorite not found",
-                    content = @Content)
-    })
+    @ApiResponse(responseCode = "200",
+            description = "Favorite was updated",
+            content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = FavoriteDto.class)))
     @DeleteMapping("/favorites/{id}")
     public ResponseEntity<HttpStatus> deleteFavorite(@PathVariable Long id) {
         favoriteService.deleteFavorite(id);
