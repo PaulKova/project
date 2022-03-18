@@ -96,8 +96,4 @@ public class UserController {
         logger.info(USER_UPDATED_LOG, userDto.getId());
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
-
-
-
-
 }
