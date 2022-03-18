@@ -29,7 +29,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class AdminController {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-    private static final String DELETE = "Deleted Item id: {}";
+    private static final String DELETE_ITEM = "Deleted Item id: {}";
+    private static final String DELETE_SHOP = "Deleted Shop id: {}";
+    private static final String DELETE_USER = "Deleted User id: {}";
     private static final String NEW_SHOP_LOG = "New shop was created id:{}";
     private static final String ITEMS_TO_DELETE = "{} items has been marked to delete";
     private static final String SHOPS_TO_DELETE = "{} shops has been marked to delete";
@@ -108,7 +110,7 @@ public class AdminController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deleteItem(@PathVariable(name = "id") Long id) {
         itemService.deleteItem(id);
-        logger.info(DELETE, id);
+        logger.info(DELETE_ITEM, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
@@ -154,6 +156,7 @@ public class AdminController {
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<Long> deleteShop(@PathVariable(name = "id") Long id) {
         shopService.deleteShopById(id);
+        logger.info(DELETE_SHOP, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
@@ -173,6 +176,7 @@ public class AdminController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
+        logger.info(DELETE_USER, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
