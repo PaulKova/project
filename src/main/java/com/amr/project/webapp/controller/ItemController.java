@@ -168,7 +168,7 @@ public class ItemController {
                     description = "Item not found",
                     content = @Content)
     })
-    @DeleteMapping("/items/{id}")
+    @DeleteMapping("/items/mark/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<ItemDto> markToDelete(@PathVariable(name = "id") Long id) {
         Optional<ItemDto> optionalItemDto = itemService.getItemById(id);

@@ -5,10 +5,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Builder
 @Entity
-@Table(name = "item")
+@Table()
 @Getter
 @Setter
 @NoArgsConstructor

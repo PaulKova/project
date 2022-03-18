@@ -3,7 +3,6 @@ package com.amr.project.service.impl;
 import com.amr.project.converter.mappers.CountryMapper;
 import com.amr.project.dao.CountryRepository;
 import com.amr.project.model.dto.CountryDto;
-import com.amr.project.model.entity.City;
 import com.amr.project.model.entity.Country;
 import com.amr.project.service.abstracts.CountryService;
 import lombok.RequiredArgsConstructor;

@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "coupon")
+@Table()
 @Data
 @Builder
 @NoArgsConstructor

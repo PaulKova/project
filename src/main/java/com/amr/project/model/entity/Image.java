@@ -7,10 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import org.springframework.data.relational.core.mapping.Table;
 
 //Картинки будем хранить в БД (для удобства, хотя это и плохая практика)
 @Entity
-@Table(name = "image")
+@Table()
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

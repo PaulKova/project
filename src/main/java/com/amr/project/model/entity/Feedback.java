@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import org.springframework.data.relational.core.mapping.Table;
 
 //Обратная связь от покупателей (книга жалоб и предложений :))
 @Entity
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "feedback")
+@Table()
 public class Feedback {
 
     @Id
