@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +25,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public FavoriteDto getFavoriteById(Long id) {
-        Favorite favorite = favoriteRepository.getById(id);
-        return favoriteMapper.toDto(favorite);
+    public FavoriteDto findById(Long id) {
+        Optional<Favorite> favorite = favoriteRepository.findById(id);
+        return favoriteMapper.toDto(favorite.get());
     }
 
     @Override
