@@ -84,4 +84,10 @@ public class ShopServiceImpl implements ShopService {
                 .collect(Collectors.toList());
         return shopMapper.toDtoList(shops);
     }
+
+    @Override
+    public List<ShopDto> searchShopsByNameSortedByRatingDesc(String pattern) {
+        List<Shop> shops = shopRepository.searchShopsByNameSortedByRatingDesc(pattern);
+        return shopMapper.toDtoList(shops);
+    }
 }

@@ -31,7 +31,6 @@ public class CategoryController {
 
     private static final String GET_CATEGORIES_LOG = "{} categories has been loaded";
     private static final String GET_CATEGORY_LOG = "Category:{} is get";
-
     private static final String NEW_CATEGORIES_LOG = "New Category was created id: {}";
     private static final String CATEGORIES_LOG = "Category:{} was updated";
     private static final String DELETE_CATEGORIES = "Category: id - {} was deleted";

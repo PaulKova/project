@@ -1,7 +1,6 @@
 package com.amr.project.service.abstracts;
 
 import com.amr.project.model.dto.ItemDto;
-import com.amr.project.model.entity.Item;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,4 +20,6 @@ public interface ItemService {
     List<ItemDto> findFirst4ByOrderByRatingDesc();
 
     List<ItemDto> getPretendedToDelete();
+
+    List<ItemDto> searchItemsByNameSortedByRatingDesc(String pattern);
 }

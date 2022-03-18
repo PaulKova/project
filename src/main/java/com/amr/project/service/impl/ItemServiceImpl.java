@@ -69,4 +69,10 @@ public class ItemServiceImpl implements ItemService {
                                 .collect(Collectors.toList());
         return itemMapper.toDtoList(result);
     }
+
+    @Override
+    public List<ItemDto> searchItemsByNameSortedByRatingDesc(String pattern) {
+        List<Item> items = itemRepository.searchItemsByNameSortedByRatingDesc(pattern);
+        return itemMapper.toDtoList(items);
+    }
 }

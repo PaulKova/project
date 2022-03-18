@@ -22,6 +22,6 @@ public interface ShopService {
 
     List<ShopDto> findExistsShops();
 
-    List<ShopDto> getPretendedToDelete();
+    List<ShopDto> searchShopsByNameSortedByRatingDesc(String pattern);
 
 }
