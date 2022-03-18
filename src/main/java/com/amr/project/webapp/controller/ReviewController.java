@@ -98,7 +98,7 @@ public class ReviewController {
                             schema = @Schema(implementation = ReviewDto.class)))
     })
     @PostMapping("/new")
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<HttpStatus> newReview(@RequestBody ReviewDto reviewDto) {
         Long id = reviewService.saveReviewAsNoModerated(reviewDto).getId();
         logger.info(NEW_REVIEW_LOG, id);
@@ -117,7 +117,7 @@ public class ReviewController {
                     content = @Content)
     })
     @PutMapping("/")
-    //@PreAuthorize("hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<HttpStatus> updateReview(@RequestBody ReviewDto reviewDto) {
         reviewService.updateReview(reviewDto);
         logger.info(REVIEW_UPDATED_LOG, reviewDto.getId());
@@ -136,7 +136,7 @@ public class ReviewController {
                     content = @Content)
     })
     @DeleteMapping("/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MODERATOR')")
     public ResponseEntity<Long> deleteReview(@PathVariable Long id) {
         reviewService.deleteReview(id);
         logger.info(DELETE, id);
