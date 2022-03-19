@@ -713,6 +713,29 @@ public class initData {
                 .chats(null)
                 .feedbacks(null)
                 .build();
+        User admin2 = User.builder()
+                .email("admin2@mail.com")
+                .username("admin2")
+                .password(passwordEncoder.encode("admin2"))
+                .activate(false)
+                .activationCode("some_code")
+                .isUsingTwoFactorAuth(true)
+                .secret("secret?")
+                .role(Roles.ADMIN)
+                .userInfo(null)
+                .favorite(null)
+                .address(address1)
+                .images(null)
+                .coupons(null)
+                .cart(null)
+                .orders(null)
+                .reviews(null)
+                .shops(null)
+                .discounts(null)
+                .messages(null)
+                .chats(null)
+                .feedbacks(null)
+                .build();
         User moderator1 = User.builder()
                 .email("moderator1@mail.com")
                 .username("moderator1")
@@ -737,6 +760,7 @@ public class initData {
                 .feedbacks(null)
                 .build();
         userRepository.save(admin1);
+        userRepository.save(admin2);
         userRepository.save(moderator1);
     }
 }
