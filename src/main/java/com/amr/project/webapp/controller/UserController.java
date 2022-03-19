@@ -135,7 +135,7 @@ public class UserController {
                     content = @Content)
     })
     @DeleteMapping("/admin/delete/user/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
         logger.info(DELETE_USER, id);

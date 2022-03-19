@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embedded;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class CartItemDto {
     private Long id;
     private int quantity;
     private User user;
+
 
 
     private ShopDto shop;

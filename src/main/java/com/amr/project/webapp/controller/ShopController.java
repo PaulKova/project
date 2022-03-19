@@ -230,7 +230,7 @@ public class ShopController {
                     content = @Content)
     })
     @DeleteMapping("/admin/delete/shop{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deleteShop(@PathVariable(name = "id") Long id) {
         shopService.deleteShopById(id);
         logger.info(DELETE_SHOP, id);
