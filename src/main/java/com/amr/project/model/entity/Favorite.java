@@ -10,7 +10,6 @@ import java.util.List;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table()
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,7 +18,7 @@ public class Favorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @ManyToMany

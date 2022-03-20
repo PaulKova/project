@@ -68,7 +68,7 @@ public class ShopController {
     @Operation(summary = "Getting shop by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
     @GetMapping("/shops/{id}")
     public ResponseEntity<ShopDto> getShop(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
@@ -99,7 +99,7 @@ public class ShopController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE,
                     schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
     @GetMapping("/admin/shops/pretended/delete")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ShopDto>> getShopsPretendedToDelete() {
@@ -115,7 +115,7 @@ public class ShopController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE,
                     schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
     @GetMapping("/admin/shops/pretended/create/")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ShopDto>> getShopsToCreate() {

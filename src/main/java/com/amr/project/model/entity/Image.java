@@ -11,7 +11,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 //Картинки будем хранить в БД (для удобства, хотя это и плохая практика)
 @Entity
-@Table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +19,7 @@ public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     private byte[] picture;

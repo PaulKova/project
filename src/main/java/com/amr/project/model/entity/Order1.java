@@ -1,31 +1,25 @@
 package com.amr.project.model.entity;
 
 import com.amr.project.model.enums.Status;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
-import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table()
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Order1 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-
-    @Column(name = "data", nullable = false)
+    @Column(name = "data")
     private Calendar orderDate;//дата заказа
 
     @Column(name = "delyv_data")

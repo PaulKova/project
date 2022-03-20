@@ -7,18 +7,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table()
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "city_index", nullable = false, unique = true)
@@ -60,5 +58,5 @@ public class Address {
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "address")
-    private List<Order> orders;
+    private List<Order1> order1s;
 }

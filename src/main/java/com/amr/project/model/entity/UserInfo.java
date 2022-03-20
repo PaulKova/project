@@ -8,7 +8,6 @@ import java.util.Calendar;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table()
 @Data
 @Builder
 @AllArgsConstructor

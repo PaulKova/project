@@ -1,15 +1,14 @@
 package com.amr.project.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-import org.springframework.data.relational.core.mapping.Table;
 
 @Builder
 @Entity
-@Table()
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +16,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
     @Column(name = "name", unique = true)
     private String name;
@@ -39,14 +38,17 @@ public class Item {
     private int discount;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @JsonIgnore
     private Category category;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private CartItem cartItem;
 
 
@@ -54,6 +56,7 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "item_id")
+    @JsonIgnore
     private List<Image> images;
 
 
@@ -62,17 +65,21 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonIgnore
     private List<Review> reviews;
 
 
     @ManyToMany(mappedBy = "items")
+    @JsonIgnore
     private List<Favorite> favorites;
 
 
     @ManyToMany(mappedBy = "itemsInOrder")
-    private List<Order> orders;
+    @JsonIgnore
+    private List<Order1> order1s;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Shop shop;
 
 

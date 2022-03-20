@@ -2,14 +2,9 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.OrderMapper;
 import com.amr.project.dao.OrderRepository;
-import com.amr.project.dao.UserRepository;
-import com.amr.project.model.dto.MessageDto;
 import com.amr.project.model.dto.OrderDto;
-import com.amr.project.model.entity.Message;
-import com.amr.project.model.entity.Order;
-import com.amr.project.model.entity.User;
+import com.amr.project.model.entity.Order1;
 import com.amr.project.service.abstracts.OrderService;
-import com.amr.project.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,14 +29,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void saveOrder(OrderDto orderDto) {
-        Order order = orderMapper.toEntity(orderDto);
-        orderRepository.saveAndFlush(order);
+        Order1 order1 = orderMapper.toEntity(orderDto);
+        orderRepository.saveAndFlush(order1);
     }
 
     @Override
     public void updateOrder(OrderDto orderDto) {
-        Order order = orderMapper.toEntity(orderDto);
-        orderRepository.saveAndFlush(order);
+        Order1 order1 = orderMapper.toEntity(orderDto);
+        orderRepository.saveAndFlush(order1);
     }
 
     @Override

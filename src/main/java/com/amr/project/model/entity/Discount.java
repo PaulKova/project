@@ -9,7 +9,6 @@ import javax.persistence.*;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table()
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +17,7 @@ public class Discount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "min_order")

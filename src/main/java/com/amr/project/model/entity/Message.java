@@ -11,7 +11,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 
 @Entity
-@Table()
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,7 +19,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "date")

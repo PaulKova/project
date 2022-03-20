@@ -47,7 +47,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content =
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> userDto = userService.getAllUsers();
@@ -63,7 +63,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content =
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
     @GetMapping("users/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto userDto = userService.getUserById(id);

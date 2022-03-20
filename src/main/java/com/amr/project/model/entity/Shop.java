@@ -9,7 +9,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Builder
 @Entity
-@Table()
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,6 +16,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
     @Column(unique = true)
     private String name;

@@ -10,7 +10,6 @@ import java.util.List;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table()
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,8 +17,8 @@ import org.springframework.data.relational.core.mapping.Table;
 public class CartItem {
 
     @Id
-    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "quantity")

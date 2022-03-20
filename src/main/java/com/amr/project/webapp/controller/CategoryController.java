@@ -41,7 +41,7 @@ public class CategoryController {
     @Operation(summary = "get all categories")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = CategoryDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
     @GetMapping("/categories")
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
         List<CategoryDto> categories = categoryService.getAllCategories();
@@ -57,7 +57,7 @@ public class CategoryController {
     @Operation(summary = "get category by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = CategoryDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
     @GetMapping("/categories/{id}")
     public ResponseEntity<Optional<CategoryDto>> getCategory(@PathVariable(name = "id") Long id) {
         CategoryDto categoryDto = categoryService.getCategoryById(id);

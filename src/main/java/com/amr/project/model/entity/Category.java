@@ -10,7 +10,6 @@ import java.util.List;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table()
 @Data
 @Builder
 @NoArgsConstructor

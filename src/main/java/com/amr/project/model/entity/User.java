@@ -7,10 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.*;
-import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table()
 @Data
 @Builder
 @AllArgsConstructor
@@ -81,7 +79,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Order> orders;
+    private Set<Order1> order1s;
 
 
     @OneToMany(

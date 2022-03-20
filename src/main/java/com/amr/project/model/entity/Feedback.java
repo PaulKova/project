@@ -15,12 +15,11 @@ import org.springframework.data.relational.core.mapping.Table;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table()
 public class Feedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     private String reason;
