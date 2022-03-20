@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class MainPageDto {
-    private CategoryDto categoryDto;
+    private List<CategoryDto> categoryDto;
     private List<ShopDto> shopDtoList;
     private List<ItemDto> itemDtoList;
 }

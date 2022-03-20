@@ -10,6 +10,7 @@ import com.amr.project.service.abstracts.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -71,8 +72,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> searchItemsByNameSortedByRatingDesc(String pattern) {
-        List<Item> items = itemRepository.searchItemsByNameSortedByRatingDesc(pattern);
+    public List<ItemDto> searchItemsByNameSortedByRatingDesc(String pattern, Pageable pageable) {
+        List<Item> items = itemRepository.searchItemsByNameSortedByRatingDesc(pattern, pageable);
         return itemMapper.toDtoList(items);
     }
 }

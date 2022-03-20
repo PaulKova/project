@@ -87,7 +87,7 @@ public class ShopController {
             @ApiResponse(responseCode = "404", description = "No any shop found", content = @Content)})
     @GetMapping("/shops/top")
     public ResponseEntity<List<ShopDto>> getFistForShopsByRating() {
-        List<ShopDto> shopDtos = shopService.findFirst4ByOrdOrderByRatingAsc();
+        List<ShopDto> shopDtos = shopService.findFirst4ByOrderByRatingDesc();
         logger.info(GET_TOP_SHOPS_LOG, shopDtos.size());
         return new ResponseEntity<>(shopDtos, HttpStatus.OK);
     }
