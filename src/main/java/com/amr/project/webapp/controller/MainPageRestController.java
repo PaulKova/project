@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class MainPageRestController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<ItemShopDto> (@RequestParam("shopOrItemName") String shopOrItemName, Pageable pageable) {
+    public ResponseEntity<ItemShopDto> getShopAndItems(@RequestParam("shopOrItemName") String shopOrItemName, Pageable pageable) {
         if (shopOrItemName == null) {
             return new ResponseEntity<>(new ItemShopDto(shopService.findAll(), itemService.findAll()));
         }
