@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //.antMatchers( "/favicon.ico").permitAll()
                 .antMatchers("/login").anonymous()
+                .antMatchers("/test").anonymous()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/moderator/**").hasAnyAuthority("MODERATOR", "ADMIN")
                 .anyRequest().authenticated()

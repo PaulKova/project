@@ -2,14 +2,22 @@ package com.amr.project.service.impl;
 
 import com.amr.project.dao.UserRepository;
 import com.amr.project.model.entity.User;
+import com.amr.project.model.enums.Roles;
+import com.amr.project.service.MailSender;
 import com.amr.project.service.abstracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private MailSender mailSender;
 
     private final UserRepository userRepository;
     PasswordEncoder passwordEncoder;
@@ -41,11 +49,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
+        //User userFromDb = userRepository.getUserByEmail(user.getEmail());
+
+        user.setActivate(false);
+        user.setRole(Roles.USER);
+        user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (user.getEmail() != null) {
+            String message = String.format("Your activation code", user.getActivationCode());
+            mailSender.send(user.getEmail(), "Activation code", message);
+        }
         userRepository.save(user);
     }
 
     public User getUserByEmail (String email) {
         return userRepository.getUserByEmail(email);
+    }
+
+    public boolean activateUser (String code) {
+        User user = userRepository.findByActivationCode(code);
+        if (user == null) {
+            return false;
+        }
+        user.setActivationCode(null);
+        return true;
     }
 }
