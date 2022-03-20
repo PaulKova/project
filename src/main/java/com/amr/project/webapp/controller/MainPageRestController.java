@@ -1,14 +1,15 @@
 package com.amr.project.webapp.controller;
 
+import com.amr.project.model.dto.ItemDto;
+import com.amr.project.model.dto.ItemShopDto;
+import com.amr.project.model.dto.MainPageDto;
 import com.amr.project.model.dto.ShopDto;
 import com.amr.project.service.abstracts.ItemService;
 import com.amr.project.service.abstracts.ShopService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,12 +17,26 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/main")
 public class MainPageRestController {
+
     private final ItemService itemService;
     private final ShopService shopService;
 
-    @GetMapping("/search/{criteria}")
-    //TODO Разобраться какой список будет возвращаться на фронт?
-    public ResponseEntity<List<ShopDto>> getFirst5ItemsAndListsByPattern(@PathVariable String criteria) {
-        return null;
+
+    @GetMapping("/search")
+    public ResponseEntity<ItemShopDto> (@RequestParam("shopOrItemName") String shopOrItemName, Pageable pageable) {
+        if (shopOrItemName == null) {
+            return new ResponseEntity<>(new ItemShopDto(shopService.findAll(), itemService.findAll()));
+        }
+        List<ShopDto> shopDtos =shopService.searchShopsByNameSortedByRatingDesc(shopOrItemName, pageable);
+        List<ItemDto> itemDtos = itemService.searchItemsByNameSortedByRatingDesc(shopOrItemName, pageable);
+        ItemShopDto itemShopDto = new ItemShopDto(shopDtos, itemDtos);
+        return new ResponseEntity<>(itemShopDto, HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<MainPageDto>() {
+
+        return new ResponseEntity<>(MainPageDto, HttpStatus.OK);
+    }
+
 }
