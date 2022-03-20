@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {UserMapper.class, ItemMapper.class, AddressMapper.class, StatusManager.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, ItemMapper.class, AddressMapper.class})
 public interface OrderMapper extends MapperInterface<OrderDto, Order> {
 
 

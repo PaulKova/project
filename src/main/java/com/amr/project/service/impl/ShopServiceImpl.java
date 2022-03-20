@@ -3,14 +3,11 @@ package com.amr.project.service.impl;
 import com.amr.project.converter.mappers.ShopMapper;
 import com.amr.project.dao.ShopRepository;
 import com.amr.project.model.dto.ShopDto;
-import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.Shop;
-import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -87,8 +84,8 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<ShopDto> searchShopsByNameSortedByRatingDesc(String pattern, Pageable pageable) {
-        List<Shop> shops = shopRepository.searchShopsByNameSortedByRatingDesc(pattern, pageable);
+    public List<ShopDto> searchShopsByNameSortedByRatingDesc(String pattern) {
+        List<Shop> shops = shopRepository.findShopByNameContainingOrderByRatingDesc(pattern);
         return shopMapper.toDtoList(shops);
     }
 }
