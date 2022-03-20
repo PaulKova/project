@@ -11,7 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 //Картинки будем хранить в БД (для удобства, хотя это и плохая практика)
 @Entity
-@Table()
+@Table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +25,7 @@ public class Image {
 
     private byte[] picture;
 
-    private Boolean isMain = false;
+    private Boolean isMain;
 
 
     @OneToOne(fetch = FetchType.LAZY)

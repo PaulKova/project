@@ -212,7 +212,7 @@ public class ShopController {
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<Long> markAsDeleteShop(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
-        shopDto.setPretenderToBeDeleted(true);
+        shopDto.setPretendedToBeDeleted(true);
         logger.info(GET_PRETENDED_TO_DELETE_SHOPS_LOG, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }

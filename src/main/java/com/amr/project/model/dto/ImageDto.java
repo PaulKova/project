@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ImageDto {
     private Long id;
     private byte[] picture;
-    private Boolean isMain = false;
+    private Boolean isMain;
 
     private ShopDto shop;
 

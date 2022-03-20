@@ -80,7 +80,7 @@ public class ShopServiceImpl implements ShopService {
     public List<ShopDto> getPretendedToDelete() {
         List<Shop> shops = shopRepository.findAll();
         shops.stream()
-                .filter(s -> s.isPretenderToBeDeleted())
+                .filter(s -> s.isPretendedToBeDeleted())
                 .collect(Collectors.toList());
         return shopMapper.toDtoList(shops);
     }
