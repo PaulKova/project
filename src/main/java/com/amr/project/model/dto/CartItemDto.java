@@ -1,10 +1,7 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embedded;
 import java.util.List;
@@ -12,7 +9,8 @@ import java.util.Set;
 
 
 @Data
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItemDto {

@@ -9,7 +9,8 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
 @Data
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(of = {"phone", "firstName", "lastName", "age", "gender", "birthday"})

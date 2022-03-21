@@ -1,15 +1,13 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.enums.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Calendar;
 
 @Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfoDto {

@@ -7,7 +7,7 @@ import com.amr.project.model.entity.Chat;
 import com.amr.project.service.abstracts.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
+import com.amr.project.converter.CycleAvoidingMappingContext;
 
 import java.util.List;
 

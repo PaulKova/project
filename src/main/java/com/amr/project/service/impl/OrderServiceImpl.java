@@ -7,7 +7,7 @@ import com.amr.project.model.entity.Order1;
 import com.amr.project.service.abstracts.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
+import com.amr.project.converter.CycleAvoidingMappingContext;
 
 import java.util.List;
 

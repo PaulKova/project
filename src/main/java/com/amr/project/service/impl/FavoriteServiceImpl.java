@@ -7,7 +7,7 @@ import com.amr.project.model.entity.Favorite;
 import com.amr.project.service.abstracts.FavoriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
+import com.amr.project.converter.CycleAvoidingMappingContext;
 
 import java.util.List;
 import java.util.Optional;

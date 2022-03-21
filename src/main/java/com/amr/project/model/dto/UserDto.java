@@ -1,10 +1,7 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.enums.Roles;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,7 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {

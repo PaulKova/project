@@ -1,10 +1,9 @@
-package org.mapstruct.example.mapper;
+package com.amr.project.converter;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
 
 import org.mapstruct.BeforeMapping;
-import org.mapstruct.Context;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.TargetType;
 

@@ -1,15 +1,13 @@
 package com.amr.project.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Getter
+@Setter
 public class DiscountDto {
 
     private Long id;

@@ -2,15 +2,15 @@ package com.amr.project.model.dto;
 
 import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Shop;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Getter
+@Setter
 public class MainPageDto {
     private List<CategoryDto> categoryDto;
     private List<ShopDto> shopDtoList;

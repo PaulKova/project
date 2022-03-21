@@ -1,5 +1,6 @@
 package com.amr.project.service.impl;
 
+import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.mappers.CartItemMapper;
 import com.amr.project.dao.CartItemRepository;
 import com.amr.project.model.dto.CartItemDto;
@@ -7,7 +8,7 @@ import com.amr.project.model.entity.CartItem;
 import com.amr.project.service.abstracts.CartItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
+
 
 import java.util.List;
 import java.util.Optional;
