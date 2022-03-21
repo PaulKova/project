@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.List;
 import java.util.Set;
 
+//ToDo Убрать все Getter and Setter
 
 @Data
 @Getter

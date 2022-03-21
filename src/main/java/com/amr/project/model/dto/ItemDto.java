@@ -1,5 +1,7 @@
 package com.amr.project.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -23,7 +25,9 @@ public class ItemDto {
     private String description;
     private int discount;
 
+
     private CategoryDto category;
+
     private CartItemDto cartItem;
     private List<ImageDto> images;
     private List<ReviewDto> reviews;
