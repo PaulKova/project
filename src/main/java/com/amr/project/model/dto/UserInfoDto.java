@@ -6,8 +6,7 @@ import lombok.*;
 import java.util.Calendar;
 
 @Data
-@Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfoDto {

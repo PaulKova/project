@@ -9,8 +9,8 @@ import org.springframework.data.relational.core.mapping.Table;
 
 
 @Entity
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Shop {
@@ -103,6 +103,11 @@ public class Shop {
     private boolean isModerateAccept;
     private String moderatedRejectReason;
     private boolean isPretendedToBeDeleted;
+
+    public boolean isPretendedToBeDeleted() {
+        return isPretendedToBeDeleted;
+    }
+
 
 
 }

@@ -3,13 +3,13 @@ package com.amr.project.model.dto;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
+
 
 //ToDo Убрать все Getter and Setter
 
+
 @Data
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddressDto {

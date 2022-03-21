@@ -7,8 +7,7 @@ import java.util.List;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Chat {

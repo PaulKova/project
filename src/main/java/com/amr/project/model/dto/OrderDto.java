@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {

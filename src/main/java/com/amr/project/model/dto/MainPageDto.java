@@ -9,8 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Getter
-@Setter
+@Builder
 public class MainPageDto {
     private List<CategoryDto> categoryDto;
     private List<ShopDto> shopDtoList;

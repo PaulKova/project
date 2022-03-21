@@ -6,8 +6,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Builder
 public class ImageDto {
     private Long id;
     private byte[] picture;

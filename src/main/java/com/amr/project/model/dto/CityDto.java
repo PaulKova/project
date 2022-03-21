@@ -9,8 +9,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Getter
-@Setter
+@Builder
 public class CityDto {
 
     private Long id;

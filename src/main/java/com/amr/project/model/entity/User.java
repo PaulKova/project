@@ -10,8 +10,7 @@ import java.util.*;
 
 @Entity
 @Data
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(of = {"id", "email", "username", "password"})
