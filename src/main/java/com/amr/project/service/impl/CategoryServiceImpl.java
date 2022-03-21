@@ -7,6 +7,7 @@ import com.amr.project.model.entity.Category;
 import com.amr.project.service.abstracts.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 
@@ -21,24 +22,24 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
-        return categoryMapper.toDtoList(categories);
+        return categoryMapper.toDtoList(categories, new CycleAvoidingMappingContext());
     }
 
     @Override
     public CategoryDto getCategoryById(Long id) {
         Category category = categoryRepository.getById(id);
-        return categoryMapper.toDto(category);
+        return categoryMapper.toDto(category, new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveCategory(CategoryDto categoryDto) {
-        Category category = categoryMapper.toEntity(categoryDto);
+        Category category = categoryMapper.toEntity(categoryDto, new CycleAvoidingMappingContext());
         categoryRepository.saveAndFlush(category);
     }
 
     @Override
     public void updateCategory(CategoryDto categoryDto) {
-        Category category = categoryMapper.toEntity(categoryDto);
+        Category category = categoryMapper.toEntity(categoryDto, new CycleAvoidingMappingContext());
         categoryRepository.saveAndFlush(category);
     }
 

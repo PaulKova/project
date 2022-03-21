@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -109,7 +110,7 @@ public class UserController {
     })
     @PutMapping("/users")
     public ResponseEntity<HttpStatus> updateUser(@RequestBody UserDto userDto) {
-        User user = userMapper.toEntity(userDto);
+        User user = userMapper.toEntity(userDto, new CycleAvoidingMappingContext());
         Optional<User> optionalUser = Optional.of(user);
         if (optionalUser.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

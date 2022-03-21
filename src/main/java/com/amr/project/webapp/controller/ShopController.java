@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -186,7 +187,7 @@ public class ShopController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<HttpStatus> editShop(
             @RequestBody ShopDto shopDto) {
-        Shop shop =  shopMapper.toEntity(shopDto);
+        Shop shop =  shopMapper.toEntity(shopDto, new CycleAvoidingMappingContext() );
         Optional<Shop> optionalShop = Optional.of(shop);
         if (optionalShop.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

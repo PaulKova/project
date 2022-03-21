@@ -7,6 +7,7 @@ import com.amr.project.model.entity.Country;
 import com.amr.project.service.abstracts.CountryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 
@@ -20,24 +21,24 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<CountryDto> getAllCountries() {
         List<Country> countries = countryRepository.findAll();
-        return countryMapper.toDtoList(countries);
+        return countryMapper.toDtoList(countries, new CycleAvoidingMappingContext());
     }
 
     @Override
     public CountryDto getCountryById(Long id) {
         Country country = countryRepository.getById(id);
-        return countryMapper.toDto(country);
+        return countryMapper.toDto(country, new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveCountry(CountryDto countryDto) {
-        Country country = countryMapper.toEntity(countryDto);
+        Country country = countryMapper.toEntity(countryDto, new CycleAvoidingMappingContext());
         countryRepository.saveAndFlush(country);
     }
 
     @Override
     public void updateCountry(CountryDto countryDto) {
-        Country country = countryMapper.toEntity(countryDto);
+        Country country = countryMapper.toEntity(countryDto, new CycleAvoidingMappingContext());
         countryRepository.saveAndFlush(country);
     }
 

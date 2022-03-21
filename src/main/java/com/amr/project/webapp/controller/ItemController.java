@@ -17,9 +17,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 import java.util.Optional;
+
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -129,7 +131,7 @@ public class ItemController {
     @PutMapping("/items")
     public ResponseEntity<HttpStatus> editItem(
             @RequestBody ItemDto itemDto) {
-        Item item = itemMapper.toEntity(itemDto);
+        Item item = itemMapper.toEntity(itemDto, new org.mapstruct.example.mapper.CycleAvoidingMappingContext());
         Optional<Item> optionalItem = Optional.of(item);
         if (optionalItem.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

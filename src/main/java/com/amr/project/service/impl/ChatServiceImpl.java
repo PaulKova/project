@@ -4,10 +4,10 @@ import com.amr.project.converter.mappers.ChatMapper;
 import com.amr.project.dao.ChatRepository;
 import com.amr.project.model.dto.ChatDto;
 import com.amr.project.model.entity.Chat;
-import com.amr.project.model.entity.Item;
 import com.amr.project.service.abstracts.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 
@@ -22,24 +22,24 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<ChatDto> getAllChats() {
         List<Chat> chats = chatRepository.findAll();
-        return chatMapper.toDtoList(chats);
+        return chatMapper.toDtoList(chats, new CycleAvoidingMappingContext());
     }
 
     @Override
     public ChatDto getChatById(Long id) {
         Chat chat = chatRepository.getById(id);
-        return chatMapper.toDto(chat);
+        return chatMapper.toDto(chat, new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveChat(ChatDto chatDto) {
-        Chat chat = chatMapper.toEntity(chatDto);
+        Chat chat = chatMapper.toEntity(chatDto, new CycleAvoidingMappingContext());
         chatRepository.saveAndFlush(chat);
     }
 
     @Override
     public void updateChat(ChatDto chatDto) {
-        Chat chat = chatMapper.toEntity(chatDto);
+        Chat chat = chatMapper.toEntity(chatDto, new CycleAvoidingMappingContext());
         chatRepository.saveAndFlush(chat);
     }
 

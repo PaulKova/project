@@ -7,6 +7,7 @@ import com.amr.project.model.entity.Discount;
 import com.amr.project.service.abstracts.DiscountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 
@@ -20,24 +21,24 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     public List<DiscountDto> getAllDiscounts() {
         List<Discount> discounts = discountRepository.findAll();
-        return discountMapper.toDtoList(discounts);
+        return discountMapper.toDtoList(discounts, new CycleAvoidingMappingContext());
     }
 
     @Override
     public DiscountDto getDiscountById(Long id) {
         Discount discount = discountRepository.getById(id);
-        return discountMapper.toDto(discount);
+        return discountMapper.toDto(discount, new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveDiscount(DiscountDto discountDto) {
-        Discount discount = discountMapper.toEntity(discountDto);
+        Discount discount = discountMapper.toEntity(discountDto, new CycleAvoidingMappingContext());
         discountRepository.saveAndFlush(discount);
     }
 
     @Override
     public void updateDiscount(DiscountDto discountDto) {
-        Discount discount = discountMapper.toEntity(discountDto);
+        Discount discount = discountMapper.toEntity(discountDto, new CycleAvoidingMappingContext());
         discountRepository.saveAndFlush(discount);
     }
 

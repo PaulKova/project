@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -101,7 +102,7 @@ public class CategoryController {
     })
     @PutMapping("/categories")
     public ResponseEntity<HttpStatus> editCategory( @RequestBody CategoryDto categoryDto) {
-        Category category = categoryMapper.toEntity(categoryDto);
+        Category category = categoryMapper.toEntity(categoryDto, new CycleAvoidingMappingContext());
         categoryService.updateCategory(categoryDto);
         logger.info(CATEGORIES_LOG, categoryDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);

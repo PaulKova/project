@@ -7,6 +7,7 @@ import com.amr.project.model.entity.Order1;
 import com.amr.project.service.abstracts.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 
@@ -19,23 +20,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getAllOrders() {
-        return orderMapper.toDtoList(orderRepository.findAll());
+        return orderMapper.toDtoList(orderRepository.findAll(), new CycleAvoidingMappingContext());
     }
 
     @Override
     public OrderDto getOrderById(Long id) {
-        return orderMapper.toDto(orderRepository.getById(id));
+        return orderMapper.toDto(orderRepository.getById(id), new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveOrder(OrderDto orderDto) {
-        Order1 order1 = orderMapper.toEntity(orderDto);
+        Order1 order1 = orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext());
         orderRepository.saveAndFlush(order1);
     }
 
     @Override
     public void updateOrder(OrderDto orderDto) {
-        Order1 order1 = orderMapper.toEntity(orderDto);
+        Order1 order1 = orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext());
         orderRepository.saveAndFlush(order1);
     }
 

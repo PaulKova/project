@@ -1,5 +1,7 @@
 package com.amr.project.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +28,7 @@ public class Category {
     private String name;
 
 
-    @OneToMany(
+    @OneToMany(fetch = FetchType.EAGER,
             mappedBy = "category",
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE,

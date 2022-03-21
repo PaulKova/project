@@ -7,6 +7,7 @@ import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.mapstruct.example.mapper.CycleAvoidingMappingContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
-        return userMapper.toDtoList(users);
+        return userMapper.toDtoList(users, new CycleAvoidingMappingContext());
     }
 
     @Override
@@ -31,13 +32,13 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             throw new NullPointerException("User not found");
         }
-        UserDto userDto = userMapper.toDto(user.get());
+        UserDto userDto = userMapper.toDto(user.get(), new CycleAvoidingMappingContext());
         return userDto;
     }
 
     @Override
     public void updateUser(UserDto user) {
-        User user1 = userMapper.toEntity(user);
+        User user1 = userMapper.toEntity(user, new CycleAvoidingMappingContext());
         userRepository.saveAndFlush(user1);
     }
 
@@ -48,12 +49,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(UserDto user) {
-        User user1 = userMapper.toEntity(user);
+        User user1 = userMapper.toEntity(user, new CycleAvoidingMappingContext());
         userRepository.saveAndFlush(user1);
     }
 
     @Override
-    public User getUserByEmail (String email) {
+    public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
     }
 }

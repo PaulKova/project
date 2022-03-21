@@ -43,12 +43,10 @@ public class Item {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @JsonIgnore
     private Category category;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private CartItem cartItem;
 
 
@@ -56,7 +54,6 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "item_id")
-    @JsonIgnore
     private List<Image> images;
 
 
@@ -65,21 +62,17 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonIgnore
     private List<Review> reviews;
 
 
     @ManyToMany(mappedBy = "items")
-    @JsonIgnore
     private List<Favorite> favorites;
 
 
     @ManyToMany(mappedBy = "itemsInOrder")
-    @JsonIgnore
     private List<Order1> order1s;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private Shop shop;
 
 
