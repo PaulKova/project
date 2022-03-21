@@ -2,6 +2,7 @@ package com.amr.project.service.abstracts;
 
 import com.amr.project.model.dto.ItemDto;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface ItemService {
@@ -20,5 +21,5 @@ public interface ItemService {
 
     List<ItemDto> getPretendedToDelete();
 
-    List<ItemDto> searchItemsByNameSortedByRatingDesc(String pattern);
+    List<ItemDto> searchItemsByNameSortedByRatingDesc(String pattern, Pageable pageable);
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Repository
@@ -22,5 +23,5 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     @Query("select s from Shop s where s.isModerateAccept = true")
     List<Shop> findExistsShops();
 
-    List<Shop> findShopByNameContainingOrderByRatingDesc(String searchString);
+    List<Shop> findShopByNameContainingOrderByRatingDesc(String searchString, Pageable pageable);
 }

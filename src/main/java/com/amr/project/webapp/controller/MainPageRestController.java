@@ -22,14 +22,14 @@ public class MainPageRestController {
 
     @GetMapping("/search")
     public ResponseEntity<ItemShopDto> getShopAndItems(
-            @RequestParam("shopOrItemName") String shopOrItemName) {
+            @RequestParam("shopOrItemName") String shopOrItemName, Pageable pageable) {
         if (shopOrItemName == null) {
             return new ResponseEntity<>(new ItemShopDto(shopService.getAllShops(),
                     itemService.getAllItems()), HttpStatus.OK);
         }
         ItemShopDto itemShopDto = new ItemShopDto(
-                shopService.searchShopsByNameSortedByRatingDesc(shopOrItemName),
-                itemService.searchItemsByNameSortedByRatingDesc(shopOrItemName));
+                shopService.searchShopsByNameSortedByRatingDesc(shopOrItemName, pageable),
+                itemService.searchItemsByNameSortedByRatingDesc(shopOrItemName, pageable));
         return new ResponseEntity<>(itemShopDto, HttpStatus.OK);
     }
 

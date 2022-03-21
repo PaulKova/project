@@ -8,6 +8,7 @@ import com.amr.project.service.abstracts.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -84,8 +85,8 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<ShopDto> searchShopsByNameSortedByRatingDesc(String pattern) {
-        List<Shop> shops = shopRepository.findShopByNameContainingOrderByRatingDesc(pattern);
+    public List<ShopDto> searchShopsByNameSortedByRatingDesc(String pattern, Pageable pageable) {
+        List<Shop> shops = shopRepository.findShopByNameContainingOrderByRatingDesc(pattern, pageable);
         return shopMapper.toDtoList(shops);
     }
 }
