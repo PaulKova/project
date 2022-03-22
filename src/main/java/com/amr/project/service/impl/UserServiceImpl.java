@@ -3,6 +3,7 @@ package com.amr.project.service.impl;
 import com.amr.project.converter.mappers.UserMapper;
 import com.amr.project.dao.UserRepository;
 import com.amr.project.model.Mail;
+import com.amr.project.model.dto.RolesDto;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 import com.amr.project.model.enums.Roles;
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserDto user) {
         User user1 = userMapper.toEntity(user, new CycleAvoidingMappingContext());
         user.setActivate(false);
-        user.setRole(Roles.USER);
+        user.setRole(RolesDto.USER);
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 

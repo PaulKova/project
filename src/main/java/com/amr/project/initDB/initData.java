@@ -280,7 +280,7 @@ public class initData {
                 .isModerated(true)
                 .isModerateAccept(true)
                 .moderatedRejectReason("cozTest")
-                .isPretendentToBeDeleted(false)
+                .isPretendedToBeDeleted(false)
                 .build();
         Shop shop2 = Shop.builder()
                 .name("shop2")
@@ -303,7 +303,7 @@ public class initData {
                 .isModerated(true)
                 .isModerateAccept(true)
                 .moderatedRejectReason("cozTest")
-                .isPretendentToBeDeleted(false)
+                .isPretendedToBeDeleted(false)
                 .build();
         Shop shop3 = Shop.builder()
                 .name("shop3")
@@ -326,7 +326,7 @@ public class initData {
                 .isModerated(true)
                 .isModerateAccept(true)
                 .moderatedRejectReason("cozTest")
-                .isPretendentToBeDeleted(false)
+                .isPretendedToBeDeleted(false)
                 .build();
         shopRepository.save(shop1);
         shopRepository.save(shop2);
@@ -539,10 +539,10 @@ public class initData {
                 .user(user3)
                 .chat(null)
                 .build();
-//        Chat chat1 = Chat.builder().users(Set.of(user1, user2)).build(); //no hash?!
-//        Chat chat2 = Chat.builder().users(Set.of(user2, user3)).build();
-        Chat chat1 = new Chat();
-        Chat chat2 = new Chat();
+        Chat chat1 = Chat.builder().users(List.of(user1, user2)).build(); //no hash?!
+        Chat chat2 = Chat.builder().users(List.of(user2, user3)).build();
+//        Chat chat1 = new Chat(List.of(user1, user2));
+//        Chat chat2 = new Chat(List.of(user2, user3));
 
         chatRepository.save(chat1);
         chatRepository.save(chat2);
