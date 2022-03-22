@@ -1,16 +1,15 @@
 package com.amr.project.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "category")
 @Data
 @Builder
 @NoArgsConstructor
@@ -27,7 +26,7 @@ public class Category {
     private String name;
 
 
-    @OneToMany(
+    @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "category",
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE,

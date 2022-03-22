@@ -1,9 +1,7 @@
 package com.amr.project.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import java.util.Calendar;
 
@@ -18,5 +16,6 @@ public class CouponDto {
     private Calendar start;
     private Calendar end;
 
+    @JsonManagedReference
     private UserDto user;
 }

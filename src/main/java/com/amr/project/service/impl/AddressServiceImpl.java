@@ -1,11 +1,13 @@
 package com.amr.project.service.impl;
 
+import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.mappers.AddressMapper;
 import com.amr.project.dao.AddressRepository;
 import com.amr.project.model.dto.AddressDto;
 import com.amr.project.model.entity.Address;
 import com.amr.project.service.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,24 +22,24 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<AddressDto> getAllAddresses() {
         List<Address> addresses = addressRepository.findAll();
-        return addressMapper.toDtoList(addresses);
+        return addressMapper.toDtoList(addresses, new CycleAvoidingMappingContext());
     }
 
     @Override
     public AddressDto getAddressById(Long id) {
         Address address = addressRepository.getById(id);
-        return addressMapper.toDto(address);
+        return addressMapper.toDto(address, new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveAddress(AddressDto addressDto) {
-        Address address = addressMapper.toEntity(addressDto);
+        Address address = addressMapper.toEntity(addressDto, new CycleAvoidingMappingContext());
         addressRepository.saveAndFlush(address);
     }
 
     @Override
     public void updateAddress(AddressDto addressDto) {
-        Address address = addressMapper.toEntity(addressDto);
+        Address address = addressMapper.toEntity(addressDto, new CycleAvoidingMappingContext());
         addressRepository.saveAndFlush(address);
     }
 

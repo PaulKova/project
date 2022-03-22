@@ -7,6 +7,7 @@ import com.amr.project.model.entity.Image;
 import com.amr.project.service.abstracts.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.amr.project.converter.CycleAvoidingMappingContext;
 
 import java.util.List;
 
@@ -21,24 +22,24 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public List<ImageDto> getAllImages() {
         List<Image> images = imageRepository.findAll();
-        return imageMapper.toDtoList(images);
+        return imageMapper.toDtoList(images, new CycleAvoidingMappingContext());
     }
 
     @Override
     public ImageDto getImageById(Long id) {
         Image image = imageRepository.getById(id);
-        return imageMapper.toDto(image);
+        return imageMapper.toDto(image, new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveImage(ImageDto imageDto) {
-        Image image = imageMapper.toEntity(imageDto);
+        Image image = imageMapper.toEntity(imageDto, new CycleAvoidingMappingContext());
         imageRepository.saveAndFlush(image);
     }
 
     @Override
     public void updateImage(ImageDto imageDto) {
-        Image image = imageMapper.toEntity(imageDto);
+        Image image = imageMapper.toEntity(imageDto, new CycleAvoidingMappingContext());
         imageRepository.saveAndFlush(image);
     }
 

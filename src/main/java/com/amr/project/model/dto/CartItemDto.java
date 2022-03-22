@@ -1,11 +1,11 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
+import javax.persistence.Embedded;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +20,8 @@ public class CartItemDto {
     private User user;
 
 
+    @JsonManagedReference
     private ShopDto shop;
+    @JsonBackReference
     private List<ItemDto> itemList;
 }

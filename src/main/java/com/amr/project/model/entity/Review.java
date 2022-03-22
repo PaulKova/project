@@ -1,15 +1,12 @@
 package com.amr.project.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "review")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -18,7 +15,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "dignity")
@@ -49,8 +46,8 @@ public class Review {
     private Item item;
 
 
-    private boolean isModerated = false;
-    private boolean isModerateAccept = false;
+    private boolean isModerated;
+    private boolean isModerateAccept;
     private String moderatedRejectReason;
 
 }

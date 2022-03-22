@@ -1,26 +1,21 @@
 package com.amr.project.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "favorite")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Favorite {
-    //TODO избранные товары пользователя
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @ManyToMany

@@ -1,23 +1,20 @@
 package com.amr.project.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "discount")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Discount {
-    //TODO скидка для постоянного покупателя
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "min_order")
