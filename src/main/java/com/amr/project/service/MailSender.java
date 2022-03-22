@@ -1,5 +1,6 @@
 package com.amr.project.service;
 
+import com.amr.project.model.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,13 +15,13 @@ public class MailSender {
     @Value("${spring.mail.username}")
     private String username;
 
-    public void send(String to, String subject, String text){
+    public void send(Mail mail){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         mailMessage.setFrom(username);
-        mailMessage.setTo(to);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(text);
+        mailMessage.setTo(mail.getTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getText());
 
         mailSender.send(mailMessage);
     }
