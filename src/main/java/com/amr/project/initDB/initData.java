@@ -81,7 +81,11 @@ public class initData {
         /////////////////////////////////////////////////Images////////////////////////////////////////////////////////////
         File item1_image = ResourceUtils.getFile("classpath:static/images/items/item1.jpg");
         byte[] arrayItemImage1 = Files.readAllBytes(item1_image.toPath());
-        Image itemImage1 = Image.builder().picture(arrayItemImage1).isMain(true).build();
+        //Image itemImage1 = Image.builder().picture(arrayItemImage1).isMain(true).build();
+
+        Image itemImage1 = new Image();
+        itemImage1.setPicture(arrayItemImage1);
+
         File item2_image = ResourceUtils.getFile("classpath:static/images/items/item2.jpg");
         byte[] arrayItemImage2 = Files.readAllBytes(item2_image.toPath());
         Image itemImage2 = Image.builder().picture(arrayItemImage2).isMain(true).build();
