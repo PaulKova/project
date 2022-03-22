@@ -10,8 +10,7 @@ import java.util.*;
 
 @Entity
 @Data
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(of = {"id", "email", "username", "password"})
@@ -80,7 +79,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Order1> order1s;
+    private Set<Order> orders;
 
 
     @OneToMany(

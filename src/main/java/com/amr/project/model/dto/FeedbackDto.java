@@ -1,13 +1,13 @@
 package com.amr.project.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 @Data
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class FeedbackDto {
@@ -17,7 +17,9 @@ public class FeedbackDto {
     private LocalDateTime dateTime;
     private String username;
 
+    @JsonManagedReference
     private ShopDto shop;
+    @JsonManagedReference
     private UserDto user;
 
 }

@@ -11,8 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
 @Data
-@Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {

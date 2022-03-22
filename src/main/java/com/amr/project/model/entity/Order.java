@@ -10,11 +10,11 @@ import java.util.List;
 
 @Entity
 @Data
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order1 {
+@Table(name="order_by_user")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -49,7 +49,7 @@ public class Order1 {
                     CascadeType.REFRESH,
                     CascadeType.DETACH})
     @JoinTable(name = "order_item",
-            joinColumns = @JoinColumn(name = "order_id"),
+            joinColumns = @JoinColumn(name = "order_by_user_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> itemsInOrder;
 

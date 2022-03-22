@@ -20,8 +20,10 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     //запрос на поиск всех записей с полем isModerated=false и
     //отсортированные по возрастанию поля date(начиная от самых "старых")
+    //@Query("select r from Review r where r.isModerated = false order by r.date")
+
     @Query("select r from Review r where r.isModerated = false order by r.date")
-    List<Review> findByIsModeratedIsFalseOrderByDateAsc(Sort sort);
+    List<Review> findByIsModeratedIsFalseOrderByDateAsc();
 
     //запрос на поиск всех записей по определенному полю user.id с условием:
     //isModerated=true

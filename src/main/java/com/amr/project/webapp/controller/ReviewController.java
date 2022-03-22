@@ -22,7 +22,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/api/review")
 @AllArgsConstructor
 public class ReviewController {
 
@@ -33,7 +33,7 @@ public class ReviewController {
     private static final String GET_REVIEWS_LOG = "{} reviews has been loaded";
     private static final String DELETE = "Deleted Review (id:{})";
     private static final String NO_PARAMETER_LOG = "No any parameter for method getVisibleReview() (URL:/review/reviews/), " +
-            "must be {userid} OR {shopid} OR {itemid}";
+            "must be userid OR shopid OR itemid";
 
     private final ReviewService reviewService;
 
@@ -45,8 +45,8 @@ public class ReviewController {
             @ApiResponse(responseCode = "200", description = "Found all reviews",
                     content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ReviewDto.class))}),
             @ApiResponse(responseCode = "404", description = "Review not found", content = @Content)})
-    @GetMapping("/reviews")
-    //@PreAuthorize("hasRole('MODERATOR')")
+    @GetMapping("/moderateness")
+    @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<List<ReviewDto>> getReviews() {
         List<ReviewDto> reviews = reviewService.getAllNoModeratedReview();
         logger.info(GET_REVIEWS_LOG, reviews.size());
@@ -64,7 +64,7 @@ public class ReviewController {
                     content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ReviewDto.class))}),
             @ApiResponse(responseCode = "400", description = "No any parameter", content = @Content),
             @ApiResponse(responseCode = "404", description = "No any Review was found", content = @Content)})
-    @GetMapping("/reviews/{userid}{shopid}{itemid}")
+    @GetMapping("/reviews")
     public ResponseEntity<List<ReviewDto>> getVisibleReview(
             @RequestParam(name = "userid", required = false, defaultValue = "-1") Long userId,
             @RequestParam(name = "shopid", required = false, defaultValue = "-1") Long shopId,
@@ -107,7 +107,7 @@ public class ReviewController {
     }
 
 
-    @Operation(summary = "Update an Review by ID (Authority: MODERATOR)")
+    @Operation(summary = "Update existing Review(Authority: MODERATOR)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Review was updated",
@@ -117,7 +117,7 @@ public class ReviewController {
                     description = "Review not found",
                     content = @Content)
     })
-    @PutMapping("/")
+    @PutMapping("/update")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<HttpStatus> updateReview(@RequestBody ReviewDto reviewDto) {
         reviewService.updateReview(reviewDto);
@@ -136,7 +136,7 @@ public class ReviewController {
                     description = "Review not found",
                     content = @Content)
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MODERATOR')")
     public ResponseEntity<Long> deleteReview(@PathVariable Long id) {
         reviewService.deleteReview(id);

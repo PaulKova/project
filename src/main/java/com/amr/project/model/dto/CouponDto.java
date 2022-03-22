@@ -1,13 +1,13 @@
 package com.amr.project.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.util.Calendar;
 
 
 @Data
-@Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CouponDto {
@@ -16,5 +16,6 @@ public class CouponDto {
     private Calendar start;
     private Calendar end;
 
+    @JsonManagedReference
     private UserDto user;
 }

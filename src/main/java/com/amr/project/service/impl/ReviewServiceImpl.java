@@ -55,7 +55,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<ReviewDto> getAllNoModeratedReview() {
-        return reviewMapper.toDtoList(reviewRepository.findByIsModeratedIsFalseOrderByDateAsc(Sort.by(Sort.Direction.ASC)), new CycleAvoidingMappingContext());
+        return reviewMapper.toDtoList(reviewRepository.findByIsModeratedIsFalseOrderByDateAsc(), new CycleAvoidingMappingContext());
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.enums.Roles;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,8 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
@@ -24,20 +25,34 @@ public class UserDto {
     private String activationCode;
     private boolean isUsingTwoFactorAuth;
     private String secret;
-    private RolesDto role;
-    private UserInfoDto userInfo;
-    private FavoriteDto favorite;
-    private AddressDto address;
-    private List<ImageDto> images;
 
+    @JsonManagedReference
+    private RolesDto role;
+    @JsonManagedReference
+    private UserInfoDto userInfo;
+    @JsonManagedReference
+    private FavoriteDto favorite;
+    @JsonManagedReference
+    private AddressDto address;
+    @JsonBackReference
+    private List<ImageDto> images;
+    @JsonBackReference
     private List<CouponDto> coupons;
+    @JsonBackReference
     private List<CartItemDto> cart;
+    @JsonBackReference
     private List<OrderDto> orders;
+    @JsonBackReference
     private List<ReviewDto> reviews;
+    @JsonBackReference
     private List<ShopDto> shops;
+    @JsonBackReference
     private List<DiscountDto> discounts;
+    @JsonBackReference
     private List<MessageDto> messages;
+    @JsonBackReference
     private List<ChatDto> chats;
+    @JsonBackReference
     private List<FeedbackDto> feedbacks;
 
 }

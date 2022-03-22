@@ -1,7 +1,5 @@
 package com.amr.project.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,8 +8,8 @@ import java.util.List;
 
 
 @Entity
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item {
@@ -70,7 +68,7 @@ public class Item {
 
 
     @ManyToMany(mappedBy = "itemsInOrder")
-    private List<Order1> order1s;
+    private List<Order> orders;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;

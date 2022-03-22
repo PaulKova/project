@@ -8,8 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
 @Data
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItem {

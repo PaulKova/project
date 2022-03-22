@@ -9,8 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 //Обратная связь от покупателей (книга жалоб и предложений :))
 @Entity
 @Data
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Feedback {
