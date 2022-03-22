@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "user")
 @Data
 @Builder
 @AllArgsConstructor

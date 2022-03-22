@@ -1,19 +1,21 @@
 package com.amr.project.service.abstracts;
+import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
-    User getUserById(Long id);
+    UserDto getUserById(Long id);
 
-    void updateUser(User user);
+    void updateUser(UserDto user);
 
     void deleteUserById(Long id);
 
-    void saveUser(User user);
+    void saveUser(UserDto user);
 
     User getUserByEmail(String email);
 

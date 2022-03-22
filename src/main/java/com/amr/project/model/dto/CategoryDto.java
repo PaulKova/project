@@ -1,9 +1,8 @@
 package com.amr.project.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -13,10 +12,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDto {
-
+// ToDo Везде, где связь BiDerectional с 1 стороны должен стоять JsonIgnore / JsonBackReference
     private Long id;
     private String name;
 
+    @JsonBackReference
     private List<ItemDto> items;
 
 }

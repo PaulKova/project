@@ -1,9 +1,8 @@
 package com.amr.project.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -18,7 +17,9 @@ public class CityDto {
     private Long id;
     private String name;
 
+    @JsonBackReference
     private List<AddressDto> addresses;
+    @JsonManagedReference
     private CountryDto country;
 
 }

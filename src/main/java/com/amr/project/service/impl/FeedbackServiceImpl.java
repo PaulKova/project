@@ -7,6 +7,7 @@ import com.amr.project.model.entity.Feedback;
 import com.amr.project.service.abstracts.FeedbackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.amr.project.converter.CycleAvoidingMappingContext;
 
 import java.util.List;
 
@@ -26,18 +27,18 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public FeedbackDto getFeedbackById(Long id) {
         Feedback feedback = feedbackRepository.getById(id);
-        return feedbackMapper.toDto(feedback);
+        return feedbackMapper.toDto(feedback, new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveFeedback(FeedbackDto feedbackDto) {
-        Feedback feedback = feedbackMapper.toEntity(feedbackDto);
+        Feedback feedback = feedbackMapper.toEntity(feedbackDto, new CycleAvoidingMappingContext());
         feedbackRepository.saveAndFlush(feedback);
     }
 
     @Override
     public void updateFeedback(FeedbackDto feedbackDto) {
-        Feedback feedback = feedbackMapper.toEntity(feedbackDto);
+        Feedback feedback = feedbackMapper.toEntity(feedbackDto, new CycleAvoidingMappingContext());
         feedbackRepository.saveAndFlush(feedback);
     }
 
