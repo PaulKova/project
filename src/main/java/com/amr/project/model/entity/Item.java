@@ -6,17 +6,16 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Builder
+
 @Entity
-@Table(name = "item")
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
     @Column(name = "name", unique = true)
     private String name;
@@ -40,7 +39,7 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 

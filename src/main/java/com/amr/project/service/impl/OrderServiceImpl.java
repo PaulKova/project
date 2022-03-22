@@ -2,16 +2,12 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.OrderMapper;
 import com.amr.project.dao.OrderRepository;
-import com.amr.project.dao.UserRepository;
-import com.amr.project.model.dto.MessageDto;
 import com.amr.project.model.dto.OrderDto;
-import com.amr.project.model.entity.Message;
 import com.amr.project.model.entity.Order;
-import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.OrderService;
-import com.amr.project.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.amr.project.converter.CycleAvoidingMappingContext;
 
 import java.util.List;
 
@@ -24,23 +20,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getAllOrders() {
-        return orderMapper.toDtoList(orderRepository.findAll());
+        return orderMapper.toDtoList(orderRepository.findAll(), new CycleAvoidingMappingContext());
     }
 
     @Override
     public OrderDto getOrderById(Long id) {
-        return orderMapper.toDto(orderRepository.getById(id));
+        return orderMapper.toDto(orderRepository.getById(id), new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveOrder(OrderDto orderDto) {
-        Order order = orderMapper.toEntity(orderDto);
+        Order order = orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext());
         orderRepository.saveAndFlush(order);
     }
 
     @Override
     public void updateOrder(OrderDto orderDto) {
-        Order order = orderMapper.toEntity(orderDto);
+        Order order = orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext());
         orderRepository.saveAndFlush(order);
     }
 

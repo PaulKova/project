@@ -1,5 +1,6 @@
 package com.amr.project.service.impl;
 
+import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.mappers.CartItemMapper;
 import com.amr.project.dao.CartItemRepository;
 import com.amr.project.model.dto.CartItemDto;
@@ -8,7 +9,9 @@ import com.amr.project.service.abstracts.CartItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,24 +24,24 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public List<CartItemDto> getAllCartItems() {
         List<CartItem> cartItems = cartItemRepository.findAll();
-        return cartItemMapper.toDtoList(cartItems);
+        return cartItemMapper.toDtoList(cartItems, new CycleAvoidingMappingContext());
     }
 
     @Override
-    public CartItemDto getCartItemsById(Long id) {
+    public Optional<CartItemDto> getCartItemsById(Long id) {
         CartItem cartItem = cartItemRepository.getById(id);
-        return cartItemMapper.toDto(cartItem);
+        return Optional.of(cartItemMapper.toDto(cartItem, new CycleAvoidingMappingContext()));
     }
 
     @Override
     public void saveCartItem(CartItemDto cartItemDto) {
-        CartItem cartItem = cartItemMapper.toEntity(cartItemDto);
+        CartItem cartItem = cartItemMapper.toEntity(cartItemDto, new CycleAvoidingMappingContext());
         cartItemRepository.saveAndFlush(cartItem);
     }
 
     @Override
     public void updateCartItem(CartItemDto cartItemDto) {
-        CartItem cartItem = cartItemMapper.toEntity(cartItemDto);
+        CartItem cartItem = cartItemMapper.toEntity(cartItemDto, new CycleAvoidingMappingContext());
         cartItemRepository.saveAndFlush(cartItem);
     }
 

@@ -5,17 +5,18 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Builder
+
 @Entity
-@Table(name = "shop")
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
     @Column(unique = true)
     private String name;
@@ -98,8 +99,15 @@ public class Shop {
     private List<Coupon> coupons;
 
 
-    private boolean isModerated = false;
-    private boolean isModerateAccept = false;
+    private boolean isModerated;
+    private boolean isModerateAccept;
     private String moderatedRejectReason;
-    private boolean isPretendentToBeDeleted = false;
+    private boolean isPretendedToBeDeleted;
+
+    public boolean isPretendedToBeDeleted() {
+        return isPretendedToBeDeleted;
+    }
+
+
+
 }

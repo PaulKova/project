@@ -7,8 +7,10 @@ import com.amr.project.model.entity.Favorite;
 import com.amr.project.service.abstracts.FavoriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.amr.project.converter.CycleAvoidingMappingContext;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,24 +22,24 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public List<FavoriteDto> getAllFavorites() {
         List<Favorite> favorites = favoriteRepository.findAll();
-        return favoriteMapper.toDtoList(favorites);
+        return favoriteMapper.toDtoList(favorites, new CycleAvoidingMappingContext());
     }
 
     @Override
-    public FavoriteDto getFavoriteById(Long id) {
-        Favorite favorite = favoriteRepository.getById(id);
-        return favoriteMapper.toDto(favorite);
+    public FavoriteDto findById(Long id) {
+        Optional<Favorite> favorite = favoriteRepository.findById(id);
+        return favoriteMapper.toDto(favorite.get(), new CycleAvoidingMappingContext());
     }
 
     @Override
     public void saveFavorite(FavoriteDto favoriteDto) {
-        Favorite favorite = favoriteMapper.toEntity(favoriteDto);
+        Favorite favorite = favoriteMapper.toEntity(favoriteDto, new CycleAvoidingMappingContext());
         favoriteRepository.saveAndFlush(favorite);
     }
 
     @Override
     public void updateFavorite(FavoriteDto favoriteDto) {
-        Favorite favorite = favoriteMapper.toEntity(favoriteDto);
+        Favorite favorite = favoriteMapper.toEntity(favoriteDto, new CycleAvoidingMappingContext());
         favoriteRepository.saveAndFlush(favorite);
     }
 

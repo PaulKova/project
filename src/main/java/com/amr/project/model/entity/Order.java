@@ -1,31 +1,26 @@
 package com.amr.project.model.entity;
 
 import com.amr.project.model.enums.Status;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "orders")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="order_by_user")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-
-    @Column(name = "data", nullable = false)
+    @Column(name = "data")
     private Calendar orderDate;//дата заказа
 
     @Column(name = "delyv_data")
@@ -54,7 +49,7 @@ public class Order {
                     CascadeType.REFRESH,
                     CascadeType.DETACH})
     @JoinTable(name = "order_item",
-            joinColumns = @JoinColumn(name = "order_id"),
+            joinColumns = @JoinColumn(name = "order_by_user_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> itemsInOrder;
 

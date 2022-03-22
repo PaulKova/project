@@ -1,26 +1,22 @@
 package com.amr.project.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import org.springframework.data.relational.core.mapping.Table;
 
-
+//Обратная связь от покупателей (книга жалоб и предложений :))
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "feedback")
 public class Feedback {
-    //TODO обратная связь от покупателей (книга жалоб и предложений :))
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     private String reason;

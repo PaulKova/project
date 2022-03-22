@@ -1,9 +1,9 @@
 package com.amr.project.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,12 +25,19 @@ public class ItemDto {
     private String description;
     private int discount;
 
+    @JsonManagedReference
     private CategoryDto category;
+    @JsonManagedReference
     private CartItemDto cartItem;
+    @JsonBackReference
     private List<ImageDto> images;
+    @JsonBackReference
     private List<ReviewDto> reviews;
+    @JsonBackReference
     private List<FavoriteDto> favorites;
+    @JsonBackReference
     private List<OrderDto> orders;
+    @JsonManagedReference
     private ShopDto shop;
 
     private boolean isModerated;

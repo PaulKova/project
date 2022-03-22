@@ -1,26 +1,21 @@
 package com.amr.project.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "cart_item")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItem {
-    //TODO товары в корзине, продумать какие поля им нужны, нужны-ли связи?
 
     @Id
-    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "quantity")

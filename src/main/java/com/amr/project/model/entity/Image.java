@@ -1,30 +1,27 @@
 package com.amr.project.model.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import org.springframework.data.relational.core.mapping.Table;
 
+//Картинки будем хранить в БД (для удобства, хотя это и плохая практика)
 @Entity
-@Table(name = "image")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Image {
-    //TODO картинки будем хранить в БД (для удобства, хотя это и плохая практика)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     private byte[] picture;
 
-    private Boolean isMain = false;
+    private Boolean isMain;
 
 
     @OneToOne(fetch = FetchType.LAZY)
