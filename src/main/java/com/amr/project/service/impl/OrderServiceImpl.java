@@ -3,7 +3,7 @@ package com.amr.project.service.impl;
 import com.amr.project.converter.mappers.OrderMapper;
 import com.amr.project.dao.OrderRepository;
 import com.amr.project.model.dto.OrderDto;
-import com.amr.project.model.entity.Order1;
+import com.amr.project.model.entity.Order;
 import com.amr.project.service.abstracts.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,14 +30,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void saveOrder(OrderDto orderDto) {
-        Order1 order1 = orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext());
-        orderRepository.saveAndFlush(order1);
+        Order order = orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext());
+        orderRepository.saveAndFlush(order);
     }
 
     @Override
     public void updateOrder(OrderDto orderDto) {
-        Order1 order1 = orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext());
-        orderRepository.saveAndFlush(order1);
+        Order order = orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext());
+        orderRepository.saveAndFlush(order);
     }
 
     @Override

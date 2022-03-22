@@ -1,6 +1,8 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.entity.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.Embedded;
@@ -18,7 +20,8 @@ public class CartItemDto {
     private User user;
 
 
-
+    @JsonManagedReference
     private ShopDto shop;
+    @JsonBackReference
     private List<ItemDto> itemList;
 }

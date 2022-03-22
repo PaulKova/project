@@ -1,5 +1,6 @@
 package com.amr.project.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 
@@ -14,6 +15,7 @@ public class DiscountDto {
     private Integer percentage;
     private Integer fixedDiscount;
 
+    @JsonManagedReference
     private ShopDto shop;
 
 

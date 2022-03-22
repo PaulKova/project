@@ -1,6 +1,7 @@
 package com.amr.project.model.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 @Data
@@ -12,7 +13,9 @@ public class ImageDto {
     private byte[] picture;
     private Boolean isMain;
 
+    @JsonManagedReference
     private ShopDto shop;
+
 
 
 }

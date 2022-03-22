@@ -1,6 +1,8 @@
 package com.amr.project.model.dto;
 
 import ch.qos.logback.core.status.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -22,9 +24,13 @@ public class OrderDto {
     private String description;
 
 
+    @JsonManagedReference
     private StatusDto status;
+    @JsonManagedReference
     private UserDto user;
+    @JsonBackReference
     private List<ItemDto> itemsInOrder;
+    @JsonManagedReference
     private AddressDto address;
 
 

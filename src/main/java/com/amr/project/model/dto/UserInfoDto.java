@@ -1,6 +1,8 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.util.Calendar;
@@ -16,9 +18,10 @@ public class UserInfoDto {
     private String firstName;
     private String lastName;
     private int age;
-
-
-    private GenderDto gender;
     private Calendar birthday;
+
+    @JsonManagedReference
+    private GenderDto gender;
+    @JsonManagedReference
     private UserDto user;
 }

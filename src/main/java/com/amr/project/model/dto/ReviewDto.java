@@ -1,6 +1,7 @@
 package com.amr.project.model.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.util.Date;
@@ -17,8 +18,12 @@ public class ReviewDto {
     private String text;
     private Date date;
     private int rating;
+
+    @JsonManagedReference
     private UserDto user;
+    @JsonManagedReference
     private ShopDto shop;
+    @JsonManagedReference
     private ItemDto item;
 
     private boolean isModerated;

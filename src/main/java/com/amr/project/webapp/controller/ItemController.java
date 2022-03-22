@@ -51,7 +51,7 @@ public class ItemController {
     @Operation(summary = "get all items")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items")
     public ResponseEntity<List<ItemDto>> getAllItems() {
         List<ItemDto> items = itemService.getAllItems();
@@ -63,7 +63,7 @@ public class ItemController {
     @Operation(summary = "get item by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/{id}")
     public ResponseEntity<ItemDto> getItem(@PathVariable(name = "id") Long id) {
         ItemDto itemDto = itemService.getItemById(id);
@@ -75,7 +75,7 @@ public class ItemController {
     @Operation(summary = "get first four item by rating")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/items/top")
     public ResponseEntity<List<ItemDto>> getFistForItemsByRating() {
         List<ItemDto> itemDtos = itemService.findFirst4ByOrderByRatingDesc();
@@ -89,7 +89,7 @@ public class ItemController {
     @Operation(summary = "get items marked to delete")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/admin/items/pretended/delete")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ItemDto>> getItemsPretendedToDelete() {

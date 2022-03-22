@@ -27,17 +27,17 @@ public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
     private static final String NEW_ORDER_LOG = "New order was created id:{}";
-    private static final String ORDER_UPDATED_LOG = "Order1 id:{} was updated";
-    private static final String GET_ORDER_LOG = "Order1 id:{} is loaded";
-    private static final String GET_ORDERS_LOG = "{} order1s is loaded";
-    private static final String DELETE_ORDER_LOG = "Order1 id:{} is deleted";
+    private static final String ORDER_UPDATED_LOG = "Order id:{} was updated";
+    private static final String GET_ORDER_LOG = "Order id:{} is loaded";
+    private static final String GET_ORDERS_LOG = "{} orders is loaded";
+    private static final String DELETE_ORDER_LOG = "Order id:{} is deleted";
 
     private final OrderService orderService;
 
-    @Operation(summary = "get all order1s")
+    @Operation(summary = "get all orders")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Orders found", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = OrderDto.class))}),
-            @ApiResponse(responseCode = "404", description = "No order1s found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "No orders found", content = @Content)})
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDto>> getAllCategories() {
         List<OrderDto> orders = orderService.getAllOrders();
@@ -48,7 +48,7 @@ public class OrderController {
     @Operation(summary = "get order by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = OrderDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order1 not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/orders/{id}")
     public ResponseEntity<Optional<OrderDto>> getOrder(@PathVariable(name = "id") Long id) {
         OrderDto orderDto = orderService.getOrderById(id);
@@ -56,10 +56,10 @@ public class OrderController {
         return new ResponseEntity<>(Optional.of(orderDto), HttpStatus.OK);
     }
 
-    @Operation(summary = "Create a new Order1")
+    @Operation(summary = "Create a new Order")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
-                    description = "Order1 is created",
+                    description = "Order is created",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = OrderDto.class)))
     })
@@ -70,14 +70,14 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Update an Order1 by ID")
+    @Operation(summary = "Update an Order by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Order1 was updated",
+                    description = "Order was updated",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = OrderDto.class))),
             @ApiResponse(responseCode = "404",
-                    description = "Order1 not found",
+                    description = "Order not found",
                     content = @Content)
     })
     @PutMapping("/orders")
@@ -87,14 +87,14 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary = "Delete an Order1 by ID")
+    @Operation(summary = "Delete an Order by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Order1 was deleted",
+                    description = "Order was deleted",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = OrderDto.class))),
             @ApiResponse(responseCode = "404",
-                    description = "Order1 not found",
+                    description = "Order not found",
                     content = @Content)
     })
     @DeleteMapping("/orders/{id}")

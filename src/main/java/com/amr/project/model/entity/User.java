@@ -79,7 +79,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Order1> order1s;
+    private Set<Order> orders;
 
 
     @OneToMany(

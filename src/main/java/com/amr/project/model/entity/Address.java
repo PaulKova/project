@@ -10,6 +10,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="addrezz")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,5 +56,5 @@ public class Address {
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "address")
-    private List<Order1> order1s;
+    private List<Order> orders;
 }
