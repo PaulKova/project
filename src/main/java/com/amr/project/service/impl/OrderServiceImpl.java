@@ -4,6 +4,7 @@ import com.amr.project.converter.mappers.OrderMapper;
 import com.amr.project.dao.OrderRepository;
 import com.amr.project.model.dto.OrderDto;
 import com.amr.project.model.entity.Order;
+import com.amr.project.service.MailSender;
 import com.amr.project.service.abstracts.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
