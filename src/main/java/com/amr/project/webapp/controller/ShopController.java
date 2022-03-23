@@ -47,10 +47,6 @@ public class ShopController {
     private final ShopService shopService;
     private final ShopMapper shopMapper;
 
-
-
-
-
     @Operation(summary = "Getting all shops")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of shops created", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
