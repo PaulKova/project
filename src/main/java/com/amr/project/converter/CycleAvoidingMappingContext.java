@@ -8,7 +8,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.TargetType;
 
 public class CycleAvoidingMappingContext {
-    private Map<Object, Object> knownInstances = new IdentityHashMap<Object, Object>();
+    private Map<Object, Object> knownInstances = new IdentityHashMap<>();
 
     @BeforeMapping
     public <T> T getMappedInstance(Object source, @TargetType Class<T> targetType) {
