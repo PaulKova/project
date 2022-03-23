@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +18,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-    @Column(name = "name", unique = true)
+
+    //TODO: проверить "правильность" параметра unique (могут быть товары с одинаковыми наименованиями у разных Shops, Users, CartItems)
+    @Column(name = "name"/*, unique = true*/)
     private String name;
 
     @Column(name = "base_price")
@@ -67,8 +70,16 @@ public class Item {
     private List<Favorite> favorites;
 
 
-    @ManyToMany(mappedBy = "itemsInOrder")
-    private List<Order> orders;
+    //TODO: произведена замена типа связи с order (с ManyToMany на ManyToOne)
+    //Комментарий: для каждой корзины (заказа) нужна отдельная запись в таблице "item"
+    //так как информация о кол-ве заказанного товара хранится в Сущности Item
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;
+
+
+    /*@ManyToMany(mappedBy = "itemsInOrder")
+    @OrderBy("orderDate ASC")
+    private List<Order> orders = new ArrayList<>();*/
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;

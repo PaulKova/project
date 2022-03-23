@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
 @Data
@@ -19,7 +18,7 @@ public class CartItem {
     private Long id;
 
     @Column(name = "quantity")
-    private int quantity;
+    private int quantity; //"Лишнее" поле (информация о кол-ве товара хранится в поле "count" сущности "Item"
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,5 +35,5 @@ public class CartItem {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Item> itemList;
+    private List<Item> itemsInCart;
 }

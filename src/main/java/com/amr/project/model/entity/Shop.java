@@ -38,7 +38,7 @@ public class Shop {
     @OneToMany(
             mappedBy = "shop",
             cascade = CascadeType.ALL,
-            orphanRemoval = false
+            orphanRemoval = true
     )
     private List<Item> items;
 

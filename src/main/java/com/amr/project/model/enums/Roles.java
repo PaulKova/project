@@ -1,7 +1,5 @@
 package com.amr.project.model.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
 
@@ -13,6 +11,6 @@ public enum Roles implements GrantedAuthority{
 
     @Override
     public String getAuthority() {
-        return null;
+        return name();
     }
 }
