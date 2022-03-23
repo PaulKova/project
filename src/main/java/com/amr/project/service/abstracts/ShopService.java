@@ -1,6 +1,6 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.GrandSalesDto;
+import com.amr.project.model.dto.report.GrandSalesDto;
 import com.amr.project.model.dto.ShopDto;
 
 import org.springframework.data.domain.Pageable;
@@ -30,5 +30,5 @@ public interface ShopService {
 
     List<ShopDto> searchShopsByNameSortedByRatingDesc(String pattern, Pageable pageable);
 
-    GrandSalesDto getSalesReport(Long shopId, String itemName, Calendar startData, Calendar finishData);
+    GrandSalesDto getSalesReport(Long itemId, Calendar startData, Calendar finishData);
 }

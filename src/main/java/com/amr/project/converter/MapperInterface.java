@@ -5,7 +5,7 @@ import java.util.List;
 import org.mapstruct.Context;
 
 
-//TODO: ЛИКВИДИРОВАТЬ ЦИКЛИЧЕСКУЮ ЗАВИСИМОСТЬ В MAPSTRUCT (при работе со списками)
+
 public interface MapperInterface<D, E> {
 
     D toDto(E entity,

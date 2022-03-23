@@ -1,5 +1,6 @@
 package com.amr.project.model.entity;
 
+import com.amr.project.model.entity.report.SalesHistory;
 import lombok.*;
 
 import javax.persistence.*;
@@ -70,19 +71,21 @@ public class Item {
     private List<Favorite> favorites;
 
 
-    //TODO: произведена замена типа связи с order (с ManyToMany на ManyToOne)
-    //Комментарий: для каждой корзины (заказа) нужна отдельная запись в таблице "item"
-    //так как информация о кол-ве заказанного товара хранится в Сущности Item
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Order order;
 
-
-    /*@ManyToMany(mappedBy = "itemsInOrder")
+    @ManyToMany(mappedBy = "itemsInOrder")
     @OrderBy("orderDate ASC")
-    private List<Order> orders = new ArrayList<>();*/
+    private List<Order> orders = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
+
+
+    @OneToMany(
+            mappedBy = "item",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<SalesHistory> history;
 
 
     private boolean isModerated;

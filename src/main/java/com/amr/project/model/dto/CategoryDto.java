@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDto {
-// ToDo Везде, где связь BiDerectional с 1 стороны должен стоять JsonIgnore / JsonBackReference
+
     private Long id;
     private String name;
 

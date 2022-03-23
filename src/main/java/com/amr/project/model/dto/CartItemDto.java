@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
-import javax.persistence.Embedded;
 import java.util.List;
-import java.util.Set;
 
 
 @Data
@@ -23,5 +21,5 @@ public class CartItemDto {
     @JsonManagedReference
     private ShopDto shop;
     @JsonBackReference
-    private List<ItemDto> itemList;
+    private List<ItemDto> itemsInCart;
 }

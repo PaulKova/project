@@ -3,9 +3,8 @@ package com.amr.project.webapp.controller;
 
 import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.mappers.ShopMapper;
-import com.amr.project.model.dto.GrandSalesDto;
+import com.amr.project.model.dto.report.GrandSalesDto;
 import com.amr.project.model.dto.ItemDto;
-import com.amr.project.model.dto.SalesDto;
 import com.amr.project.model.dto.ShopDto;
 import com.amr.project.model.entity.Shop;
 import com.amr.project.service.abstracts.ShopService;
@@ -16,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -131,17 +131,16 @@ public class ShopController {
     @Operation(summary = "Getting sales report by Shop ID, filtering by Item and Data")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Report is ready", content = {@Content(mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = SalesDto.class))}),
+                    schema = @Schema(implementation = GrandSalesDto.class))}),
             @ApiResponse(responseCode = "404", description = "An error has occurred", content = @Content)})
     @GetMapping("/sales")
     public ResponseEntity<GrandSalesDto> getSalesReport(
-            @RequestParam(value = "shopId") Long shopId,
-            @RequestParam("itemName") String itemName,
-            @RequestParam("startData") Calendar startData,
-            @RequestParam("finishData")Calendar finishData
+            @RequestParam("itemId") Long itemId,
+            @RequestParam("startData") @DateTimeFormat(pattern = "dd.MM.yyyy") Calendar startData,
+            @RequestParam("finishData") @DateTimeFormat(pattern = "dd.MM.yyyy") Calendar finishData
             ) {
 
-        GrandSalesDto report = shopService.getSalesReport(shopId, itemName, startData, finishData);
+        GrandSalesDto report = shopService.getSalesReport(itemId, startData, finishData);
 
         return new ResponseEntity<>(report, HttpStatus.OK);
     }

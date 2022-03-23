@@ -18,7 +18,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //ToDo добавить доступ к корзине для товаров для все, включая анонима
+    //ToDo добавить доступ к корзине для товаров для всех, включая анонима
 
 
     @Override

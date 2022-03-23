@@ -43,11 +43,10 @@ public class Order {
     private User user;
 
 
-    @OneToMany(
-            mappedBy = "order",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany
+    @JoinTable(name = "order_item",
+            joinColumns = @JoinColumn(name = "order_by_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> itemsInOrder;
 
 

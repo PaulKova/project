@@ -1,13 +1,15 @@
 package com.amr.project.model.dto;
 
+import com.amr.project.model.dto.report.SalesHistoryDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
@@ -26,6 +28,8 @@ public class ItemDto {
     private int discount;
 
     @JsonManagedReference
+    private UserDto user;
+    @JsonManagedReference
     private CategoryDto category;
     @JsonManagedReference
     private CartItemDto cartItem;
@@ -39,6 +43,8 @@ public class ItemDto {
     private List<OrderDto> orders;
     @JsonManagedReference
     private ShopDto shop;
+    @JsonBackReference
+    private List<SalesHistoryDto> history;
 
     private boolean isModerated;
     private boolean isModerateAccept;

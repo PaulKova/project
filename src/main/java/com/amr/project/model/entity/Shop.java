@@ -27,7 +27,7 @@ public class Shop {
     @Column
     private String description;
 
-    private int count;
+    private int count;      //что за поле? Нет описания
 
     private double rating;
 

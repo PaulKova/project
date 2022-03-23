@@ -3,11 +3,13 @@ package com.amr.project.service.impl;
 import com.amr.project.converter.mappers.ShopMapper;
 import com.amr.project.dao.ItemRepository;
 import com.amr.project.dao.ShopRepository;
-import com.amr.project.model.dto.GrandSalesDto;
-import com.amr.project.model.dto.SalesDto;
+import com.amr.project.dao.report.SalesHistoryRepository;
+import com.amr.project.model.dto.report.GrandSalesDto;
+import com.amr.project.model.dto.report.SalesDto;
 import com.amr.project.model.dto.ShopDto;
 import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Shop;
+import com.amr.project.model.entity.report.SalesHistory;
 import com.amr.project.model.enums.Status;
 import com.amr.project.service.abstracts.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
     private final ItemRepository itemRepository;
+    private final SalesHistoryRepository salesHistoryRepository;
     private final ShopMapper shopMapper;
 
 
@@ -100,25 +103,25 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public GrandSalesDto getSalesReport(Long shopId, String itemName, Calendar startData, Calendar finishData) {
+    public GrandSalesDto getSalesReport(Long itemId, Calendar startData, Calendar finishData) {
         BigDecimal grandTotalSum = BigDecimal.valueOf(0);
         BigDecimal grandTotalProfit = BigDecimal.valueOf(0);
         GrandSalesDto salesReport = new GrandSalesDto();
 
 
-        List<Item> listItemsRequest = itemRepository.findByShop_IdIsAndNameLikeIgnoreCaseAndOrder_StatusIsOrOrder_StatusIsOrOrder_StatusIsAndOrder_OrderDateIsBetweenOrderByOrder_OrderDateDesc(shopId, itemName, Status.PAID, Status.SENT, Status.DELIVERED, startData, finishData);
+        List<SalesHistory> listRequest = salesHistoryRepository.findByItem_IdIsAndOrderDateBetweenOrderByOrderDateAsc(itemId, startData, finishData);
 
-        List<SalesDto> salesDtoList = new ArrayList<>(listItemsRequest.size());
+        List<SalesDto> salesDtoList = new ArrayList<>(listRequest.size());
 
-        for (Item item : listItemsRequest) {
+        for (SalesHistory request : listRequest) {
             SalesDto salesDto = new SalesDto();
-            salesDto.setItem(item.getName());
-            salesDto.setOrderDate(item.getOrder().getOrderDate());
-            salesDto.setCount(item.getCount());
-            salesDto.setTotalSum(item.getPrice().multiply(BigDecimal.valueOf(item.getCount())));
-            salesDto.setBasePrice(item.getBasePrice());
-            salesDto.setProfit(item.getPrice().subtract(item.getBasePrice()));
-            salesDto.setTotalProfit(salesDto.getProfit().multiply(BigDecimal.valueOf(item.getCount())));
+            salesDto.setItem(request.getItem().getName());
+            salesDto.setOrderDate(request.getOrderDate());
+            salesDto.setCount(request.getCount());
+            salesDto.setTotalSum(request.getPrice().multiply(BigDecimal.valueOf(request.getCount())));
+            salesDto.setBasePrice(request.getBasePrice());
+            salesDto.setProfit(request.getPrice().subtract(request.getBasePrice()));
+            salesDto.setTotalProfit(salesDto.getProfit().multiply(BigDecimal.valueOf(request.getCount())));
 
             salesDtoList.add(salesDto);
             grandTotalSum = grandTotalSum.add(salesDto.getTotalSum());
