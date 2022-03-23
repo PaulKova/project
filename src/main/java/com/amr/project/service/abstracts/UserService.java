@@ -18,4 +18,6 @@ public interface UserService {
     void saveUser(UserDto user);
 
     User getUserByEmail(String email);
+
+    boolean activateUser(String code);
 }

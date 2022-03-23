@@ -19,6 +19,7 @@ public class Image {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @Lob
     private byte[] picture;
 
     private Boolean isMain;
