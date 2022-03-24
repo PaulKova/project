@@ -1,15 +1,13 @@
 package com.amr.project.service.impl;
 
-import com.amr.project.converter.MapperInterface;
 import com.amr.project.converter.mappers.OrderMapper;
 import com.amr.project.dao.OrderRepository;
-import com.amr.project.model.Mail;
 import com.amr.project.model.dto.OrderDto;
 import com.amr.project.model.dto.StatusDto;
 import com.amr.project.model.entity.Order;
-import com.amr.project.model.enums.Status;
 import com.amr.project.service.MailSender;
 import com.amr.project.service.abstracts.OrderService;
+import com.amr.project.util.EmailOrderAssistant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.amr.project.converter.CycleAvoidingMappingContext;
@@ -24,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
 
     private final MailSender mailSender;
-    private final EmailAssistantService emailAssistantService;
+    private final EmailOrderAssistant emailAssistantService;
 
 
     @Override
@@ -104,10 +102,5 @@ public class OrderServiceImpl implements OrderService {
         OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
         order.setStatus(StatusDto.DELIVERED);
         updateOrder(order);
-    }
-
-    @Override
-    public void changeStatusToCompleted(Long order_id) {
-
     }
 }

@@ -29,5 +29,4 @@ public interface OrderService {
 
     void changeStatusToDelivered(Long order_id);
 
-    void changeStatusToCompleted(Long order_id);
 }
