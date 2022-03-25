@@ -5,6 +5,9 @@ import com.amr.project.dao.ItemRepository;
 import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.entity.Item;
 import com.amr.project.service.abstracts.ItemService;
+import com.amr.project.service.email.MailSender;
+import com.amr.project.util.EmailItemAssistant;
+import com.amr.project.util.EmailOrderAssistant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,9 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
+
+    private final MailSender mailSender;
+    private final EmailItemAssistant emailItemAssistant;
 
 
     @Override
@@ -41,17 +47,20 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void saveItem(ItemDto itemDto) {
         Item item = itemMapper.toEntity(itemDto, new CycleAvoidingMappingContext());
+        mailSender.send(emailItemAssistant.trackedEmailItemSave(item));
         itemRepository.saveAndFlush(item);
     }
 
     @Override
     public void updateItem(ItemDto itemDto) {
         Item item = itemMapper.toEntity(itemDto, new CycleAvoidingMappingContext());
+        mailSender.send(emailItemAssistant.trackedEmailItemUpdate(item));
         itemRepository.saveAndFlush(item);
     }
 
     @Override
     public void deleteItem(Long id) {
+        mailSender.send(emailItemAssistant.trackedEmailItemDelete(itemRepository.getById(id)));
         itemRepository.deleteById(id);
     }
 

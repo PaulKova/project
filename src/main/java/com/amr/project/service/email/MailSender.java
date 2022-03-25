@@ -1,4 +1,4 @@
-package com.amr.project.service;
+package com.amr.project.service.email;
 
 import com.amr.project.model.Mail;
 import org.springframework.beans.factory.annotation.Autowired;

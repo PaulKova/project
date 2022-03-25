@@ -5,7 +5,7 @@ import com.amr.project.dao.OrderRepository;
 import com.amr.project.model.dto.OrderDto;
 import com.amr.project.model.dto.StatusDto;
 import com.amr.project.model.entity.Order;
-import com.amr.project.service.MailSender;
+import com.amr.project.service.email.MailSender;
 import com.amr.project.service.abstracts.OrderService;
 import com.amr.project.util.EmailOrderAssistant;
 import lombok.RequiredArgsConstructor;
