@@ -34,6 +34,19 @@ public class EmailShopAssistant {
         if(!shopOriginal.getDescription().equals(shop.getDescription())) {
             message += "Description: " + shop.getDescription();
         }
+        ////
+        if(shop.isModerated()) {
+            message += "Moderated: " + shop.getName();
+        }
+        if(shop.isModerateAccept()) {
+            message += "ModerateAccept: " + shop.getName();
+        }
+        if(shop.isPretendedToBeDeleted()) {
+            message += "PretendedToBeDeleted: " + shop.getName();
+        }
+        if(shop.getModeratedRejectReason() != null) {
+            message += "ModeratedRejectReason: " + shop.getModeratedRejectReason();
+        }
 
         mail.setText(message);
 
