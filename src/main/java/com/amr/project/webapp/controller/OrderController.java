@@ -65,6 +65,7 @@ public class OrderController {
     })
     @PostMapping("/orders")
     public ResponseEntity<HttpStatus> createOrder(@RequestBody OrderDto orderDto) {
+        orderService.changeStatusToWaiting(orderDto.getId());
         orderService.saveOrder(orderDto);
         logger.info(NEW_ORDER_LOG, orderDto.getId());
         return new ResponseEntity<>(HttpStatus.CREATED);

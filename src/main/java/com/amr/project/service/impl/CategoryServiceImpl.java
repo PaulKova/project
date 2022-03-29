@@ -5,6 +5,8 @@ import com.amr.project.dao.CategoryRepository;
 import com.amr.project.model.dto.CategoryDto;
 import com.amr.project.model.entity.Category;
 import com.amr.project.service.abstracts.CategoryService;
+import com.amr.project.service.email.MailSender;
+import com.amr.project.util.EmailCategoryAssistant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.amr.project.converter.CycleAvoidingMappingContext;
@@ -17,6 +19,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
     private final CategoryRepository categoryRepository;
+    private final MailSender mailSender;
+    private final EmailCategoryAssistant emailCategoryAssistant;
 
 
     @Override
@@ -34,17 +38,20 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void saveCategory(CategoryDto categoryDto) {
         Category category = categoryMapper.toEntity(categoryDto, new CycleAvoidingMappingContext());
+        mailSender.send(emailCategoryAssistant.trackedEmailCategoryCreated(category));
         categoryRepository.saveAndFlush(category);
     }
 
     @Override
     public void updateCategory(CategoryDto categoryDto) {
         Category category = categoryMapper.toEntity(categoryDto, new CycleAvoidingMappingContext());
+        mailSender.send(emailCategoryAssistant.trackedEmailCategoryUpdate(category));
         categoryRepository.saveAndFlush(category);
     }
 
     @Override
     public void deleteCategory(Long id) {
+        mailSender.send(emailCategoryAssistant.trackedEmailCategoryDelete(id));
         categoryRepository.deleteById(id);
     }
 }

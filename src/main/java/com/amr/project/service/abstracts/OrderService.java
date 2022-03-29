@@ -16,4 +16,17 @@ public interface OrderService {
     void updateOrder(OrderDto orderDto);
 
     void deleteOrder(Long id);
+
+    void changeStatusToStart(Long order_id);
+
+    void changeStatusToComplete(Long order_id);
+
+    void changeStatusToWaiting(Long order_id);
+
+    void changeStatusToPaid(Long order_id);
+
+    void changeStatusToSent(Long order_id);
+
+    void changeStatusToDelivered(Long order_id);
+
 }
