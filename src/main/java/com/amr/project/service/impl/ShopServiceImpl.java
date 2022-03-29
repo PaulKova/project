@@ -25,6 +25,7 @@ public class ShopServiceImpl implements ShopService {
     private final ShopMapper shopMapper;
 
 
+
     @Override
     public List<ShopDto> getAllShops() {
         List<Shop> shops = shopRepository.findAll();
