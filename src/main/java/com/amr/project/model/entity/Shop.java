@@ -108,6 +108,8 @@ public class Shop {
         return isPretendedToBeDeleted;
     }
 
-
-
+    public Shop(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

@@ -7,7 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @SpringBootTest
 public class TestImageMapper {
 
-  /*  private final ItemSetMapper itemSetMapper = new ItemSetMapperImpl();
+    private final ItemSetMapper itemSetMapper = new ItemSetMapperImpl();
 
    private final UserSetMapper userSetMapper = new UserSetMapperImpl();
 
@@ -42,5 +42,5 @@ public class TestImageMapper {
         Assertions.assertEquals(city.getId(), cityDto.getId());
         Assertions.assertEquals(city.getName(), cityDto.getName());
 
-    }*/
+    }
 }

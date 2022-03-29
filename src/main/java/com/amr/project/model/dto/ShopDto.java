@@ -22,17 +22,17 @@ public class ShopDto {
     private int count;
     private double rating;
 
-    @JsonManagedReference
+    //@JsonManagedReference
     private Country location;
     @JsonBackReference
     private List<ItemDto> items;
     @JsonBackReference
     private List<ReviewDto> reviews;
-    @JsonManagedReference
+    //@JsonManagedReference
     private ImageDto logo;
-    @JsonManagedReference
+    //@JsonManagedReference
     private UserDto user;
-    @JsonManagedReference
+    //@JsonManagedReference
     private CartItemDto cartItem;
     @JsonBackReference
     private List<FeedbackDto> feedbacks;
@@ -40,7 +40,7 @@ public class ShopDto {
     private List<DiscountDto> discounts;
     @JsonBackReference
     private List<FavoriteDto> favorites;
-    @JsonManagedReference
+    //@JsonManagedReference
     private AddressDto address;
     @JsonBackReference
     private List<CouponDto> coupons;
@@ -50,4 +50,8 @@ public class ShopDto {
     private String moderatedRejectReason;
     private boolean isPretendedToBeDeleted;
 
+    public ShopDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

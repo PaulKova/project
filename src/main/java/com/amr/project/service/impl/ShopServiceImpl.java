@@ -1,16 +1,14 @@
 package com.amr.project.service.impl;
 
+import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.mappers.ShopMapper;
-import com.amr.project.dao.ItemRepository;
 import com.amr.project.dao.ShopRepository;
 import com.amr.project.dao.report.SalesHistoryRepository;
+import com.amr.project.model.dto.ShopDto;
 import com.amr.project.model.dto.report.GrandSalesDto;
 import com.amr.project.model.dto.report.SalesDto;
-import com.amr.project.model.dto.ShopDto;
-import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Shop;
 import com.amr.project.model.entity.report.SalesHistory;
-import com.amr.project.model.enums.Status;
 import com.amr.project.service.abstracts.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +20,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import com.amr.project.converter.CycleAvoidingMappingContext;
 
 
 @Service
@@ -30,7 +27,6 @@ import com.amr.project.converter.CycleAvoidingMappingContext;
 public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
-    private final ItemRepository itemRepository;
     private final SalesHistoryRepository salesHistoryRepository;
     private final ShopMapper shopMapper;
 
