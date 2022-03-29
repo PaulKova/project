@@ -6,9 +6,9 @@ import com.amr.project.model.Mail;
 import com.amr.project.model.dto.RolesDto;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
-import com.amr.project.model.enums.Roles;
-import com.amr.project.service.MailSender;
+import com.amr.project.service.email.MailSender;
 import com.amr.project.service.abstracts.UserService;
+import com.amr.project.util.EmailUserAssistant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MailSender mailSender;
+    private EmailUserAssistant emailUserAssistant;
 
 
     private final UserRepository userRepository;
@@ -53,11 +54,13 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDto user) {
         User user1 = userMapper.toEntity(user, new CycleAvoidingMappingContext());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        mailSender.send(emailUserAssistant.trackedEmailUserUpdate(user1));
         userRepository.saveAndFlush(user1);
     }
 
     @Override
     public void deleteUserById(Long id) {
+        mailSender.send(emailUserAssistant.trackedEmailUserDelete(userRepository.getById(id)));
         userRepository.deleteById(id);
     }
 
@@ -70,7 +73,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         if (user.getEmail() != null) {
-            String message = String.format("Your activation code %s", user.getActivationCode());
+            String message = "<a href=http://localhost:8888/registrationConfirm?" +
+                    "&code=" + user.getActivationCode() +
+                    "> + Verify email and activate account</a>";
             Mail verificationMail = new Mail();
             verificationMail.setTo(user.getEmail());
             verificationMail.setText(message);
@@ -84,12 +89,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.getUserByEmail(email);
     }
 
-    public boolean activateUser (String code) {
+    public String activateUser(String code) {
         User user = userRepository.findByActivationCode(code);
         if (user == null) {
-            return false;
+            return "user nor found";
+        }
+        if (user.getActivationCode().equals(code)) {
+            user.setActivate(true);
         }
         user.setActivationCode(null);
-        return true;
+        return "user activated";
     }
 }

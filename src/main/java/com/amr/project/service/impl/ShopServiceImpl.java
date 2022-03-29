@@ -2,11 +2,11 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.mappers.ShopMapper;
 import com.amr.project.dao.ShopRepository;
-import com.amr.project.exception.ShopAlreadyExistingException;
-import com.amr.project.exception.ShopNotFoundException;
 import com.amr.project.model.dto.ShopDto;
 import com.amr.project.model.entity.Shop;
 import com.amr.project.service.abstracts.ShopService;
+import com.amr.project.service.email.MailSender;
+import com.amr.project.util.EmailShopAssistant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,8 @@ public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
     private final ShopMapper shopMapper;
-
+    private final EmailShopAssistant emailShopAssistant;
+    private final MailSender mailSender;
 
 
     @Override
@@ -43,29 +44,23 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public void updateShopById(ShopDto shopDto) {
-        Shop shop = shopMapper.toEntity(shopDto, new CycleAvoidingMappingContext());
-        if (!shopRepository.existsById(shopDto.getId())) {
-            throw new ShopNotFoundException();
-        }
-        shopRepository.saveAndFlush(shop);
+    public void updateShopById(ShopDto shop) {
+        Shop shop1 = shopMapper.toEntity(shop, new CycleAvoidingMappingContext());
+        mailSender.send(emailShopAssistant.trackEmailShopUpdate(shop1));
+        shopRepository.saveAndFlush(shop1);
     }
 
     @Override
     public void deleteShopById(Long id) {
-        if (!shopRepository.existsById(id)) {
-            throw new ShopNotFoundException();
-        }
+        mailSender.send(emailShopAssistant.trackEmailShopDelete(shopRepository.getById(id)));
         shopRepository.deleteById(id);
     }
 
     @Override
-    public void saveShop(ShopDto shopDto) {
-        Shop shop = shopMapper.toEntity(shopDto, new CycleAvoidingMappingContext());
-        if (shopRepository.existsByName(shop)) {
-            throw new ShopAlreadyExistingException("Shop with Name " + shop.getName() + " already exists");
-        }
-        shopRepository.saveAndFlush(shop);
+    public void saveShop(ShopDto shop) {
+        Shop shop1 = shopMapper.toEntity(shop, new CycleAvoidingMappingContext());
+        mailSender.send(emailShopAssistant.trackEmailShopCreate(shop1));
+        shopRepository.saveAndFlush(shop1);
     }
 
     @Override
