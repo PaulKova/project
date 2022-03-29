@@ -1,9 +1,7 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.entity.Country;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class ShopDto {
 
     private Long id;
@@ -22,27 +21,38 @@ public class ShopDto {
     private int count;
     private double rating;
 
-    @JsonManagedReference
+//    @JsonManagedReference(value = "location")
+@JsonIgnore
     private Country location;
-    @JsonBackReference
+    @JsonIgnore
+//    @JsonBackReference(value = "items")
     private List<ItemDto> items;
-    @JsonBackReference
+//    @JsonBackReference(value = "reviews")
+@JsonIgnore
     private List<ReviewDto> reviews;
-    @JsonManagedReference
+//    @JsonManagedReference(value = "logo")
+@JsonIgnore
     private ImageDto logo;
-    @JsonManagedReference
+//    @JsonManagedReference(value = "user")
+@JsonIgnore
     private UserDto user;
-    @JsonManagedReference
+//    @JsonManagedReference(value = "cartItem")
+@JsonIgnore
     private CartItemDto cartItem;
-    @JsonBackReference
+//    @JsonBackReference(value = "feedbacks")
+@JsonIgnore
     private List<FeedbackDto> feedbacks;
-    @JsonBackReference
+//    @JsonBackReference(value = "discounts")
+@JsonIgnore
     private List<DiscountDto> discounts;
-    @JsonBackReference
+//    @JsonBackReference(value = "favorites")
+@JsonIgnore
     private List<FavoriteDto> favorites;
-    @JsonManagedReference
+//    @JsonManagedReference(value = "address")
+@JsonIgnore
     private AddressDto address;
-    @JsonBackReference
+//    @JsonBackReference(value = "coupons")
+    @JsonIgnore
     private List<CouponDto> coupons;
 
     private boolean isModerated;
