@@ -29,12 +29,12 @@ public class MainPageController {
     }
 
 
-    @GetMapping("/")
+/*    @GetMapping("/")
     public String newPage(@AuthenticationPrincipal User user1, Model model) {
         List<UserDto> users = userService.getAllUsers();
         model.addAttribute("user1", user1); // текущий авторизированный пользователь
         return "ExperimentalNewPage";
-    }
+    }*/
 
     @GetMapping("/login1FA")
     public String preloginPage(Model model) {

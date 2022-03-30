@@ -2,6 +2,7 @@ package com.amr.project.model.entity;
 
 import com.amr.project.model.enums.Roles;
 import lombok.*;
+
 import org.jboss.aerogear.security.otp.api.Base32;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
