@@ -2,6 +2,7 @@ package com.amr.project.model.entity;
 
 import com.amr.project.model.enums.Roles;
 import lombok.*;
+import org.jboss.aerogear.security.otp.api.Base32;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,8 +31,13 @@ public class User implements UserDetails {
     private String password;
     private boolean activate;
     private String activationCode;
-    private boolean isUsingTwoFactorAuth;
+    private boolean isUsing2FA;
     private String secret;
+
+
+    public User() {
+        this.secret = Base32.random();
+    }
 
     @Enumerated(EnumType.STRING)
     private Roles role;

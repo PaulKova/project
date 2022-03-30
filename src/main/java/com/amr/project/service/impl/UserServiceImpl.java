@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.amr.project.converter.CycleAvoidingMappingContext;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +29,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private MailSender mailSender;
     private EmailUserAssistant emailUserAssistant;
+
+    public static String APP_NAME = "SpringRegistration";
+    public static String QR_PREFIX =
+            "https://chart.googleapis.com/chart?chs=200x200&chld=M%%7C0&cht=qr&chl=";
 
 
     private final UserRepository userRepository;
@@ -99,5 +105,13 @@ public class UserServiceImpl implements UserService {
         }
         user.setActivationCode(null);
         return "user activated";
+    }
+
+    @Override
+    public String generateQRUrl(User user) throws UnsupportedEncodingException {
+        return QR_PREFIX + URLEncoder.encode(String.format(
+                        "otpauth://totp/%s:%s?secret=%s&issuer=%s",
+                        APP_NAME, user.getEmail(), user.getSecret(), APP_NAME),
+                "UTF-8");
     }
 }

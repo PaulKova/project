@@ -2,6 +2,7 @@ package com.amr.project.service.abstracts;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface UserService {
@@ -19,4 +20,6 @@ public interface UserService {
     User getUserByEmail(String email);
 
     String activateUser(String code);
+
+    String generateQRUrl(User user) throws UnsupportedEncodingException;
 }

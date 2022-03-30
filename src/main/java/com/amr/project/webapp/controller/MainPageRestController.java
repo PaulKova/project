@@ -4,6 +4,7 @@ import com.amr.project.model.dto.*;
 import com.amr.project.service.abstracts.CategoryService;
 import com.amr.project.service.abstracts.ItemService;
 import com.amr.project.service.abstracts.ShopService;
+import com.amr.project.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class MainPageRestController {
     private final ItemService itemService;
     private final ShopService shopService;
     private final CategoryService categoryService;
+
 
     @GetMapping("/search")
     public ResponseEntity<ItemShopDto> getShopAndItems(
