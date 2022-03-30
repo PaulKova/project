@@ -1,7 +1,9 @@
 package com.amr.project.model.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.Date;
@@ -10,6 +12,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Long.class)
 public class ReviewDto {
 
     private Long id;
@@ -19,11 +23,11 @@ public class ReviewDto {
     private Date date;
     private int rating;
 
-    @JsonManagedReference
+    //@JsonManagedReference
     private UserDto user;
-    @JsonManagedReference
+    //@JsonManagedReference
     private ShopDto shop;
-    @JsonManagedReference
+    //@JsonManagedReference
     private ItemDto item;
 
     private boolean isModerated;

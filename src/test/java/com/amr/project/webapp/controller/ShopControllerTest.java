@@ -63,7 +63,7 @@ class ShopControllerTest {
                         .content(JSON.toJSONString(shopDto)))
                 .andDo((print()))
                 .andExpect(status().isOk())
-                /*.andExpect(content().string(containsString("Ромашка")))*/;
+                .andExpect(content().string(containsString("Ромашка")));
     }
 
 

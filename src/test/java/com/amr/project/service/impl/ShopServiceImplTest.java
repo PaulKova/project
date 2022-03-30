@@ -49,12 +49,24 @@ class ShopServiceImplTest {
     @Test
     void getAllShops() {
 
-        Shop shop1 = new Shop(1L, "Ромашка");
-        Shop shop2 = new Shop(2L, "Апельсин");
+        Shop shop1 = Shop.builder()
+                .id(1L)
+                .name("Ромашка")
+                .build();
+        Shop shop2 = Shop.builder()
+                .id(2L)
+                .name("Апельсин")
+                .build();
         List<Shop> shops = new ArrayList<>(List.of(shop1, shop2));
 
-        ShopDto shopDto1 = new ShopDto(1L, "Ромашка");
-        ShopDto shopDto2 = new ShopDto(2L, "Апельсин");
+        ShopDto shopDto1 = ShopDto.builder()
+                .id(1L)
+                .name("Ромашка")
+                .build();
+        ShopDto shopDto2 = ShopDto.builder()
+                .id(2L)
+                .name("Апельсин")
+                .build();
         List<ShopDto> shopsDto = new ArrayList<>(List.of(shopDto1, shopDto2));
 
         given(shopRepository.findAll())
@@ -73,11 +85,24 @@ class ShopServiceImplTest {
 
         CycleAvoidingMappingContext cycleAvoidingMappingContext = Mockito.mock(CycleAvoidingMappingContext.class);
 
-        Shop shop1 = new Shop(1L, "Ромашка");
-        Shop shop2 = new Shop(2L, "Апельсин");
+        Shop shop1 = Shop.builder()
+                .id(1L)
+                .name("Ромашка")
+                .build();
+        Shop shop2 = Shop.builder()
+                .id(2L)
+                .name("Апельсин")
+                .build();
+        List<Shop> shops = new ArrayList<>(List.of(shop1, shop2));
 
-        ShopDto shopDto1 = new ShopDto(1L, "Ромашка");
-        ShopDto shopDto2 = new ShopDto(2L, "Апельсин");
+        ShopDto shopDto1 = ShopDto.builder()
+                .id(1L)
+                .name("Ромашка")
+                .build();
+        ShopDto shopDto2 = ShopDto.builder()
+                .id(2L)
+                .name("Апельсин")
+                .build();
 
 
         given(shopRepository.findById(1L))

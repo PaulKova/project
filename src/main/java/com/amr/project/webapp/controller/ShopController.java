@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -69,8 +70,8 @@ public class ShopController {
 
     @Operation(summary = "Getting shop by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "200", description = "Found the shop", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Shop not found", content = @Content)})
     @GetMapping("/{id}")
     public ResponseEntity<ShopDto> getShop(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
@@ -103,7 +104,7 @@ public class ShopController {
                     schema = @Schema(implementation = ShopDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/admin/pretended/delete")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    //@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ShopDto>> getShopsPretendedToDelete() {
         List<ShopDto> shops = shopService.getPretendedToDelete();
         log.info(SHOPS_TO_DELETE, shops.size());
@@ -119,7 +120,7 @@ public class ShopController {
                     schema = @Schema(implementation = ShopDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("/admin/pretended/create/")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    //@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ShopDto>> getShopsToCreate() {
         List<ShopDto> shopDto = shopService.findShopsForCreate();
         log.info(SHOPS_TO_CREATE, shopDto.size());
@@ -156,8 +157,8 @@ public class ShopController {
                     description = "Shop already exists",
                     content = @Content)
     })
-    @PostMapping("/request/to_create")
-    @PreAuthorize("hasRole('USER')")
+    @PostMapping(value = "/request/to_create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    //@PreAuthorize("hasRole('USER')")
     public ResponseEntity<HttpStatus> userMarkShopToCreate(@RequestBody ShopDto shopDto) {
         shopDto.setModerated(true); // user mark a shop to create
         shopService.saveShop(shopDto);
@@ -178,7 +179,7 @@ public class ShopController {
                     content = @Content)
     })
     @PostMapping("/admin/create")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    //@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<ShopDto> requestToCreateShop(@RequestBody ShopDto shopDto) {
         shopDto.setModerateAccept(true);// admins accept create a shop
         shopDto.setModerated(false);
@@ -202,7 +203,7 @@ public class ShopController {
                     content = @Content)
     })
     @PutMapping("/shop/update")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('MODERATOR')")
+    //@PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<HttpStatus> editShop(
             @RequestBody ShopDto shopDto) {
         Shop shop =  shopMapper.toEntity(shopDto, new CycleAvoidingMappingContext() );
@@ -228,7 +229,7 @@ public class ShopController {
                     content = @Content)
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
+    //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<Long> markAsDeleteShop(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
         shopDto.setPretendedToBeDeleted(true);
@@ -249,7 +250,7 @@ public class ShopController {
                     content = @Content)
     })
     @DeleteMapping("/admin/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deleteShop(@PathVariable(name = "id") Long id) {
         shopService.deleteShopById(id);
         log.info(DELETE_SHOP, id);

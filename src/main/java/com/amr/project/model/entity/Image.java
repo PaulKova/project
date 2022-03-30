@@ -19,6 +19,8 @@ public class Image {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @Lob
+    @Column (columnDefinition = "longblob")
     private byte[] picture;
 
     private Boolean isMain;

@@ -25,6 +25,6 @@ public class SalesHistoryDto {
     private BigDecimal basePrice;   //Себестоимость товара ("= basePrice" в таблице "item")
     private BigDecimal price;       //Цена проданного товара в этот день ("= price" в таблице "item)
 
-    @JsonManagedReference
+    //@JsonManagedReference
     private Item item;
 }

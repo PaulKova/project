@@ -1,17 +1,20 @@
 package com.amr.project.model.entity;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.Objects;
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Shop {
     @Id
@@ -31,8 +34,8 @@ public class Shop {
 
     private double rating;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Country location;
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    private Country country;*/
 
 
     @OneToMany(
@@ -40,6 +43,7 @@ public class Shop {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Item> items;
 
 
@@ -48,20 +52,24 @@ public class Shop {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Review> reviews;
 
 
     @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
+    @ToString.Exclude
     private Image logo;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User user;
 
 
     @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
+    @ToString.Exclude
     private CartItem cartItem;
 
 
@@ -70,6 +78,7 @@ public class Shop {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Feedback> feedbacks;
 
 
@@ -80,14 +89,17 @@ public class Shop {
                     CascadeType.REFRESH,
                     CascadeType.DETACH},
             orphanRemoval = true)
+    @ToString.Exclude
     private List<Discount> discounts;
 
 
     @ManyToMany(mappedBy = "shops")
+    @ToString.Exclude
     private List<Favorite> favorites;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Address address;
 
 
@@ -96,6 +108,7 @@ public class Shop {
             orphanRemoval = true
     )
     @JoinColumn(name = "shop_id")
+    @ToString.Exclude
     private List<Coupon> coupons;
 
 
@@ -108,8 +121,17 @@ public class Shop {
         return isPretendedToBeDeleted;
     }
 
-    public Shop(Long id, String name) {
-        this.id = id;
-        this.name = name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Shop shop = (Shop) o;
+        return id != null && Objects.equals(id, shop.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
