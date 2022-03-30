@@ -13,7 +13,6 @@ import java.util.*;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString(of = {"id", "email", "username", "password"})
 @EqualsAndHashCode(of = {"id", "email", "username"})
 public class User implements UserDetails {

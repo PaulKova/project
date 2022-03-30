@@ -68,8 +68,8 @@ public class EmailUserAssistant {
             }
         }
 
-        Set<Coupon> couponsOriginal = userOriginal.getCoupons();
-        Set<Coupon> coupons = user.getCoupons();
+        List<Coupon> couponsOriginal = userOriginal.getCoupons();
+        List<Coupon> coupons = user.getCoupons();
 
         for(Coupon coupon: coupons) {
             if (!couponsOriginal.contains(coupon)) {
