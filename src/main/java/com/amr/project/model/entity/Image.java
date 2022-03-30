@@ -20,6 +20,7 @@ public class Image {
     private Long id;
 
     @Lob
+    @Column (columnDefinition = "longblob")
     private byte[] picture;
 
     private Boolean isMain;

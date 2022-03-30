@@ -1,18 +1,24 @@
 package com.amr.project.model.dto;
 
+import com.amr.project.model.dto.report.SalesHistoryDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Long.class)
 public class ItemDto {
 
     private Long id;
@@ -25,20 +31,24 @@ public class ItemDto {
     private String description;
     private int discount;
 
-    @JsonManagedReference
+    //@JsonManagedReference
+    private UserDto user;
+    //@JsonManagedReference
     private CategoryDto category;
-    @JsonManagedReference
+    //@JsonManagedReference
     private CartItemDto cartItem;
-    @JsonBackReference
+    //@JsonBackReference
     private List<ImageDto> images;
-    @JsonBackReference
+    //@JsonBackReference
     private List<ReviewDto> reviews;
-    @JsonBackReference
+    //@JsonBackReference
     private List<FavoriteDto> favorites;
-    @JsonBackReference
+    //@JsonBackReference
     private List<OrderDto> orders;
-    @JsonManagedReference
+    //@JsonManagedReference
     private ShopDto shop;
+    //@JsonBackReference
+    private List<SalesHistoryDto> history;
 
     private boolean isModerated;
     private boolean isModerateAccept;

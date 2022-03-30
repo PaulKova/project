@@ -1,9 +1,11 @@
 package com.amr.project.model.entity;
 
+import com.amr.project.model.entity.report.SalesHistory;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +19,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-    @Column(name = "name", unique = true)
+
+    //TODO: проверить "правильность" параметра unique (могут быть товары с одинаковыми наименованиями у разных Shops, Users, CartItems)
+    @Column(name = "name"/*, unique = true*/)
     private String name;
 
     @Column(name = "base_price")
@@ -67,11 +71,21 @@ public class Item {
     private List<Favorite> favorites;
 
 
+
     @ManyToMany(mappedBy = "itemsInOrder")
-    private List<Order> orders;
+    @OrderBy("orderDate ASC")
+    private List<Order> orders = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
+
+
+    @OneToMany(
+            mappedBy = "item",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<SalesHistory> history;
 
 
     private boolean isModerated;

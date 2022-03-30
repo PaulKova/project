@@ -21,12 +21,12 @@ public class Country {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(
+    /*@OneToMany(
             mappedBy = "location",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Shop> shops;
+    private List<Shop> shops;*/
 
     @OneToMany(
             mappedBy = "country",

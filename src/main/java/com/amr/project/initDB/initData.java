@@ -173,7 +173,7 @@ public class initData {
                 .role(Roles.USER)
                 .userInfo(null)
                 .favorite(null)
-                .address(null)
+                .address(address1)
                 .images(null)
                 .coupons(null)
                 .cart(null)
@@ -266,7 +266,7 @@ public class initData {
                 .description("shop1_description")
                 .count(0)
                 .rating(0)
-                .location(Germany)
+/*                .country(Germany)*/
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -289,7 +289,7 @@ public class initData {
                 .description("shop2_description")
                 .count(0)
                 .rating(0)
-                .location(USA)
+/*                .country(USA)*/
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -312,7 +312,7 @@ public class initData {
                 .description("shop3_description")
                 .count(0)
                 .rating(0)
-                .location(USA)
+/*                .country(USA)*/
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -683,15 +683,10 @@ public class initData {
                 .shop(shop3)
                 .user(user3)
                 .build();
-        CartItem cartItem4 = CartItem.builder()
-                .quantity(1)
-                .shop(shop1)
-                .user(user1)
-                .build();
         cartItemRepository.save(cartItem1);
         cartItemRepository.save(cartItem2);
         cartItemRepository.save(cartItem3);
-        cartItemRepository.save(cartItem4);
+
 
 /////////////////////////////////////////////////Admin/Moderator//////////////////////////////////////////////////////
         User admin1 = User.builder()

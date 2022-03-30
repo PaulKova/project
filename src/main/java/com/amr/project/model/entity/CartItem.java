@@ -1,16 +1,20 @@
 package com.amr.project.model.entity;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class CartItem {
 
     @Id
@@ -19,15 +23,17 @@ public class CartItem {
     private Long id;
 
     @Column(name = "quantity")
-    private int quantity;
+    private int quantity; //"Лишнее" поле (информация о кол-ве товара хранится в поле "count" сущности "Item"
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User user;
 
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
+    @ToString.Exclude
     private Shop shop;
 
 
@@ -36,5 +42,19 @@ public class CartItem {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Item> itemList;
+    @ToString.Exclude
+    private List<Item> itemsInCart;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        CartItem cartItem = (CartItem) o;
+        return id != null && Objects.equals(id, cartItem.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

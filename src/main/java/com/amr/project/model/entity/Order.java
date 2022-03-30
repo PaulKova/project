@@ -43,11 +43,7 @@ public class Order {
     private User user;
 
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH,
-                    CascadeType.DETACH})
+    @ManyToMany
     @JoinTable(name = "order_item",
             joinColumns = @JoinColumn(name = "order_by_user_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))

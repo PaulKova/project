@@ -22,4 +22,6 @@ public interface ItemService {
     List<ItemDto> getPretendedToDelete();
 
     List<ItemDto> searchItemsByNameSortedByRatingDesc(String pattern, Pageable pageable);
+
+    List<ItemDto> getAllItemsByShopId(Long shopId);
 }

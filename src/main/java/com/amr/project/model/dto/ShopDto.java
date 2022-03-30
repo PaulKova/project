@@ -1,9 +1,7 @@
 package com.amr.project.model.dto;
 
 import com.amr.project.model.entity.Country;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import java.util.List;
@@ -12,6 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+         property = "id", scope = Long.class)
 public class ShopDto {
 
     private Long id;
@@ -22,27 +22,27 @@ public class ShopDto {
     private int count;
     private double rating;
 
-    @JsonManagedReference
-    private Country location;
-    @JsonBackReference
+    ////@JsonManagedReference
+    //private Country country;
+    //@JsonBackReference
     private List<ItemDto> items;
-    @JsonBackReference
+    //@JsonBackReference
     private List<ReviewDto> reviews;
-    @JsonManagedReference
+    ////@JsonManagedReference
     private ImageDto logo;
-    @JsonManagedReference
+    ////@JsonManagedReference
     private UserDto user;
-    @JsonManagedReference
+    ////@JsonManagedReference
     private CartItemDto cartItem;
-    @JsonBackReference
+    //@JsonBackReference
     private List<FeedbackDto> feedbacks;
-    @JsonBackReference
+    //@JsonBackReference
     private List<DiscountDto> discounts;
-    @JsonBackReference
+    //@JsonBackReference
     private List<FavoriteDto> favorites;
-    @JsonManagedReference
+    ////@JsonManagedReference
     private AddressDto address;
-    @JsonBackReference
+    //@JsonBackReference
     private List<CouponDto> coupons;
 
     private boolean isModerated;
@@ -50,4 +50,8 @@ public class ShopDto {
     private String moderatedRejectReason;
     private boolean isPretendedToBeDeleted;
 
+    public ShopDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

@@ -84,4 +84,10 @@ public class ItemServiceImpl implements ItemService {
         List<Item> items = itemRepository.findItemByNameContainingOrderByRatingDesc(pattern, pageable);
         return itemMapper.toDtoList(items, new CycleAvoidingMappingContext());
     }
+
+    @Override
+    public List<ItemDto> getAllItemsByShopId(Long shopId) {
+        List<Item> items = itemRepository.findByShop_IdIsOrderByNameAsc(shopId);
+        return itemMapper.toDtoList(items, new CycleAvoidingMappingContext());
+    }
 }

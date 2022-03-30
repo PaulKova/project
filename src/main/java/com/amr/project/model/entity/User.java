@@ -58,7 +58,7 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    private Set<Image> images;
+    private List<Image> images;
 
 
     @OneToMany(
@@ -69,7 +69,7 @@ public class User implements UserDetails {
                     CascadeType.DETACH,
                     CascadeType.REFRESH},
             orphanRemoval = true)
-    private Set<Coupon> coupons;
+    private List<Coupon> coupons;
 
 
     @OneToMany(
@@ -77,7 +77,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<CartItem> cart;
+    private List<CartItem> cart;
 
 
     @OneToMany(
@@ -85,7 +85,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Order> orders;
+    private List<Order> orders;
 
 
     @OneToMany(
@@ -93,7 +93,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Review> reviews;
+    private List<Review> reviews;
 
 
     @OneToMany(
