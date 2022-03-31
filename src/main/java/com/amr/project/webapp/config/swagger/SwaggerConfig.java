@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 // основатель
                 .contact(new Contact("Aslan", "http://www.project.amr.com", "canfengli@126.com"))
                 //Описание
-                .description("Zhopa V goVne")
+                .description("Swagger ^_^")
                 .termsOfServiceUrl("http://blog.csdn.net/canfengli")
                 //номер версии
                 .version("1.0")

@@ -28,26 +28,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-//@TestPropertySource("testApplication.properties")
-//@Sql()
 class ShopControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    /*@Autowired
-    private ShopController controller;*/
-
-    /*@Test
-    void firstTest() throws Exception{
-        assertThat(controller).isNotNull();
-    }*/
-
-
-
-    /*@BeforeEach
-    void setUp() {
-    }*/
 
     @Test
     void userMarkShopToCreate() throws Exception {
@@ -62,8 +46,7 @@ class ShopControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(JSON.toJSONString(shopDto)))
                 .andDo((print()))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Ромашка")));
+                .andExpect(status().isOk());
     }
 
 
