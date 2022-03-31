@@ -1,23 +1,32 @@
 package com.amr.project.model.entity;
 
+import com.amr.project.model.entity.report.SalesHistory;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-    @Column(name = "name", unique = true)
+
+    //TODO: проверить "правильность" параметра unique (могут быть товары с одинаковыми наименованиями у разных Shops, Users, CartItems)
+    @Column(name = "name"/*, unique = true*/)
     private String name;
 
     @Column(name = "base_price")
@@ -37,6 +46,7 @@ public class Item {
     private int discount;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User user;
 
     @ManyToOne
@@ -45,33 +55,59 @@ public class Item {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private CartItem cartItem;
 
 
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true)
     @JoinColumn(name = "item_id")
+    @ToString.Exclude
     private List<Image> images;
 
 
     @OneToMany(
             mappedBy = "item",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Review> reviews;
 
 
     @ManyToMany(mappedBy = "items")
+    @ToString.Exclude
     private List<Favorite> favorites;
 
 
+
     @ManyToMany(mappedBy = "itemsInOrder")
-    private List<Order> orders;
+    @OrderBy("orderDate ASC")
+    @ToString.Exclude
+    private List<Order> orders = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Shop shop;
+
+
+    @OneToMany(
+            mappedBy = "item",
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
+            orphanRemoval = true
+    )
+    @ToString.Exclude
+    private List<SalesHistory> history;
 
 
     private boolean isModerated;
@@ -88,5 +124,18 @@ public class Item {
 
     public void setPretendedToBeDeleted(boolean pretendedToBeDeleted) {
         isPretendedToBeDeleted = pretendedToBeDeleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Item item = (Item) o;
+        return id != null && Objects.equals(id, item.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

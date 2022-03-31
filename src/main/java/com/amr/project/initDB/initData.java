@@ -5,6 +5,7 @@ import com.amr.project.model.entity.*;
 import com.amr.project.model.enums.Gender;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.model.enums.Status;
+import com.amr.project.webapp.config.security.handler.PassEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -42,7 +43,7 @@ public class initData {
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
     private final CountryRepository countryRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PassEncoder passwordEncoder;
 
     @Autowired
     public initData(ReviewRepository reviewRepository, OrderRepository ordersRepository,
@@ -54,7 +55,7 @@ public class initData {
                     ShopRepository shopRepository, AddressRepository addressRepository,
                     UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
-                    CountryRepository countryRepository, PasswordEncoder passwordEncoder) {
+                    CountryRepository countryRepository, PassEncoder passwordEncoder) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -165,18 +166,18 @@ public class initData {
         User user1 = User.builder()
                 .email("user1@mail.com")
                 .username("user1")
-                .password(passwordEncoder.encode("user1"))
+                .password(passwordEncoder.passwordEncoder().encode("user1"))
                 .activate(true)
                 .activationCode("some_code")
-                .isUsingTwoFactorAuth(false)
+                .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
                 .userInfo(null)
                 .favorite(null)
-                .address(null)
+                .address(address1)
                 .images(null)
                 .coupons(null)
-                .cart(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -188,10 +189,10 @@ public class initData {
         User user2 = User.builder()
                 .email("user2@mail.com")
                 .username("user2")
-                .password(passwordEncoder.encode("user2"))
+                .password(passwordEncoder.passwordEncoder().encode("user2"))
                 .activate(true)
                 .activationCode("some_code")
-                .isUsingTwoFactorAuth(false)
+                .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
                 .userInfo(null)
@@ -199,7 +200,7 @@ public class initData {
                 .address(null)
                 .images(null)
                 .coupons(null)
-                .cart(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -211,10 +212,10 @@ public class initData {
         User user3 = User.builder()
                 .email("user3@mail.com")
                 .username("user3")
-                .password(passwordEncoder.encode("user3"))
+                .password(passwordEncoder.passwordEncoder().encode("user3"))
                 .activate(true)
                 .activationCode("some_code")
-                .isUsingTwoFactorAuth(false)
+                .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
                 .userInfo(null)
@@ -222,7 +223,7 @@ public class initData {
                 .address(null)
                 .images(null)
                 .coupons(null)
-                .cart(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -266,7 +267,7 @@ public class initData {
                 .description("shop1_description")
                 .count(0)
                 .rating(0)
-                .location(Germany)
+/*                .country(Germany)*/
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -289,7 +290,7 @@ public class initData {
                 .description("shop2_description")
                 .count(0)
                 .rating(0)
-                .location(USA)
+/*                .country(USA)*/
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -312,7 +313,7 @@ public class initData {
                 .description("shop3_description")
                 .count(0)
                 .rating(0)
-                .location(USA)
+/*                .country(USA)*/
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -670,37 +671,32 @@ public class initData {
 /////////////////////////////////////////////////CartItem////////////////////////////////////////////////////////////
         CartItem cartItem1 = CartItem.builder()
                 .quantity(5)
-                .shop(shop1)
+                .shop(null)
                 .user(user1)
                 .build();
         CartItem cartItem2 = CartItem.builder()
                 .quantity(2)
-                .shop(shop2)
+                .shop(null)
                 .user(user2)
                 .build();
         CartItem cartItem3 = CartItem.builder()
                 .quantity(3)
-                .shop(shop3)
+                .shop(null)
                 .user(user3)
-                .build();
-        CartItem cartItem4 = CartItem.builder()
-                .quantity(1)
-                .shop(shop1)
-                .user(user1)
                 .build();
         cartItemRepository.save(cartItem1);
         cartItemRepository.save(cartItem2);
         cartItemRepository.save(cartItem3);
-        cartItemRepository.save(cartItem4);
+
 
 /////////////////////////////////////////////////Admin/Moderator//////////////////////////////////////////////////////
         User admin1 = User.builder()
                 .email("admin1@mail.com")
                 .username("admin1")
-                .password(passwordEncoder.encode("admin1"))
+                .password(passwordEncoder.passwordEncoder().encode("admin1"))
                 .activate(true)
                 .activationCode("some_code")
-                .isUsingTwoFactorAuth(false)
+                .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.ADMIN)
                 .userInfo(null)
@@ -708,7 +704,7 @@ public class initData {
                 .address(address1)
                 .images(null)
                 .coupons(null)
-                .cart(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -720,10 +716,10 @@ public class initData {
         User admin2 = User.builder()
                 .email("admin2@mail.com")
                 .username("admin2")
-                .password(passwordEncoder.encode("admin2"))
+                .password(passwordEncoder.passwordEncoder().encode("admin2"))
                 .activate(false)
                 .activationCode("some_code")
-                .isUsingTwoFactorAuth(true)
+                .isUsing2FA(true)
                 .secret("secret?")
                 .role(Roles.ADMIN)
                 .userInfo(null)
@@ -731,7 +727,7 @@ public class initData {
                 .address(address1)
                 .images(null)
                 .coupons(null)
-                .cart(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -743,10 +739,10 @@ public class initData {
         User moderator1 = User.builder()
                 .email("moderator1@mail.com")
                 .username("moderator1")
-                .password(passwordEncoder.encode("moderator1"))
+                .password(passwordEncoder.passwordEncoder().encode("moderator1"))
                 .activate(true)
                 .activationCode("some_code")
-                .isUsingTwoFactorAuth(false)
+                .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.MODERATOR)
                 .userInfo(null)
@@ -754,7 +750,7 @@ public class initData {
                 .address(address2)
                 .images(null)
                 .coupons(null)
-                .cart(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)

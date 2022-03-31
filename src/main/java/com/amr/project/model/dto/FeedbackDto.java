@@ -1,6 +1,8 @@
 package com.amr.project.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,6 +12,8 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Long.class)
 public class FeedbackDto {
     private Long id;
     private String reason;
@@ -17,9 +21,9 @@ public class FeedbackDto {
     private LocalDateTime dateTime;
     private String username;
 
-    @JsonManagedReference
+    //@JsonManagedReference
     private ShopDto shop;
-    @JsonManagedReference
+    //@JsonManagedReference
     private UserDto user;
 
 }

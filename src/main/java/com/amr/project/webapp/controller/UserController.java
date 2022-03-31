@@ -86,7 +86,7 @@ public class UserController {
                             schema = @Schema(implementation = UserDto.class)))
     })
     @PostMapping( "/admin/create/user")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    //@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<HttpStatus> addNewUser(@RequestBody UserDto userDto) {
         userService.saveUser(userDto);
         logger.info(NEW_USER_LOG, userDto.getId());

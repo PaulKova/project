@@ -1,23 +1,46 @@
 package com.amr.project.webapp.config.security;
 
-import com.amr.project.model.entity.User;
-import com.amr.project.model.enums.Roles;
-import org.springframework.beans.factory.annotation.Qualifier;
+
+import com.amr.project.webapp.config.security.handler.PassEncoder;
+import com.amr.project.webapp.config.security.service.CustomAuthenticationProvider;
+import com.amr.project.webapp.config.security.service.CustomWebAuthenticationDetailsSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private CustomWebAuthenticationDetailsSource authenticationDetailsSource;
+
+    @Autowired
+    private PassEncoder passwordEncoder;
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -26,12 +49,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login","/logout").permitAll()
                 .antMatchers("/**").permitAll()
                 .and().formLogin()
+                .authenticationDetailsSource(authenticationDetailsSource)
+                .loginPage("/login")
+                .loginPage("/login1FAQR")
                 .and().logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/login1FA");
     }
 
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(5);
+    public DaoAuthenticationProvider authProvider() {
+        CustomAuthenticationProvider authProvider = new CustomAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder.passwordEncoder());
+        return authProvider;
     }
+
 }

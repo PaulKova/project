@@ -1,14 +1,18 @@
 package com.amr.project.model.entity;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Builder
 public class Discount {
 
@@ -28,7 +32,19 @@ public class Discount {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Shop shop;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Discount discount = (Discount) o;
+        return id != null && Objects.equals(id, discount.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
