@@ -18,14 +18,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@Import(BeanValidatorPluginsConfiguration.class)
+@Import(BeanValidatorPluginsConfiguration.class) // мб не надо
 public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("src.main.java.com.amr.project.webapp.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -39,6 +39,7 @@ public class SwaggerConfig {
                 //Описание
                 .description("Простой и элегантный стиль Restful")
                 .termsOfServiceUrl("http://blog.csdn.net/canfengli")
+
                 //номер версии
                 .version("1.0")
                 .build();
