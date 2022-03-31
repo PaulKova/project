@@ -1,15 +1,19 @@
 package com.amr.project.model.entity;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.Objects;
 
 @Entity
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
 public class Country {
 
@@ -35,5 +39,19 @@ public class Country {
                     CascadeType.REFRESH,
                     CascadeType.DETACH},
             orphanRemoval = true)
+    @ToString.Exclude
     private List<City> cities;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Country country = (Country) o;
+        return id != null && Objects.equals(id, country.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

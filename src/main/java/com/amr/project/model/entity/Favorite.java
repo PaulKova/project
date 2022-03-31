@@ -1,15 +1,19 @@
 package com.amr.project.model.entity;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Favorite {
 
@@ -22,6 +26,7 @@ public class Favorite {
     @JoinTable(name = "favorite_shop",
             joinColumns = @JoinColumn(name = "favorite_id"),
             inverseJoinColumns = @JoinColumn(name = "shop_id"))
+    @ToString.Exclude
     private List<Shop> shops;
 
 
@@ -29,10 +34,25 @@ public class Favorite {
     @JoinTable(name = "favorite_item",
             joinColumns = @JoinColumn(name = "favorite_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
+    @ToString.Exclude
     private List<Item> items;
 
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private User user;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Favorite favorite = (Favorite) o;
+        return id != null && Objects.equals(id, favorite.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

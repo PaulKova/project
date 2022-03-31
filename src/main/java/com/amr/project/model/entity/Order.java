@@ -2,17 +2,22 @@ package com.amr.project.model.entity;
 
 import com.amr.project.model.enums.Status;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Table(name="order_by_user")
 public class Order {
     @Id
@@ -40,6 +45,7 @@ public class Order {
     private Status status;//статус заказа
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User user;
 
 
@@ -47,11 +53,24 @@ public class Order {
     @JoinTable(name = "order_item",
             joinColumns = @JoinColumn(name = "order_by_user_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
+    @ToString.Exclude
     private List<Item> itemsInOrder;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Address address;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Order order = (Order) o;
+        return id != null && Objects.equals(id, order.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

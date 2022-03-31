@@ -1,15 +1,20 @@
 package com.amr.project.model.entity;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Table(name="addrezz")
 public class Address {
     @Id
@@ -28,6 +33,7 @@ public class Address {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private City city;
 
 
@@ -39,6 +45,7 @@ public class Address {
                     CascadeType.DETACH},
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<User> users;
 
 
@@ -50,11 +57,26 @@ public class Address {
                     CascadeType.DETACH},
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Shop> shops;
 
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "address")
+    @ToString.Exclude
     private List<Order> orders;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Address address = (Address) o;
+        return id != null && Objects.equals(id, address.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

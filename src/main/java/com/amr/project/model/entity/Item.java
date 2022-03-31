@@ -2,17 +2,22 @@ package com.amr.project.model.entity;
 
 import com.amr.project.model.entity.report.SalesHistory;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Item {
     @Id
@@ -41,6 +46,7 @@ public class Item {
     private int discount;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User user;
 
     @ManyToOne
@@ -49,6 +55,7 @@ public class Item {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private CartItem cartItem;
 
 
@@ -56,6 +63,7 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "item_id")
+    @ToString.Exclude
     private List<Image> images;
 
 
@@ -64,19 +72,23 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Review> reviews;
 
 
     @ManyToMany(mappedBy = "items")
+    @ToString.Exclude
     private List<Favorite> favorites;
 
 
 
     @ManyToMany(mappedBy = "itemsInOrder")
     @OrderBy("orderDate ASC")
+    @ToString.Exclude
     private List<Order> orders = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Shop shop;
 
 
@@ -85,6 +97,7 @@ public class Item {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<SalesHistory> history;
 
 
@@ -102,5 +115,18 @@ public class Item {
 
     public void setPretendedToBeDeleted(boolean pretendedToBeDeleted) {
         isPretendedToBeDeleted = pretendedToBeDeleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Item item = (Item) o;
+        return id != null && Objects.equals(id, item.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

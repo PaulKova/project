@@ -2,7 +2,7 @@ package com.amr.project.model.entity;
 
 import com.amr.project.model.enums.Roles;
 import lombok.*;
-
+import org.hibernate.Hibernate;
 import org.jboss.aerogear.security.otp.api.Base32;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,23 +11,28 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+//@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-@ToString(of = {"id", "email", "username", "password"})
-@EqualsAndHashCode(of = {"id", "email", "username"})
+//@ToString(of = {"id", "email", "username", "password"})
+@ToString
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
+    @ToString.Exclude
     private Long id;
 
     @Column(name = "email", unique = true)
+    @ToString.Exclude
     private String email;
 
     @Column(name = "username", unique = true)
+    @ToString.Exclude
     private String username;
-
+    @ToString.Exclude
     private String password;
     private boolean activate;
     private String activationCode;
@@ -45,19 +50,23 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
+    @ToString.Exclude
     private UserInfo userInfo;
 
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
+    @ToString.Exclude
     private Favorite favorite;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private List<Image> images;
 
 
@@ -69,6 +78,7 @@ public class User implements UserDetails {
                     CascadeType.DETACH,
                     CascadeType.REFRESH},
             orphanRemoval = true)
+    @ToString.Exclude
     private List<Coupon> coupons;
 
 
@@ -77,6 +87,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<CartItem> cart;
 
 
@@ -85,6 +96,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Order> orders;
 
 
@@ -93,6 +105,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Review> reviews;
 
 
@@ -105,12 +118,14 @@ public class User implements UserDetails {
                     CascadeType.REFRESH},
             orphanRemoval = true
     )
+    @ToString.Exclude
     private Set<Shop> shops;
 
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private Set<Discount> discounts;
 
 
@@ -119,6 +134,7 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @ToString.Exclude
     private Set<Message> messages;
 
 
@@ -126,6 +142,7 @@ public class User implements UserDetails {
     @JoinTable(name = "user_chat",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    @ToString.Exclude
     private Set<Chat> chats;
 
 
@@ -137,6 +154,7 @@ public class User implements UserDetails {
                     CascadeType.DETACH},
             orphanRemoval = true
     )
+    @ToString.Exclude
     private Set<Feedback> feedbacks;
 
     @Override
@@ -148,6 +166,7 @@ public class User implements UserDetails {
             mappedBy = "user",
             cascade = CascadeType.ALL
     )
+    @ToString.Exclude
     private List<Item> items;
 
     @Override
@@ -178,5 +197,18 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
