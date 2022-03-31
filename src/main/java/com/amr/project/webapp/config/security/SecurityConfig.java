@@ -49,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login","/logout").permitAll()
                 .antMatchers("/**").permitAll()
+                .antMatchers("/swagger/","/v3/").permitAll()
+                .antMatchers("/swagger/*").permitAll()
                 .and().formLogin()
                 .authenticationDetailsSource(authenticationDetailsSource)
                 .loginPage("/login")

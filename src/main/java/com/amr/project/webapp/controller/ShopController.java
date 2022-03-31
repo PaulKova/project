@@ -32,6 +32,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @AllArgsConstructor
 @RequestMapping("/api/shops")
 @Slf4j
+@CrossOrigin
 public class ShopController {
 
     private static final String ID = "shopId";

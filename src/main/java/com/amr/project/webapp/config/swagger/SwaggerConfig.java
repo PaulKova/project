@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
-import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -39,7 +38,6 @@ public class SwaggerConfig {
                 //Описание
                 .description("Простой и элегантный стиль Restful")
                 .termsOfServiceUrl("http://blog.csdn.net/canfengli")
-
                 //номер версии
                 .version("1.0")
                 .build();

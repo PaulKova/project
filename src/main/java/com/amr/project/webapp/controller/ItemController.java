@@ -28,6 +28,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/api/items")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ItemController {
 
 
