@@ -1,11 +1,13 @@
 package com.amr.project.webapp.config.security;
 
 
+import com.amr.project.webapp.config.security.handler.PassEncoder;
 import com.amr.project.webapp.config.security.service.CustomAuthenticationProvider;
 import com.amr.project.webapp.config.security.service.CustomWebAuthenticationDetailsSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomWebAuthenticationDetailsSource authenticationDetailsSource;
 
+    @Autowired
+    private PassEncoder passwordEncoder;
 
     @Bean
     @Override
@@ -52,17 +56,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login1FA");
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(5);
-    }
-
 
     @Bean
     public DaoAuthenticationProvider authProvider() {
         CustomAuthenticationProvider authProvider = new CustomAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setPasswordEncoder(passwordEncoder.passwordEncoder());
         return authProvider;
     }
 

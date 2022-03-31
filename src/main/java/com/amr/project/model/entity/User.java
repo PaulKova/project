@@ -88,7 +88,7 @@ public class User implements UserDetails {
             orphanRemoval = true
     )
     @ToString.Exclude
-    private List<CartItem> cart;
+    private List<CartItem> carts;
 
 
     @OneToMany(
@@ -159,7 +159,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<Roles>(Arrays.asList(role));
+        return new HashSet<>(Arrays.asList(role));
     }
 
     @OneToMany(

@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,7 +17,10 @@ import java.util.Objects;
 @Builder
 //@NoArgsConstructor
 @AllArgsConstructor
-public class Shop {
+public class Shop implements Serializable {
+
+    private static final long serialVersionUID = 156977875169457L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -34,6 +38,7 @@ public class Shop {
 
     private double rating;
 
+    // Сущность Country входит в Address
     /*@ManyToOne(fetch = FetchType.LAZY)
     private Country country;*/
 

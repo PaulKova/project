@@ -4,10 +4,12 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name="cart_item")
 @Getter
 @Setter
 @ToString
@@ -15,7 +17,9 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 //@NoArgsConstructor
-public class CartItem {
+public class CartItem implements Serializable {
+
+    private static final long serialVersionUID = 669774687654689846L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

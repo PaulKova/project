@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 @Entity
+@Table(name = "user_info")
 @Getter
 @Setter
 @RequiredArgsConstructor
