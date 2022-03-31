@@ -18,7 +18,7 @@ import java.util.Set;
         property = "id", scope = Long.class)
 public class CountryDto {
 
-    //@Column(name = "countryDtoId")
+
     private Long id;
     private String name;
 

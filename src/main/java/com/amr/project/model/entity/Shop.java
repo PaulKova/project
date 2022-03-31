@@ -45,7 +45,10 @@ public class Shop implements Serializable {
 
     @OneToMany(
             mappedBy = "shop",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude
@@ -54,14 +57,20 @@ public class Shop implements Serializable {
 
     @OneToMany(
             mappedBy = "shop",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude
     private List<Review> reviews;
 
 
-    @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL,
+    @OneToOne(mappedBy = "shop", cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
             fetch = FetchType.LAZY, optional = false)
     @ToString.Exclude
     private Image logo;
@@ -72,7 +81,10 @@ public class Shop implements Serializable {
     private User user;
 
 
-    @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL,
+    @OneToOne(mappedBy = "shop", cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
             fetch = FetchType.LAZY, optional = false)
     @ToString.Exclude
     private CartItem cartItem;

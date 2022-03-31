@@ -60,7 +60,10 @@ public class Item {
 
 
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true)
     @JoinColumn(name = "item_id")
     @ToString.Exclude
@@ -69,7 +72,10 @@ public class Item {
 
     @OneToMany(
             mappedBy = "item",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude
@@ -94,7 +100,10 @@ public class Item {
 
     @OneToMany(
             mappedBy = "item",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude

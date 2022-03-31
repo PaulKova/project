@@ -61,7 +61,10 @@ public class Address {
     private List<Shop> shops;
 
 
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
             orphanRemoval = true,
             mappedBy = "address")
     @ToString.Exclude

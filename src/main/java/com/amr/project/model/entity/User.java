@@ -48,13 +48,21 @@ public class User implements UserDetails {
     private Roles role;
 
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+    @OneToOne(mappedBy = "user",
+            cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
             fetch = FetchType.LAZY, optional = false)
     @ToString.Exclude
     private UserInfo userInfo;
 
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+    @OneToOne(mappedBy = "user",
+            cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
             fetch = FetchType.LAZY, optional = false)
     @ToString.Exclude
     private Favorite favorite;
@@ -64,7 +72,11 @@ public class User implements UserDetails {
     @ToString.Exclude
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
+            orphanRemoval = true)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private List<Image> images;
@@ -84,7 +96,10 @@ public class User implements UserDetails {
 
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude
@@ -93,7 +108,10 @@ public class User implements UserDetails {
 
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude
@@ -102,7 +120,10 @@ public class User implements UserDetails {
 
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude
@@ -122,7 +143,10 @@ public class User implements UserDetails {
     private Set<Shop> shops;
 
 
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
             orphanRemoval = true)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
@@ -131,7 +155,10 @@ public class User implements UserDetails {
 
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude
@@ -164,7 +191,10 @@ public class User implements UserDetails {
 
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH}
     )
     @ToString.Exclude
     private List<Item> items;

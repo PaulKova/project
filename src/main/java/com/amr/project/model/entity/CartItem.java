@@ -43,7 +43,10 @@ public class CartItem implements Serializable {
 
     @OneToMany(
             mappedBy = "cartItem",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             orphanRemoval = true
     )
     @ToString.Exclude
