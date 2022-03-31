@@ -24,7 +24,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("src.main.java.com.amr.project.webapp.controller"))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -36,7 +36,7 @@ public class SwaggerConfig {
                 // основатель
                 .contact(new Contact("Aslan", "http://www.project.amr.com", "canfengli@126.com"))
                 //Описание
-                .description("Простой и элегантный стиль Restful")
+                .description("Zhopa V goVne")
                 .termsOfServiceUrl("http://blog.csdn.net/canfengli")
                 //номер версии
                 .version("1.0")
