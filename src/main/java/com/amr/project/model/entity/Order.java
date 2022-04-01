@@ -48,6 +48,8 @@ public class Order {
     @ToString.Exclude
     private User user;
 
+    @Column(name = "qiwi_Id")
+    private String qiwiId;
 
     @ManyToMany
     @JoinTable(name = "order_item",
