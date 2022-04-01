@@ -1,6 +1,8 @@
 package com.amr.project.webapp.controller;
 
 import com.amr.project.converter.mappers.UserMapper;
+import com.amr.project.model.dto.OrderDto;
+import com.amr.project.model.dto.StatusDto;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.UserService;
@@ -17,9 +19,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.amr.project.converter.CycleAvoidingMappingContext;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -36,6 +42,7 @@ public class UserController {
     private static final String GET_USERS_LOG = "{} users has been loaded";
     private static final String DELETE_USER = "Deleted User id: {}";
     private static final String NEW_USER_LOG = "New user was created id:{}";
+    private static final String GET_PAID_ORDERS_LOG = "Order:{} is get";
 
 
 
@@ -109,21 +116,21 @@ public class UserController {
                     content = @Content)
     })
     @PutMapping("/users")
-    public ResponseEntity<HttpStatus> updateUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<HttpStatus> updateUser(@RequestBody UserDto userDto,
+                                                 @RequestParam("file") MultipartFile file) throws IOException {
+
         User user = userMapper.toEntity(userDto, new CycleAvoidingMappingContext());
         Optional<User> optionalUser = Optional.of(user);
         if (optionalUser.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        if (!file.isEmpty()) {
+            userDto.setImages(userService.getUserWithPicture(user, file.getBytes()));
+        }
         userService.updateUser(userDto);
         logger.info(USER_UPDATED_LOG, userDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
-
-
 
     @Operation(summary = "Delete an User by its ID")
     @ApiResponses(value = {
@@ -142,4 +149,20 @@ public class UserController {
         logger.info(DELETE_USER, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @Operation(summary = "get my paid orders")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the orders", content =
+                    {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = OrderDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+    @GetMapping("users/{id}/my_paid_orders")
+    public ResponseEntity<List<OrderDto>> getPaidOrders(@PathVariable Long id) {
+        UserDto userDto = userService.getUserById(id);
+        List<OrderDto> orderDto = userDto.getOrders().stream()
+                .filter(orderDto1 -> orderDto1.getStatus().equals(StatusDto.PAID))
+                .collect(Collectors.toList());
+        logger.info(GET_PAID_ORDERS_LOG, id);
+        return ResponseEntity.ok(orderDto);
+    }
+
 }

@@ -119,6 +119,25 @@ public class initData {
         Image logoImage1 = Image.builder().picture(arrayLogoImage1).isMain(true).build();
         imageRepository.save(logoImage1);
 
+        File user_avatar1 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar1.jpg");
+        byte[] arrayUserAvatar1 = Files.readAllBytes(user_avatar1.toPath());
+        Image userAvatar1 = Image.builder().picture(arrayUserAvatar1).isMain(true).build();
+        imageRepository.save(userAvatar1);
+        File user_avatar2 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar2.jpg");
+        byte[] arrayUserAvatar2 = Files.readAllBytes(user_avatar2.toPath());
+        Image userAvatar2 = Image.builder().picture(arrayUserAvatar2).isMain(true).build();
+        imageRepository.save(userAvatar2);
+        File user_avatar3 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar3.jpg");
+        byte[] arrayUserAvatar3 = Files.readAllBytes(user_avatar3.toPath());
+        Image userAvatar3 = Image.builder().picture(arrayUserAvatar3).isMain(true).build();
+//        imageRepository.save(userAvatar1);
+
+//        List<Image> imageList = new ArrayList<>();
+//        imageList.add(imageRepository.findByPicture(arrayUserAvatar1));
+//        imageList.add(imageRepository.findByPicture(arrayUserAvatar2));
+
+
+
 /////////////////////////////////////////////////Country////////////////////////////////////////////////////////////
         Country USA = new Country();
         USA.setName("USA");
@@ -235,6 +254,32 @@ public class initData {
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+
+        User user4 = User.builder()
+                .email("user4@mail.com")
+                .username("user4")
+                .password(passwordEncoder.passwordEncoder().encode("user4"))
+                .activate(true)
+                .activationCode("some_code")
+                .isUsing2FA(false)
+                .secret("secret?")
+                .role(Roles.USER)
+                .userInfo(null)
+                .favorite(null)
+                .address(null)
+                .images(null)
+                .coupons(null)
+                .carts(null)
+                .orders(null)
+                .reviews(null)
+                .shops(null)
+                .discounts(null)
+                .messages(null)
+                .chats(null)
+                .feedbacks(null)
+                .build();
+        userRepository.save(user4);
+
 
 /////////////////////////////////////////////////Coupons////////////////////////////////////////////////////////////
 //        User user1Coupons = userRepository.findByEmail("user1@mail.com");
