@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/main")
+@CrossOrigin
 public class MainPageRestController {
 
     private final ItemService itemService;

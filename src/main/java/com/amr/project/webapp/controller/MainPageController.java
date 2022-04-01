@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.amr.project.converter.CycleAvoidingMappingContext;
@@ -17,6 +18,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
+@CrossOrigin
 //Вывод представления
 public class MainPageController {
 
@@ -27,14 +29,6 @@ public class MainPageController {
         model.addAttribute("user", user);
         return "/index";
     }
-
-
-/*    @GetMapping("/")
-    public String newPage(@AuthenticationPrincipal User user1, Model model) {
-        List<UserDto> users = userService.getAllUsers();
-        model.addAttribute("user1", user1); // текущий авторизированный пользователь
-        return "ExperimentalNewPage";
-    }*/
 
     @GetMapping("/login1FA")
     public String preloginPage(Model model) {

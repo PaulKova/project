@@ -27,6 +27,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);

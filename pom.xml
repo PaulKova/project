@@ -119,6 +119,7 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -260,7 +261,21 @@
             <artifactId>swagger-annotations</artifactId>
             <version>2.1.12</version>
         </dependency>
-        
+
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
         <dependency>
@@ -292,7 +307,12 @@
             <artifactId>aerogear-otp-java</artifactId>
             <version>1.0.0</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.apache.ant/ant -->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.10.12</version>
+        </dependency>
 
     </dependencies>
 
