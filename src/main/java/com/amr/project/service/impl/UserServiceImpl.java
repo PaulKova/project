@@ -1,10 +1,14 @@
 package com.amr.project.service.impl;
 
 import com.amr.project.converter.CycleAvoidingMappingContext;
+import com.amr.project.converter.mappers.ImageMapper;
 import com.amr.project.converter.mappers.UserMapper;
+import com.amr.project.dao.ImageRepository;
 import com.amr.project.dao.UserRepository;
 import com.amr.project.model.Mail;
+import com.amr.project.model.dto.ImageDto;
 import com.amr.project.model.dto.UserDto;
+import com.amr.project.model.entity.Image;
 import com.amr.project.model.entity.User;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.service.abstracts.UserService;
@@ -17,9 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,16 +32,21 @@ public class UserServiceImpl implements UserService {
     private final PassEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final ImageRepository imageRepository;
+    private final ImageMapper imageMapper;
 
     @Autowired
     public UserServiceImpl(MailSender mailSender, EmailUserAssistant emailUserAssistant,
                            PassEncoder passwordEncoder, UserRepository userRepository,
-                           UserMapper userMapper) {
+                           UserMapper userMapper, ImageRepository imageRepository,
+                           ImageMapper imageMapper) {
         this.mailSender = mailSender;
         this.emailUserAssistant = emailUserAssistant;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.imageRepository = imageRepository;
+        this.imageMapper = imageMapper;
     }
 
     public static String APP_NAME = "SpringRegistration";
@@ -66,7 +73,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(UserDto user) {
         User user1 = userMapper.toEntity(user, new CycleAvoidingMappingContext());
-        user.setPassword(passwordEncoder.passwordEncoder().encode(user.getPassword()));
+        if (user.getPassword().isEmpty()){
+            user1.setPassword(getUserById(user.getId()).getPassword());
+        } else {
+            user.setPassword(passwordEncoder.passwordEncoder().encode(user.getPassword()));
+        }
         mailSender.send(emailUserAssistant.trackedEmailUserUpdate(user1));
         userRepository.saveAndFlush(user1);
     }
@@ -120,5 +131,32 @@ public class UserServiceImpl implements UserService {
                         "otpauth://totp/%s:%s?secret=%s&issuer=%s",
                         APP_NAME, user.getEmail(), user.getSecret(), APP_NAME),
                 "UTF-8");
+    }
+
+    @Override
+    public List<ImageDto> getUserWithPicture(User user, byte[] bytes) {
+        boolean fileMatchWithDb = false;
+        List<Image> imageList = new ArrayList<>();
+
+        for (Image im : user.getImages()) {
+            if (Arrays.equals(im.getPicture(), bytes)) {
+                im.setIsMain(true);
+                fileMatchWithDb = true;
+            } else {
+                im.setIsMain(false);
+            }
+            imageList.add(im);
+        }
+        if (!fileMatchWithDb) {
+            Image image = Image.builder()
+                    .isMain(true)
+                    .picture(bytes)
+                    .build();
+            imageRepository.saveAndFlush(image);
+            imageList.add(imageRepository.findByPicture(bytes));
+        }
+        user.setImages(imageList);
+        userRepository.saveAndFlush(user);
+        return imageMapper.toDtoList(user.getImages(), new CycleAvoidingMappingContext());
     }
 }

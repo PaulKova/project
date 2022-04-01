@@ -1,4 +1,5 @@
 package com.amr.project.service.abstracts;
+import com.amr.project.model.dto.ImageDto;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 
@@ -22,4 +23,6 @@ public interface UserService {
     String activateUser(String code);
 
     String generateQRUrl(User user) throws UnsupportedEncodingException;
+
+    List<ImageDto> getUserWithPicture(User user, byte[] bytes);
 }
