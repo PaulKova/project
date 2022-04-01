@@ -38,6 +38,15 @@ public class User implements UserDetails {
     private String activationCode;
     private boolean isUsing2FA;
     private String secret;
+    @Column(name = "passport", unique = true)
+    @ToString.Exclude
+    private String passport;
+    @Column(name = "inn", unique = true)
+    @ToString.Exclude
+    private String inn;
+    @Column(name = "driverId", unique = true)
+    @ToString.Exclude
+    private String driverId;
 
 
     public User() {
