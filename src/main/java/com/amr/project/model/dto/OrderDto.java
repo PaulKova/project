@@ -17,6 +17,7 @@ import java.util.Set;
 public class OrderDto {
 
     private Long id;
+    private String qiwiId;
     private Calendar orderDate;
     private Calendar expectedDeliveryDate;
     private BigDecimal grandTotal;
