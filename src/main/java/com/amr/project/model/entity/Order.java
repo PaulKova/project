@@ -42,6 +42,8 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @Column(name = "qiwi_Id")
+    private String qiwiId;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE,
