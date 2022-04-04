@@ -26,8 +26,9 @@ import java.util.Optional;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/items")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ItemController {
 
 
@@ -50,9 +51,9 @@ public class ItemController {
 
     @Operation(summary = "get all items")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/items")
+            @ApiResponse(responseCode = "200", description = "Found the items", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Items not found", content = @Content)})
+    @GetMapping("/")
     public ResponseEntity<List<ItemDto>> getAllItems() {
         List<ItemDto> items = itemService.getAllItems();
         logger.info(GET_ITEMS_LOG, items.size());
@@ -60,23 +61,39 @@ public class ItemController {
     }
 
 
+
+
+    @Operation(summary = "Get all unique items by Shop Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the item", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Item not found", content = @Content)})
+    @GetMapping()
+    public ResponseEntity<List<ItemDto>> getAllItemsByShop(@RequestParam("shopId") Long shopId) {
+        List<ItemDto> items = itemService.getAllItemsByShopId(shopId);
+        logger.info(GET_ITEM_LOG, items.size());
+        return new ResponseEntity<>(items, HttpStatus.OK);
+    }
+    
+    
+    
     @Operation(summary = "get item by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/items/{id}")
+            @ApiResponse(responseCode = "200", description = "Found the item", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Item not found", content = @Content)})
+    @GetMapping("//{id}")
     public ResponseEntity<ItemDto> getItem(@PathVariable(name = "id") Long id) {
         ItemDto itemDto = itemService.getItemById(id);
         logger.info(GET_ITEM_LOG, itemDto);
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
 
+    
 
     @Operation(summary = "get first four item by rating")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/items/top")
+            @ApiResponse(responseCode = "200", description = "Found the item", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Item not found", content = @Content)})
+    @GetMapping("//top")
     public ResponseEntity<List<ItemDto>> getFistForItemsByRating() {
         List<ItemDto> itemDtos = itemService.findFirst4ByOrderByRatingDesc();
         logger.info(GET_ITEMS_LOG, itemDtos.size());
@@ -88,9 +105,9 @@ public class ItemController {
 
     @Operation(summary = "get items marked to delete")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/admin/items/pretended/delete")
+            @ApiResponse(responseCode = "200", description = "Found the item", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ItemDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Item not found", content = @Content)})
+    @GetMapping("/admin/pretended/delete")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ItemDto>> getItemsPretendedToDelete() {
         List<ItemDto> items = itemService.getPretendedToDelete();
@@ -108,7 +125,7 @@ public class ItemController {
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ItemDto.class)))
     })
-    @PostMapping("/items")
+    @PostMapping("/")
     public ResponseEntity<HttpStatus> addItem(@RequestBody ItemDto itemDto) {
         itemService.saveItem(itemDto);
         logger.info(NEW_ITEM_LOG,itemDto.getId());
@@ -128,7 +145,7 @@ public class ItemController {
                     description = "Item not found",
                     content = @Content)
     })
-    @PutMapping("/items")
+    @PutMapping("/")
     public ResponseEntity<HttpStatus> editItem(
             @RequestBody ItemDto itemDto) {
         Item item = itemMapper.toEntity(itemDto, new CycleAvoidingMappingContext());
@@ -155,7 +172,7 @@ public class ItemController {
                     description = "Item not found",
                     content = @Content)
     })
-    @DeleteMapping("/items/mark/{id}")
+    @DeleteMapping("/mark/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<ItemDto> markToDelete(@PathVariable(name = "id") Long id) {
         ItemDto itemDto = itemService.getItemById(id);
@@ -177,7 +194,7 @@ public class ItemController {
                     description = "Item not found",
                     content = @Content)
     })
-    @DeleteMapping("/admin/delete/items/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deleteItem(@PathVariable(name = "id") Long id) {
         itemService.deleteItem(id);

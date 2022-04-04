@@ -24,6 +24,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CartItemController {
 
     private static final Logger logger = LoggerFactory.getLogger(ItemController.class);

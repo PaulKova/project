@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
-import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -18,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@Import(BeanValidatorPluginsConfiguration.class)
+@Import(BeanValidatorPluginsConfiguration.class) // мб не надо
 public class SwaggerConfig {
     @Bean
     public Docket api() {
@@ -28,6 +27,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
+        //so hot!
     }
 
     private ApiInfo apiInfo() {
@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 // основатель
                 .contact(new Contact("Aslan", "http://www.project.amr.com", "canfengli@126.com"))
                 //Описание
-                .description("Простой и элегантный стиль Restful")
+                .description("Swagger ^_^")
                 .termsOfServiceUrl("http://blog.csdn.net/canfengli")
                 //номер версии
                 .version("1.0")

@@ -2,7 +2,9 @@ package com.amr.project.model.dto;
 
 import com.amr.project.model.enums.Roles;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Long.class)
 public class UserDto {
 
     private Long id;
@@ -26,33 +30,33 @@ public class UserDto {
     private boolean isUsingTwoFactorAuth;
     private String secret;
 
-    @JsonManagedReference
+    //@JsonManagedReference
     private RolesDto role;
-    @JsonManagedReference
+    //@JsonManagedReference
     private UserInfoDto userInfo;
-    @JsonManagedReference
+    //@JsonManagedReference
     private FavoriteDto favorite;
-    @JsonManagedReference
+    //@JsonManagedReference
     private AddressDto address;
-    @JsonBackReference
+    //@JsonBackReference
     private List<ImageDto> images;
-    @JsonBackReference
+    //@JsonBackReference
     private List<CouponDto> coupons;
-    @JsonBackReference
+    //@JsonBackReference
     private List<CartItemDto> cart;
-    @JsonBackReference
+    //@JsonBackReference
     private List<OrderDto> orders;
-    @JsonBackReference
+    //@JsonBackReference
     private List<ReviewDto> reviews;
-    @JsonBackReference
+    //@JsonBackReference
     private List<ShopDto> shops;
-    @JsonBackReference
+    //@JsonBackReference
     private List<DiscountDto> discounts;
-    @JsonBackReference
+    //@JsonBackReference
     private List<MessageDto> messages;
-    @JsonBackReference
+    //@JsonBackReference
     private List<ChatDto> chats;
-    @JsonBackReference
+    //@JsonBackReference
     private List<FeedbackDto> feedbacks;
 
 }

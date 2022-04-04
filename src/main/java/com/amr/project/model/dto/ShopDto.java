@@ -10,7 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+         property = "id", scope = Long.class)
 public class ShopDto {
 
     private Long id;
@@ -21,38 +22,27 @@ public class ShopDto {
     private int count;
     private double rating;
 
-//    @JsonManagedReference(value = "location")
-@JsonIgnore
-    private Country location;
-    @JsonIgnore
-//    @JsonBackReference(value = "items")
+    ////@JsonManagedReference
+    //private Country country;
+    //@JsonBackReference
     private List<ItemDto> items;
-//    @JsonBackReference(value = "reviews")
-@JsonIgnore
+    //@JsonBackReference
     private List<ReviewDto> reviews;
-//    @JsonManagedReference(value = "logo")
-@JsonIgnore
+    ////@JsonManagedReference
     private ImageDto logo;
-//    @JsonManagedReference(value = "user")
-@JsonIgnore
+    ////@JsonManagedReference
     private UserDto user;
-//    @JsonManagedReference(value = "cartItem")
-@JsonIgnore
+    ////@JsonManagedReference
     private CartItemDto cartItem;
-//    @JsonBackReference(value = "feedbacks")
-@JsonIgnore
+    //@JsonBackReference
     private List<FeedbackDto> feedbacks;
-//    @JsonBackReference(value = "discounts")
-@JsonIgnore
+    //@JsonBackReference
     private List<DiscountDto> discounts;
-//    @JsonBackReference(value = "favorites")
-@JsonIgnore
+    //@JsonBackReference
     private List<FavoriteDto> favorites;
-//    @JsonManagedReference(value = "address")
-@JsonIgnore
+    ////@JsonManagedReference
     private AddressDto address;
-//    @JsonBackReference(value = "coupons")
-    @JsonIgnore
+    //@JsonBackReference
     private List<CouponDto> coupons;
 
     private boolean isModerated;
@@ -60,4 +50,8 @@ public class ShopDto {
     private String moderatedRejectReason;
     private boolean isPretendedToBeDeleted;
 
+    public ShopDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

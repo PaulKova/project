@@ -2,15 +2,19 @@ package com.amr.project.model.entity;
 
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.Objects;
 
 //Картинки будем хранить в БД (для удобства, хотя это и плохая практика)
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Builder
 public class Image {
 
@@ -20,6 +24,7 @@ public class Image {
     private Long id;
 
     @Lob
+    @Column (columnDefinition = "longblob")
     private byte[] picture;
 
     private Boolean isMain;
@@ -27,7 +32,19 @@ public class Image {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
+    @ToString.Exclude
     private Shop shop;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Image image = (Image) o;
+        return id != null && Objects.equals(id, image.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

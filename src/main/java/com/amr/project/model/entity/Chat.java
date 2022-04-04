@@ -1,15 +1,20 @@
 package com.amr.project.model.entity;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class Chat {
 
     @Id
@@ -27,10 +32,24 @@ public class Chat {
                     CascadeType.DETACH},
             orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Message> messages;
 
 
     @ManyToMany(mappedBy = "chats")
+    @ToString.Exclude
     private List<User> users;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Chat chat = (Chat) o;
+        return id != null && Objects.equals(id, chat.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

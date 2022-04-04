@@ -23,6 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin
 public class FavoriteController {
 
     private static final Logger logger = LoggerFactory.getLogger(FavoriteController.class);

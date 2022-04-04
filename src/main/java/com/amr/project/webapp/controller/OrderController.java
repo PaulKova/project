@@ -22,7 +22,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/orders")
+@CrossOrigin
 public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
@@ -38,7 +39,7 @@ public class OrderController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Orders found", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = OrderDto.class))}),
             @ApiResponse(responseCode = "404", description = "No orders found", content = @Content)})
-    @GetMapping("/orders")
+    @GetMapping("/")
     public ResponseEntity<List<OrderDto>> getAllCategories() {
         List<OrderDto> orders = orderService.getAllOrders();
         logger.info(GET_ORDERS_LOG, orders.size());
@@ -49,7 +50,7 @@ public class OrderController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = OrderDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
-    @GetMapping("/orders/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<OrderDto>> getOrder(@PathVariable(name = "id") Long id) {
         OrderDto orderDto = orderService.getOrderById(id);
         logger.info(GET_ORDER_LOG, orderDto.getId());
@@ -63,7 +64,7 @@ public class OrderController {
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = OrderDto.class)))
     })
-    @PostMapping("/orders")
+    @PostMapping("/")
     public ResponseEntity<HttpStatus> createOrder(@RequestBody OrderDto orderDto) {
         orderService.changeStatusToWaiting(orderDto.getId());
         orderService.saveOrder(orderDto);
@@ -81,7 +82,7 @@ public class OrderController {
                     description = "Order not found",
                     content = @Content)
     })
-    @PutMapping("/orders")
+    @PutMapping("/")
     public ResponseEntity<HttpStatus> editOrder( @RequestBody OrderDto orderDto) {
         orderService.updateOrder(orderDto);
         logger.info(ORDER_UPDATED_LOG, orderDto.getId());
@@ -98,7 +99,7 @@ public class OrderController {
                     description = "Order not found",
                     content = @Content)
     })
-    @DeleteMapping("/orders/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteOrder(@PathVariable(name = "id") Long id) {
         orderService.deleteOrder(id);
         logger.info(DELETE_ORDER_LOG, id);

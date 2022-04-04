@@ -1,25 +1,32 @@
 package com.amr.project.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.util.List;
-import java.util.Set;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Long.class)
 public class CityDto {
 
+    //@Column(name = "cityDtoId")
     private Long id;
     private String name;
 
-    @JsonBackReference
+    //@JsonBackReference
     private List<AddressDto> addresses;
-    @JsonManagedReference
+    ////@JsonManagedReference("country-city")
     private CountryDto country;
 
 }
