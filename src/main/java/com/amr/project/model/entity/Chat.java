@@ -35,10 +35,11 @@ public class Chat {
     @ToString.Exclude
     private List<Message> messages;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private User sender;
 
-    @ManyToMany(mappedBy = "chats")
-    @ToString.Exclude
-    private List<User> users;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User recipient;
 
     @Override
     public boolean equals(Object o) {

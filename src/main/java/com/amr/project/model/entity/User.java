@@ -154,7 +154,7 @@ public class User implements UserDetails {
 
 
     @OneToMany(
-            mappedBy = "user",
+            mappedBy = "recipient",
             cascade = {CascadeType.MERGE,
                     CascadeType.PERSIST,
                     CascadeType.REFRESH,
