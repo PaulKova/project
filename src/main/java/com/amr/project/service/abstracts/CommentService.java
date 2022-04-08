@@ -1,5 +1,6 @@
 package com.amr.project.service.abstracts;
 
+import com.amr.project.model.dto.CommentDto;
 import com.amr.project.model.dto.UserDto;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface CommentService {
 
     void deleteCommentById(Long id);
 
+    void updateComment(CommentDto commentDto);
 }
