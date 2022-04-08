@@ -29,6 +29,9 @@ public class UserDto {
     private String activationCode;
     private boolean isUsingTwoFactorAuth;
     private String secret;
+    private int passport;
+    private int inn;
+    private int driverId;
 
     //@JsonManagedReference
     private RolesDto role;
