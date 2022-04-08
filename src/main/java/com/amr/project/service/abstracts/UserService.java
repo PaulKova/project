@@ -25,4 +25,6 @@ public interface UserService {
     String generateQRUrl(User user) throws UnsupportedEncodingException;
 
     List<ImageDto> getUserWithPicture(User user, byte[] bytes);
+
+    boolean identificateUser (UserDto user);
 }
