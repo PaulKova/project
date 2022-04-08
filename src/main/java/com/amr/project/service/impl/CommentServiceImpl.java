@@ -1,21 +1,29 @@
 package com.amr.project.service.impl;
 
 import com.amr.project.converter.CycleAvoidingMappingContext;
+import com.amr.project.converter.mappers.CommentMapper;
+import com.amr.project.converter.mappers.FeedbackMapper;
+import com.amr.project.dao.CommentRepository;
+import com.amr.project.model.dto.CommentDto;
+import com.amr.project.model.entity.Comment;
 import com.amr.project.model.entity.Feedback;
 import com.amr.project.service.abstracts.CommentService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
+    private final CommentMapper commentMapper;
 
     @Override
     public List<CommentDto> getAllComments() {
-        List<CommentDto> comments = commentRepository.findAll();
-        return comments;
+        List<Comment> comments = commentRepository.findAll();
+        return commentMapper.toDtoList(comments, new CycleAvoidingMappingContext());
     }
 
     @Override

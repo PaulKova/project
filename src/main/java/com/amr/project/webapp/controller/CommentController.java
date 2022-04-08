@@ -1,7 +1,9 @@
 package com.amr.project.webapp.controller;
 
+
 import com.amr.project.model.dto.CommentDto;
 import com.amr.project.model.entity.Comment;
+import com.amr.project.service.abstracts.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -82,7 +84,7 @@ public class CommentController {
     @PostMapping( "/admin/create/comment")
     //@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<HttpStatus> addNewComment(@RequestBody CommentDto commentDto) {
-        CommentService.saveComment(commentDto);
+        commentService.saveComment(commentDto);
         logger.info(NEW_COMMENT_LOG, commentDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -107,9 +109,6 @@ public class CommentController {
         Optional<Comment> optionalComment = Optional.of(comment);
         if (optionalComment.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        if (!file.isEmpty()) {
-            commentDto.setImages(commentService.getCommentWithPicture(comment, file.getBytes()));
         }
         commentService.updateComment(commentDto);
         logger.info(COMMENT_UPDATED_LOG, commentDto.getId());
