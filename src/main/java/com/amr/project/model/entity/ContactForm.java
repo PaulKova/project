@@ -12,6 +12,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Builder
 @AllArgsConstructor
 public class ContactForm {
@@ -21,16 +22,19 @@ public class ContactForm {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @NonNull
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @NonNull
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @NonNull
     @Column(name = "text", nullable = false, unique = true)
     private String text;
 
-    @Column(name = "date_time", nullable = false, unique = true)
+    @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
 
     @Column(name = "answer", unique = true)

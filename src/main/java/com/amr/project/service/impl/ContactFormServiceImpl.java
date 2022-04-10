@@ -7,11 +7,12 @@ import com.amr.project.model.dto.ContactFormDto;
 import com.amr.project.model.entity.ContactForm;
 import com.amr.project.service.abstracts.ContactFormService;
 import com.amr.project.service.email.MailSender;
-import com.amr.project.util.EmailCategoryAssistant;
 import com.amr.project.util.EmailContactFormAssistant;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -38,6 +39,7 @@ public class ContactFormServiceImpl implements ContactFormService {
     @Override
     public void saveContactForm(ContactFormDto contactFormDto) {
         ContactForm contactForm = contactFormMapper.toEntity(contactFormDto, new CycleAvoidingMappingContext());
+        contactForm.setDateTime(LocalDate.now().atTime(LocalTime.now()));
         contactFormRepository.saveAndFlush(contactForm);
     }
 
