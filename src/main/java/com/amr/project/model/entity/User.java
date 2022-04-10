@@ -40,15 +40,6 @@ public class User implements UserDetails {
     private String secret;
 
 
-    @Column(name = "passport", unique = true)
-    private int passport;
-    @Column(name = "inn", unique = true)
-    private int inn;
-    @Column(name = "driverId", unique = true)
-    private int driverId;
-
-
-
     public User() {
         this.secret = Base32.random();
     }

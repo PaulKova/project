@@ -1,6 +1,5 @@
 package com.amr.project.model.entity;
 
-import antlr.actions.python.CodeLexer;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -15,7 +14,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Comment {
+public class ContactForm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +33,7 @@ public class Comment {
     @Column(name = "date_time", nullable = false, unique = true)
     private LocalDateTime dateTime;
 
-    @Column(name = "answer", nullable = false, unique = true)
+    @Column(name = "answer", unique = true)
     private String answer;
 
     @Column(name = "is_moderated", nullable = false)
@@ -44,8 +43,8 @@ public class Comment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Comment comment = (Comment) o;
-        return id != null && Objects.equals(id, comment.id);
+        ContactForm contactForm = (ContactForm) o;
+        return id != null && Objects.equals(id, contactForm.id);
     }
 
     @Override

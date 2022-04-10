@@ -160,9 +160,4 @@ public class UserServiceImpl implements UserService {
         return imageMapper.toDtoList(user.getImages(), new CycleAvoidingMappingContext());
     }
 
-    @Override
-    public boolean identificateUser(UserDto user) {
-        return user.getPassport() != 0 || user.getInn() != 0 || user.getDriverId() != 0;
-    }
-
 }

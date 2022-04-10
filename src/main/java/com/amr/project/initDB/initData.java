@@ -204,7 +204,6 @@ public class initData {
                 .messages(null)
                 .chats(null)
                 .feedbacks(null)
-                .passport(null)
                 .build();
         User user2 = User.builder()
                 .email("user2@mail.com")
