@@ -51,7 +51,7 @@ public class ContactFormServiceImpl implements ContactFormService {
     @Override
     public void updateContactForm(ContactFormDto contactFormDto) {
         ContactForm contactForm = contactFormMapper.toEntity(contactFormDto, new CycleAvoidingMappingContext());
-        if (contactForm.getText() != null) {
+        if (contactForm.getAnswer() != null) {
             contactForm.setModerated(true);
         } else {
             contactForm.setModerated(false);

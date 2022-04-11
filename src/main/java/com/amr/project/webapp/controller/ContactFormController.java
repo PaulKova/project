@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import com.amr.project.converter.CycleAvoidingMappingContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,7 +67,7 @@ public class ContactFormController {
             @ApiResponse(responseCode = "200", description = "Found the contactForm", content =
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ContactFormDto.class))}),
             @ApiResponse(responseCode = "404", description = "ContactForm not found", content = @Content)})
-    @GetMapping("contactForms/{id}")
+    @GetMapping("/contactForms/{id}")
     public ResponseEntity<ContactFormDto> getUserById(@PathVariable Long id) {
         ContactFormDto contactFormDto = contactFormService.getContactFormById(id);
         logger.info(GET_CONTACT_FORM_LOG, id);
@@ -82,8 +84,7 @@ public class ContactFormController {
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ContactFormDto.class)))
     })
-    @PostMapping( "/admin/create/comment")
-    //@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PostMapping( "/contactForms")
     public ResponseEntity<HttpStatus> addNewComment(@RequestBody ContactFormDto contactFormDto) {
         contactFormService.saveContactForm(contactFormDto);
         logger.info(NEW_CONTACT_FORM_LOG, contactFormDto.getId());
@@ -103,8 +104,7 @@ public class ContactFormController {
                     content = @Content)
     })
     @PutMapping("/contactForms")
-    public ResponseEntity<HttpStatus> updateComment(@RequestBody ContactFormDto contactFormDto,
-                                                 @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<HttpStatus> updateComment(@RequestBody ContactFormDto contactFormDto) {
 
         ContactForm contactForm = contactFormMapper.toEntity(contactFormDto, new CycleAvoidingMappingContext());
         Optional<ContactForm> optionalСontactForm = Optional.of(contactForm);
@@ -119,7 +119,7 @@ public class ContactFormController {
     @Operation(summary = "Delete an contactForm by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "ContactForm was updated",
+                    description = "ContactForm was deleted",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ContactFormDto.class))),
             @ApiResponse(responseCode = "404",
