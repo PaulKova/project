@@ -51,11 +51,11 @@ public class ContactFormController {
 
     @Operation(summary = "get all contactForms")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the order", content =
+            @ApiResponse(responseCode = "200", description = "Found the contactForm", content =
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ContactFormDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
+            @ApiResponse(responseCode = "404", description = "ContactForm not found", content = @Content)})
     @GetMapping("/contactForms")
-    public ResponseEntity<List<ContactFormDto>> getAllComments() {
+    public ResponseEntity<List<ContactFormDto>> getAllContactForms() {
         List<ContactFormDto> contactFormDto = contactFormService.getAllContactForms();
         logger.info(GET_CONTACT_FORMS_LOG, contactFormDto.size());
         return new ResponseEntity<>(contactFormDto, HttpStatus.OK);
@@ -68,7 +68,7 @@ public class ContactFormController {
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ContactFormDto.class))}),
             @ApiResponse(responseCode = "404", description = "ContactForm not found", content = @Content)})
     @GetMapping("/contactForms/{id}")
-    public ResponseEntity<ContactFormDto> getUserById(@PathVariable Long id) {
+    public ResponseEntity<ContactFormDto> getContactFormById(@PathVariable Long id) {
         ContactFormDto contactFormDto = contactFormService.getContactFormById(id);
         logger.info(GET_CONTACT_FORM_LOG, id);
         return new ResponseEntity<>(contactFormDto, HttpStatus.OK);
@@ -85,7 +85,7 @@ public class ContactFormController {
                             schema = @Schema(implementation = ContactFormDto.class)))
     })
     @PostMapping( "/contactForms")
-    public ResponseEntity<HttpStatus> addNewComment(@RequestBody ContactFormDto contactFormDto) {
+    public ResponseEntity<HttpStatus> addNewContactForm(@RequestBody ContactFormDto contactFormDto) {
         contactFormService.saveContactForm(contactFormDto);
         logger.info(NEW_CONTACT_FORM_LOG, contactFormDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -104,7 +104,7 @@ public class ContactFormController {
                     content = @Content)
     })
     @PutMapping("/contactForms")
-    public ResponseEntity<HttpStatus> updateComment(@RequestBody ContactFormDto contactFormDto) {
+    public ResponseEntity<HttpStatus> updateContactForm(@RequestBody ContactFormDto contactFormDto) {
 
         ContactForm contactForm = contactFormMapper.toEntity(contactFormDto, new CycleAvoidingMappingContext());
         Optional<ContactForm> optionalСontactForm = Optional.of(contactForm);
@@ -126,9 +126,9 @@ public class ContactFormController {
                     description = "ContactForm not found",
                     content = @Content)
     })
-    @DeleteMapping("/admin/delete/contactForms/{id}")
+    @DeleteMapping("/admin/contactForms/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<HttpStatus> deleteComment(@PathVariable Long id) {
+    public ResponseEntity<HttpStatus> deleteContactForm(@PathVariable Long id) {
         contactFormService.deleteContactFormById(id);
         logger.info(DELETE_CONTACT_FORM, id);
         return new ResponseEntity<>(HttpStatus.OK);

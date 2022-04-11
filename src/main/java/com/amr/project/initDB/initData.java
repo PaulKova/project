@@ -810,7 +810,7 @@ public class initData {
         userRepository.save(admin1);
         userRepository.save(admin2);
         userRepository.save(moderator1);
-/////////////////////////////////////////////////Contact Form//////////////////////////////////////////////////////
+/////////////////////////////////////////////Contact Form//////////////////////////////////////////////////////
         ContactForm contactForm1 = ContactForm.builder()
                 .name("Alex")
                 .email("Alex@mail.ru")

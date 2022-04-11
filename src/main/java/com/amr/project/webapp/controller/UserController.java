@@ -66,8 +66,6 @@ public class UserController {
 
 
 
-
-
     @Operation(summary = "get user by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content =
