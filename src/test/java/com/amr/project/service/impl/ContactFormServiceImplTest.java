@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ContactFormServiceImplTest {
+class ContactFormServiceImplTest {
     @Mock
     private ContactFormRepository contactFormRepository;
     @Mock
@@ -93,7 +93,66 @@ public class ContactFormServiceImplTest {
         given(contactFormMapper.toDtoList(eq(contactFormList), any(CycleAvoidingMappingContext.class)))
                 .willReturn(contactFormDtoList);
 
-        //assertThat(contactFormService.getAllContactForms()).containsExactlyInAnyOrderElementsOf(new ArrayList<>(List.of(contactFormDto1, contactFormDto2)));
+        assertThat(contactFormService.getAllContactForms()).containsExactlyInAnyOrderElementsOf(new ArrayList<>(List.of(contactFormDto1, contactFormDto2)));
         assertThat(contactFormService.getAllContactForms()).contains(contactFormDto1);
+    }
+
+    @Test
+    void getContactFormById() {
+
+        ContactForm contactForm1 = ContactForm.builder()
+                .id(1L)
+                .name("Oleg")
+                .email("Oleg@mail.ru")
+                .text("i have a suggestion")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .answer(null)
+                .isModerated(false)
+                .build();
+        ContactForm contactForm2 = ContactForm.builder()
+                .id(2L)
+                .name("Dima")
+                .email("Dima@mail.ru")
+                .text("i have a complaint")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .answer(null)
+                .isModerated(false)
+                .build();
+
+        ContactFormDto contactFormDto1 = ContactFormDto.builder()
+                .id(1L)
+                .name("Oleg")
+                .email("Oleg@mail.ru")
+                .text("i have a suggestion")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .answer(null)
+                .isModerated(false)
+                .build();
+        ContactFormDto contactFormDto2 = ContactFormDto.builder()
+                .id(2L)
+                .name("Dima")
+                .email("Dima@mail.ru")
+                .text("i have a complaint")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .answer(null)
+                .isModerated(false)
+                .build();
+
+        given(contactFormRepository.getById(1L))
+                .willReturn(contactForm1);
+
+        given(contactFormRepository.getById(2L))
+                .willReturn(contactForm2);
+
+        given(contactFormMapper.toDto(eq(contactForm1), any(CycleAvoidingMappingContext.class)))
+                .willReturn(contactFormDto1);
+
+        given(contactFormMapper.toDto(eq(contactForm2), any(CycleAvoidingMappingContext.class)))
+                .willReturn(contactFormDto2);
+
+        assertThat(contactFormService.getContactFormById(1L))
+                .isEqualTo(contactFormDto1);
+        assertThat(contactFormService.getContactFormById(2L))
+                .isEqualTo(contactFormDto2);
     }
 }
