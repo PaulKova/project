@@ -122,18 +122,7 @@ public class initData {
         Image logoImage1 = Image.builder().picture(arrayLogoImage1).isMain(true).build();
         imageRepository.save(logoImage1);
 
-        File user_avatar1 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar1.jpg");
-        byte[] arrayUserAvatar1 = Files.readAllBytes(user_avatar1.toPath());
-        Image userAvatar1 = Image.builder().picture(arrayUserAvatar1).isMain(true).build();
-        imageRepository.save(userAvatar1);
-        File user_avatar2 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar2.jpg");
-        byte[] arrayUserAvatar2 = Files.readAllBytes(user_avatar2.toPath());
-        Image userAvatar2 = Image.builder().picture(arrayUserAvatar2).isMain(true).build();
-        imageRepository.save(userAvatar2);
-        File user_avatar3 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar3.jpg");
-        byte[] arrayUserAvatar3 = Files.readAllBytes(user_avatar3.toPath());
-        Image userAvatar3 = Image.builder().picture(arrayUserAvatar3).isMain(true).build();
-        imageRepository.save(userAvatar1);
+//        imageRepository.save(userAvatar1);
 
 //        List<Image> imageList = new ArrayList<>();
 //        imageList.add(imageRepository.findByPicture(arrayUserAvatar1));
@@ -563,14 +552,16 @@ public class initData {
                 .date(Date.from(Instant.now()))
                 .textMessage("message1textChat1")
                 .viewed(true)
-                .user(user1)
+                .sender(user1)
+                .recipient(user2)
                 .chat(null)
                 .build();
         Message message2_chat1 = Message.builder()
                 .date(Date.from(Instant.now()))
                 .textMessage("message2textChat1")
                 .viewed(true)
-                .user(user2)
+                .sender(user2)
+                .recipient(user1)
                 .chat(null)
                 .build();
 
@@ -578,18 +569,20 @@ public class initData {
                 .date(Date.from(Instant.now()))
                 .textMessage("message1textChat2")
                 .viewed(true)
-                .user(user2)
+                .sender(user2)
+                .recipient(user1)
                 .chat(null)
                 .build();
         Message message2_chat2 = Message.builder()
                 .date(Date.from(Instant.now()))
                 .textMessage("message2textChat2")
                 .viewed(true)
-                .user(user3)
+                .sender(user3)
+                .recipient(user1)
                 .chat(null)
                 .build();
-        Chat chat1 = Chat.builder().users(List.of(user1, user2)).build(); //no hash?!
-        Chat chat2 = Chat.builder().users(List.of(user2, user3)).build();
+        Chat chat1 = Chat.builder().sender(user1).recipient(user2).build(); //no hash?!
+        Chat chat2 = Chat.builder().sender(user2).recipient(user3).build();
 //        Chat chat1 = new Chat(List.of(user1, user2));
 //        Chat chat2 = new Chat(List.of(user2, user3));
 
