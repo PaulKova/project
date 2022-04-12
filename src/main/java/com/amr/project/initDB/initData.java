@@ -44,6 +44,7 @@ public class initData {
     private final ImageRepository imageRepository;
     private final CountryRepository countryRepository;
     private final PassEncoder passwordEncoder;
+    private final ContactFormRepository contactFormRepository;
 
     @Autowired
     public initData(ReviewRepository reviewRepository, OrderRepository ordersRepository,
@@ -55,7 +56,8 @@ public class initData {
                     ShopRepository shopRepository, AddressRepository addressRepository,
                     UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
-                    CountryRepository countryRepository, PassEncoder passwordEncoder) {
+                    CountryRepository countryRepository, PassEncoder passwordEncoder,
+                    ContactFormRepository contactFormRepository) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -75,6 +77,7 @@ public class initData {
         this.imageRepository = imageRepository;
         this.countryRepository = countryRepository;
         this.passwordEncoder = passwordEncoder;
+        this.contactFormRepository = contactFormRepository;
     }
 
     @PostConstruct
@@ -800,5 +803,29 @@ public class initData {
         userRepository.save(admin1);
         userRepository.save(admin2);
         userRepository.save(moderator1);
+/////////////////////////////////////////////Contact Form//////////////////////////////////////////////////////
+        ContactForm contactForm1 = ContactForm.builder()
+                .name("Alex")
+                .email("Alex@mail.ru")
+                .text("I have a complaint")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .build();
+        ContactForm contactForm2 = ContactForm.builder()
+                .name("Badma")
+                .email("Badma@mail.ru")
+                .text("I have a question")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .build();
+        ContactForm contactForm3 = ContactForm.builder()
+                .name("Elena")
+                .email("Elena@mail.ru")
+                .text("I have a suggestion")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .isModerated(true)
+                .answer("ok!")
+                .build();
+        contactFormRepository.save(contactForm1);
+        contactFormRepository.save(contactForm2);
+        contactFormRepository.save(contactForm3);
     }
 }

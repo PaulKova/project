@@ -24,7 +24,7 @@ public class EmailItemAssistant {
         Mail mail = new Mail();
 
         Item originalItem = emailServiceAssistant.getItemRepository().getById(item.getId());
-        String message = "Товар был изменен: ";
+        String message = "ТоваР был изменен: ";
         if (!item.getName().equals(originalItem.getName())) {
             message += "name: " + item.getName();
         }
