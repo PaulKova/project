@@ -23,21 +23,21 @@ public class ContactForm {
     private Long id;
 
     @NonNull
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @NonNull
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @NonNull
-    @Column(name = "text", nullable = false, unique = true)
+    @Column(name = "text", nullable = false)
     private String text;
 
     @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
 
-    @Column(name = "answer", unique = true)
+    @Column(name = "answer")
     private String answer;
 
     @Column(name = "is_moderated", nullable = false)
