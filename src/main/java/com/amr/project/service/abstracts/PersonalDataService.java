@@ -10,8 +10,6 @@ public interface PersonalDataService {
 
     List<PersonalDataDto> getAllPersonalData();
 
-    List<PersonalDataDto> getAllWaitingPersonalData();
-
     PersonalDataDto getPersonalDataById(Long id);
 
     void savePersonalData(PersonalDataDto personalDataDto);

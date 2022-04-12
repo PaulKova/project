@@ -25,12 +25,6 @@ public class PersonalDataServiceImpl implements PersonalDataService {
     }
 
     @Override
-    public List<PersonalDataDto> getAllWaitingPersonalData() {
-        return personalDataMapper
-                .toDtoList(personalDataRepository.findAll(), new CycleAvoidingMappingContext());
-    }
-
-    @Override
     public PersonalDataDto getPersonalDataById(Long id) {
         return personalDataMapper.toDto(personalDataRepository.getById(id), new CycleAvoidingMappingContext());
     }
