@@ -2,6 +2,7 @@ package com.amr.project.model.dto;
 
 
 import com.amr.project.model.entity.Image;
+import com.amr.project.model.enums.PersonalDataStatus;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
@@ -18,10 +19,13 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class PersonalDataDto {
+
+    private Long id;
     private int passport;
     private int dateOfIssue;
     private String authority;
     private String placeOfBirth;
     private List<Image> listOfImages;
+    private PersonalDataStatus status;
 
 }

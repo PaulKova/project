@@ -31,7 +31,7 @@ public class PersonalDataServiceImpl implements PersonalDataService {
     }
 
     @Override
-    public PersonalDataDto getPersonalDataById(int id) {
+    public PersonalDataDto getPersonalDataById(Long id) {
         return personalDataMapper.toDto(personalDataRepository.getById(id), new CycleAvoidingMappingContext());
     }
 
@@ -48,34 +48,34 @@ public class PersonalDataServiceImpl implements PersonalDataService {
     public void updatePersonalData(PersonalDataDto personalDataDto) {
         PersonalData personalData = personalDataMapper.toEntity(personalDataDto, new CycleAvoidingMappingContext());
 //
-//        здесь нужно отправить уведомление клиенту что поменялся статуc
+//        здесь нужно отправить уведомление клиенту что поменялся статус
 //
             personalData.setStatus(PersonalDataStatus.WAITING);
         personalDataRepository.saveAndFlush(personalData);
     }
 
     @Override
-    public void deletePersonalData(int id) {
+    public void deletePersonalData(Long id) {
         personalDataRepository.deleteById(id);
     }
 
     @Override
-    public void changeStatusToRejected(int personalDataId, String reason) {
-        PersonalData personalData = personalDataRepository.getById(personalDataId);
-        personalData.setStatus(PersonalDataStatus.REJECTED);
-        updatePersonalData(personalData);
+    public void changeStatusToRejected(Long personalDataId) {
+        PersonalDataDto personalDataDto = personalDataMapper.toDto(personalDataRepository.getById(personalDataId), new CycleAvoidingMappingContext());
+        personalDataDto.setStatus(PersonalDataStatus.REJECTED);
+        updatePersonalData(personalDataDto);
         //
-        //        здесь нужно отправить уведомление клиенту что поменялся статуc
+        //        здесь нужно отправить уведомление клиенту что поменялся статус
         //
     }
 
     @Override
-    public void changeStatusToConfirmed(int personalDataId) {
-        PersonalData personalData = personalDataRepository.getById(personalDataId);
-        personalData.setStatus(PersonalDataStatus.CONFIRMED);
-        updatePersonalData(personalData);
+    public void changeStatusToConfirmed(Long personalDataId) {
+        PersonalDataDto personalDataDto = personalDataMapper.toDto (personalDataRepository.getById(personalDataId), new CycleAvoidingMappingContext());
+        personalDataDto.setStatus(PersonalDataStatus.CONFIRMED);
+        updatePersonalData(personalDataDto);
         //
-        //        здесь нужно отправить уведомление клиенту что поменялся статуc
+        //        здесь нужно отправить уведомление клиенту что поменялся статус
         //
     }
 }

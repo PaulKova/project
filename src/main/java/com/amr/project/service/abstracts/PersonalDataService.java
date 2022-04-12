@@ -1,7 +1,6 @@
 package com.amr.project.service.abstracts;
 
 import com.amr.project.model.dto.PersonalDataDto;
-import com.amr.project.model.entity.PersonalData;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,15 +12,15 @@ public interface PersonalDataService {
 
     List<PersonalDataDto> getAllWaitingPersonalData();
 
-    PersonalDataDto getPersonalDataById(int id);
+    PersonalDataDto getPersonalDataById(Long id);
 
     void savePersonalData(PersonalDataDto personalDataDto);
 
     void updatePersonalData(PersonalDataDto personalDataDto);
 
-    void deletePersonalData(int id);
+    void deletePersonalData(Long id);
 
-    void changeStatusToRejected(int personalDataId, String reason);
+    void changeStatusToRejected(Long personalDataId);
 
-    void changeStatusToConfirmed(int personalDataId);
+    void changeStatusToConfirmed(Long personalDataId);
 }

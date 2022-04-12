@@ -1,5 +1,7 @@
 package com.amr.project.model.entity;
 
+import com.amr.project.model.enums.PersonalDataStatus;
+import com.amr.project.model.enums.Status;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,11 +16,16 @@ import java.util.List;
 @ToString
 public class PersonalData {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    private Long id;
+
     @Column(name = "passport",nullable = false, unique = true)
     private int passport;
 
-    @Column(name = "dateOfIssue", nullable = false, unique = true)
+    @Column(name = "dateOfIssue", nullable = false)
     private int dateOfIssue;
 
     @Column(name = "authority", nullable = false)
@@ -38,5 +45,9 @@ public class PersonalData {
             orphanRemoval = true)
     @ToString.Exclude
     private List<Image> listOfImages;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "personalDataStatus")
+    private PersonalDataStatus status;
 
 }
