@@ -51,7 +51,7 @@ class ContactFormControllerTest {
     @Order(2)
     void addNewContactForm() throws Exception {
         ContactFormDto contactFormDto = ContactFormDto.builder()
-                .id(5L)
+                .id(4L)
                 .name("Oleg")
                 .email("Oleg@mail.ru")
                 .text("I have no more questions")
@@ -70,7 +70,7 @@ class ContactFormControllerTest {
     @Order(3)
     void getContactFormById() throws Exception {
         ContactFormDto contactFormDto = ContactFormDto.builder()
-                .id(5L)
+                .id(4L)
                 .name("Oleg")
                 .email("Oleg@mail.ru")
                 .text("I have no more questions")
@@ -78,7 +78,7 @@ class ContactFormControllerTest {
                 .answer(null)
                 .isModerated(false)
                 .build();
-        this.mockMvc.perform(get("/api/contactForms/5")
+        this.mockMvc.perform(get("/api/contactForms/4")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(JSON.toJSONString(contactFormDto)))
                 .andDo((print()))
@@ -89,7 +89,7 @@ class ContactFormControllerTest {
     @Order(4)
     void updateNewContactForm() throws Exception {
         ContactFormDto contactFormDto = ContactFormDto.builder()
-                .id(5L)
+                .id(4L)
                 .name("Oleg")
                 .email("Oleg@mail.ru")
                 .text("I have no more questions")
@@ -107,7 +107,7 @@ class ContactFormControllerTest {
     @Test
     @Order(5)
     void deleteContactFormById() throws Exception {
-        long id = 5L;
+        long id = 4L;
         this.mockMvc.perform(delete("/api/admin/contactForms/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
