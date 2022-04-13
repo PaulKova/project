@@ -85,7 +85,7 @@ public class PersonalDataController {
             @ApiResponse(responseCode = "201", description = "Request is created",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))),
             @ApiResponse(responseCode = "404", description = "Not all information about user was given", content = @Content)})
-    @PostMapping("/changeStatusUser")
+    @PostMapping("/changeStatusUser/confirm")
     public ResponseEntity<String> confirmPersonalData (@RequestBody PersonalDataDto personalDataDto) {
         try {
             personalDataService.changeStatusToConfirmed(personalDataDto.getId());
@@ -103,7 +103,7 @@ public class PersonalDataController {
             @ApiResponse(responseCode = "201", description = "Request is created",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))),
             @ApiResponse(responseCode = "404", description = "Not all information about user was given", content = @Content)})
-    @PostMapping("/changeStatusUser")
+    @PostMapping("/changeStatusUser/reject")
     public ResponseEntity<String> rejectPersonalData (@RequestBody PersonalDataDto personalDataDto) {
         try {
             personalDataService.changeStatusToRejected(personalDataDto.getId());
