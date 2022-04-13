@@ -3,6 +3,7 @@ package com.amr.project.initDB;
 import com.amr.project.dao.*;
 import com.amr.project.model.entity.*;
 import com.amr.project.model.enums.Gender;
+import com.amr.project.model.enums.PersonalDataStatus;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.model.enums.Status;
 import com.amr.project.webapp.config.security.handler.PassEncoder;
@@ -44,6 +45,7 @@ public class initData {
     private final ImageRepository imageRepository;
     private final CountryRepository countryRepository;
     private final PassEncoder passwordEncoder;
+    private final PersonalDataRepository personalDataRepository;
 
     @Autowired
     public initData(ReviewRepository reviewRepository, OrderRepository ordersRepository,
@@ -55,7 +57,8 @@ public class initData {
                     ShopRepository shopRepository, AddressRepository addressRepository,
                     UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
-                    CountryRepository countryRepository, PassEncoder passwordEncoder) {
+                    CountryRepository countryRepository, PassEncoder passwordEncoder,
+                    PersonalDataRepository personalDataRepository) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -75,6 +78,7 @@ public class initData {
         this.imageRepository = imageRepository;
         this.countryRepository = countryRepository;
         this.passwordEncoder = passwordEncoder;
+        this.personalDataRepository = personalDataRepository;
     }
 
     @PostConstruct
@@ -807,5 +811,32 @@ public class initData {
         userRepository.save(admin1);
         userRepository.save(admin2);
         userRepository.save(moderator1);
+
+        /////////////////////////////////////////////////PersonalData//////////////////////////////////////////////////////////
+
+
+
+        PersonalData personalData1 = PersonalData.builder()
+                .passport(1234567890)
+                .dateOfIssue(new Date(System.currentTimeMillis()))
+                .authority("МВД Москвы")
+                .placeOfBirth("Москва")
+                .listOfImages(null)
+                .status(PersonalDataStatus.WAITING)
+                .build();
+        PersonalData personalData2 = PersonalData.builder()
+                .passport(1234567891)
+                .dateOfIssue(new Date(System.currentTimeMillis()))
+                .authority("Мвд Новосибирска")
+                .placeOfBirth("Новосибирск")
+                .listOfImages(null)
+                .status(PersonalDataStatus.WAITING)
+                .build();
+
+        personalDataRepository.save(personalData1);
+        personalDataRepository.save(personalData2);
+
     }
+
+
 }

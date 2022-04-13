@@ -5,6 +5,7 @@ import com.amr.project.model.enums.Status;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,7 @@ public class PersonalData {
     private int passport;
 
     @Column(name = "dateOfIssue", nullable = false)
-    private int dateOfIssue;
+    private Date dateOfIssue;
 
     @Column(name = "authority", nullable = false)
     private String authority;
