@@ -2,7 +2,6 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.mappers.PersonalDataMapper;
-import com.amr.project.converter.mappers.UserMapper;
 import com.amr.project.dao.PersonalDataRepository;
 import com.amr.project.dao.UserRepository;
 import com.amr.project.model.dto.PersonalDataDto;
@@ -10,13 +9,10 @@ import com.amr.project.model.entity.PersonalData;
 import com.amr.project.model.entity.User;
 import com.amr.project.model.enums.PersonalDataStatus;
 import com.amr.project.service.abstracts.PersonalDataService;
-import com.amr.project.service.abstracts.UserService;
 import com.amr.project.service.email.MailSender;
 import com.amr.project.util.EmailUserAssistant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -51,5 +47,16 @@ public class PersonalDataServiceImpl implements PersonalDataService {
             userRepository.saveAndFlush(user);
         }
         mailSender.send(emailUserAssistant.trackedEmailIdentificationUpdate(user));
+    }
+
+    @Override
+    public PersonalDataDto getPersonalDataById(Long id) {
+        return personalDataMapper.toDto(personalDataRepository.getById(id), new CycleAvoidingMappingContext());
+    }
+
+    @Override
+    public void savePersonalData(PersonalDataDto personalDataDto) {
+        PersonalData personalData = personalDataMapper.toEntity(personalDataDto, new CycleAvoidingMappingContext());
+        personalDataRepository.saveAndFlush(personalData);
     }
 }
