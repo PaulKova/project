@@ -8,6 +8,9 @@ import java.util.List;
 
 @Service
 public interface PersonalDataService {
+    PersonalDataDto getPersonalDataById(Long id);
+
+    void savePersonalData(PersonalDataDto personalDataDto);
 
     void deletePersonalData(Long id);
 

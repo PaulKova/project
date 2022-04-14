@@ -32,10 +32,9 @@ public class PersonalDataController {
 
 
     private static final String GET_PERSONALDATA_LOG = "PersonalData:{} is get";
+    private static final String NEW_PERSONALDATA_LOG = "New PersonalData was created id:{}";
     private static final String PATCH_PERSONALDATA_LOG = "PersonalData:{} status is change";
     private static final String DELETE_PERSONALDATA_LOG = "Deleted PersonalData id: {}";
-    private static final String NEW_PERSONALDATA_LOG = "New PersonalData was created id:{}";
-
 
     private final PersonalDataService personalDataService;
     private final PersonalDataMapper personalDataMapper;
@@ -63,5 +62,28 @@ public class PersonalDataController {
         personalDataService.deletePersonalData(id);
         logger.info(DELETE_PERSONALDATA_LOG, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Create a new PersonalData")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "PersonalData was created",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class)))})
+    @PostMapping("/")
+    public ResponseEntity<HttpStatus> addNewPersonalData(@RequestBody PersonalDataDto personalDataDto) {
+        personalDataService.savePersonalData(personalDataDto);
+        logger.info(NEW_PERSONALDATA_LOG, personalDataDto.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Get personalData by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the personalData", content =
+                    {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))}),
+            @ApiResponse(responseCode = "404", description = "personalData not found", content = @Content)})
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonalDataDto> getPersonalDataById(@PathVariable Long id) {
+        PersonalDataDto personalDataDto = personalDataService.getPersonalDataById(id);
+        logger.info(GET_PERSONALDATA_LOG, id);
+        return new ResponseEntity<>(personalDataDto, HttpStatus.OK);
     }
 }
