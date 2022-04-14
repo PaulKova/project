@@ -83,6 +83,28 @@ public class initData {
 
     @PostConstruct
     public void initializationDB() throws IOException {
+        /////////////////////////////////////////////////PersonalData//////////////////////////////////////////////////////////
+
+
+
+        PersonalData personalData1 = PersonalData.builder()
+                .passport(1234567890)
+                .dateOfIssue(new Date(System.currentTimeMillis()))
+                .authority("МВД Москвы")
+                .placeOfBirth("Москва")
+                .listOfImages(null)
+                .status(PersonalDataStatus.WAITING)
+                .build();
+        PersonalData personalData2 = PersonalData.builder()
+                .passport(1234567891)
+                .dateOfIssue(new Date(System.currentTimeMillis()))
+                .authority("Мвд Новосибирска")
+                .placeOfBirth("Новосибирск")
+                .listOfImages(null)
+                .status(PersonalDataStatus.WAITING)
+                .build();
+
+
         /////////////////////////////////////////////////Images////////////////////////////////////////////////////////////
         File item1_image = ResourceUtils.getFile("classpath:static/images/items/item1.jpg");
         byte[] arrayItemImage1 = Files.readAllBytes(item1_image.toPath());
@@ -208,6 +230,7 @@ public class initData {
                 .messages(null)
                 .chats(null)
                 .feedbacks(null)
+                .personalData(personalData1)
                 .build();
         User user2 = User.builder()
                 .email("user2@mail.com")
@@ -231,6 +254,7 @@ public class initData {
                 .messages(null)
                 .chats(null)
                 .feedbacks(null)
+                .personalData(personalData2)
                 .build();
         User user3 = User.builder()
                 .email("user3@mail.com")
@@ -812,29 +836,29 @@ public class initData {
         userRepository.save(admin2);
         userRepository.save(moderator1);
 
-        /////////////////////////////////////////////////PersonalData//////////////////////////////////////////////////////////
-
-
-
-        PersonalData personalData1 = PersonalData.builder()
-                .passport(1234567890)
-                .dateOfIssue(new Date(System.currentTimeMillis()))
-                .authority("МВД Москвы")
-                .placeOfBirth("Москва")
-                .listOfImages(null)
-                .status(PersonalDataStatus.WAITING)
-                .build();
-        PersonalData personalData2 = PersonalData.builder()
-                .passport(1234567891)
-                .dateOfIssue(new Date(System.currentTimeMillis()))
-                .authority("Мвд Новосибирска")
-                .placeOfBirth("Новосибирск")
-                .listOfImages(null)
-                .status(PersonalDataStatus.WAITING)
-                .build();
-
-        personalDataRepository.save(personalData1);
-        personalDataRepository.save(personalData2);
+//        /////////////////////////////////////////////////PersonalData//////////////////////////////////////////////////////////
+//
+//
+//
+//        PersonalData personalData1 = PersonalData.builder()
+//                .passport(1234567890)
+//                .dateOfIssue(new Date(System.currentTimeMillis()))
+//                .authority("МВД Москвы")
+//                .placeOfBirth("Москва")
+//                .listOfImages(null)
+//                .status(PersonalDataStatus.WAITING)
+//                .build();
+//        PersonalData personalData2 = PersonalData.builder()
+//                .passport(1234567891)
+//                .dateOfIssue(new Date(System.currentTimeMillis()))
+//                .authority("Мвд Новосибирска")
+//                .placeOfBirth("Новосибирск")
+//                .listOfImages(null)
+//                .status(PersonalDataStatus.WAITING)
+//                .build();
+//
+//        personalDataRepository.save(personalData1);
+//        personalDataRepository.save(personalData2);
 
     }
 

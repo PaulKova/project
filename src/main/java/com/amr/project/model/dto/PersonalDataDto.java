@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,7 +23,7 @@ public class PersonalDataDto {
 
     private Long id;
     private int passport;
-    private int dateOfIssue;
+    private Date dateOfIssue;
     private String authority;
     private String placeOfBirth;
     private List<Image> listOfImages;

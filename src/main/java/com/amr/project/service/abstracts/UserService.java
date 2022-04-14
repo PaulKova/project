@@ -1,6 +1,7 @@
 package com.amr.project.service.abstracts;
 import com.amr.project.model.dto.ImageDto;
 import com.amr.project.model.dto.UserDto;
+import com.amr.project.model.entity.PersonalData;
 import com.amr.project.model.entity.User;
 
 import java.io.UnsupportedEncodingException;
@@ -19,6 +20,8 @@ public interface UserService {
     void saveUser(UserDto user);
 
     User getUserByEmail(String email);
+
+    User getUserByPersonalData(PersonalData personalData);
 
     String activateUser(String code);
 

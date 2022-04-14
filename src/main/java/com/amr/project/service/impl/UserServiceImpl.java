@@ -9,6 +9,7 @@ import com.amr.project.model.Mail;
 import com.amr.project.model.dto.ImageDto;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.Image;
+import com.amr.project.model.entity.PersonalData;
 import com.amr.project.model.entity.User;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.service.abstracts.UserService;
@@ -111,6 +112,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
+    }
+
+    @Override
+    public User getUserByPersonalData(PersonalData personalData) {
+        return userRepository.getUserByPersonalData(personalData);
     }
 
     public String activateUser(String code) {

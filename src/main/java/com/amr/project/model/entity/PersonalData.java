@@ -12,11 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @RequiredArgsConstructor
 @Builder
 @ToString
 public class PersonalData {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +24,24 @@ public class PersonalData {
     private Long id;
 
     @Column(name = "passport",nullable = false, unique = true)
+    @NonNull
     private int passport;
 
     @Column(name = "dateOfIssue", nullable = false)
+    @NonNull
     private Date dateOfIssue;
 
+
     @Column(name = "authority", nullable = false)
+    @NonNull
     private String authority;
 
     @Column(name = "placeOfBirth", nullable = false)
+    @NonNull
     private String placeOfBirth;
 
+    @Column(name = "comment")
+    private String comment;
 
     @OneToMany(
             cascade = {
@@ -50,6 +57,8 @@ public class PersonalData {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "personalDataStatus")
+    @NonNull
     private PersonalDataStatus status;
+
 
 }

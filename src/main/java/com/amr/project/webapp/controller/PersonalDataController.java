@@ -32,14 +32,36 @@ public class PersonalDataController {
 
 
     private static final String GET_PERSONALDATA_LOG = "PersonalData:{} is get";
-    private static final String PERSONALDATA_LOG_CONFIRMED = "PersonalData:{} is confirmed";
-    private static final String PERSONALDATA_LOG_REJECTED = "PersonalData:{} is rejected";
-    private static final String DELETE_PERSONALDATA = "Deleted PersonalData id: {}";
+    private static final String PATCH_PERSONALDATA_LOG = "PersonalData:{} status is change";
+    private static final String DELETE_PERSONALDATA_LOG = "Deleted PersonalData id: {}";
     private static final String NEW_PERSONALDATA_LOG = "New PersonalData was created id:{}";
 
 
     private final PersonalDataService personalDataService;
     private final PersonalDataMapper personalDataMapper;
 
-
+    @Operation(summary = "Patch a personalData by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "PersonalData was update status",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))),
+            @ApiResponse(responseCode = "404", description = "PersonalData not found", content = @Content)})
+    @PatchMapping("/admin/{id}")
+    public ResponseEntity<Long> updateStatus(@PathVariable Long id,
+                                             @RequestParam("Status") PersonalDataStatus personalDataStatus,
+                                             @RequestParam(value = "Comment") String comment) {
+        personalDataService.changeStatus(id, personalDataStatus, comment);
+        logger.info(PATCH_PERSONALDATA_LOG, id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+    @Operation(summary = "Delete a personalData by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "PersonalData was deleted",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))),
+            @ApiResponse(responseCode = "404", description = "PersonalData not found", content = @Content)})
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deletePersonalData(@PathVariable Long id) {
+        personalDataService.deletePersonalData(id);
+        logger.info(DELETE_PERSONALDATA_LOG, id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
 }
