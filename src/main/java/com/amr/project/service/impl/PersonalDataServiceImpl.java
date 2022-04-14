@@ -20,4 +20,14 @@ public class PersonalDataServiceImpl implements PersonalDataService {
     private final PersonalDataMapper personalDataMapper;
 
 
+    @Override
+    public PersonalDataDto getPersonalDataById(Long id) {
+        return personalDataMapper.toDto(personalDataRepository.getById(id), new CycleAvoidingMappingContext());
+    }
+
+    @Override
+    public void savePersonalData(PersonalDataDto personalDataDto) {
+        PersonalData personalData = personalDataMapper.toEntity(personalDataDto, new CycleAvoidingMappingContext());
+        personalDataRepository.saveAndFlush(personalData);
+    }
 }

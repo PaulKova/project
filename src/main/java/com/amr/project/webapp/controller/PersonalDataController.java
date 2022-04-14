@@ -42,4 +42,33 @@ public class PersonalDataController {
     private final PersonalDataMapper personalDataMapper;
 
 
+
+
+    @Operation(summary = "Create a new PersonalData")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "PersonalData was created",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class)))})
+    @PostMapping("/")
+    public ResponseEntity<HttpStatus> addNewPersonalData(@RequestBody PersonalDataDto personalDataDto) {
+        personalDataService.savePersonalData(personalDataDto);
+        logger.info(NEW_PERSONALDATA_LOG, personalDataDto.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
+
+    @Operation(summary = "Get personalData by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the personalData", content =
+                    {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))}),
+            @ApiResponse(responseCode = "404", description = "personalData not found", content = @Content)})
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonalDataDto> getPersonalDataById(@PathVariable Long id) {
+        PersonalDataDto personalDataDto = personalDataService.getPersonalDataById(id);
+        logger.info(GET_PERSONALDATA_LOG, id);
+        return new ResponseEntity<>(personalDataDto, HttpStatus.OK);
+    }
+
+
 }
