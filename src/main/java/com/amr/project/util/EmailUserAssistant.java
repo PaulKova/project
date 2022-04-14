@@ -96,4 +96,12 @@ public class EmailUserAssistant {
         mail.setText(message);
         return mail;
     }
+
+    public Mail trackedEmailIdentificationUpdate(User user) {
+        Mail mail = new Mail();
+        mail.setTo(user.getEmail());
+        mail.setText("new Status: " + user.getPersonalData().getStatus().name() + "Comment: "
+                + user.getPersonalData().getComment());
+        return mail;
+    }
 }

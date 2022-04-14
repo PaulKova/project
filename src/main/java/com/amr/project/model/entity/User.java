@@ -38,6 +38,7 @@ public class User implements UserDetails {
     private String activationCode;
     private boolean isUsing2FA;
     private String secret;
+    private boolean isIdentification;
 
 
     public User() {
@@ -46,6 +47,16 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Roles role;
+
+    @OneToOne(cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "personal_data_id", referencedColumnName = "id")
+    @ToString.Exclude
+    private PersonalData personalData;
+
 
 
     @OneToOne(mappedBy = "user",

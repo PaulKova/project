@@ -35,6 +35,9 @@ public class PersonalData {
     @Column(name = "placeOfBirth", nullable = false)
     private String placeOfBirth;
 
+    @Column(name = "comment")
+    private String comment;
+
 
     @OneToMany(
             cascade = {
