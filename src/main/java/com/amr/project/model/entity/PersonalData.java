@@ -49,7 +49,7 @@ public class PersonalData {
     private List<Image> listOfImages;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "personalDataStatus")
+    @Column(name = "personalDataStatussss")
     private PersonalDataStatus status;
 
 }
