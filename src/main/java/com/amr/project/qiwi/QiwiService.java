@@ -1,4 +1,4 @@
-package com.amr.project.Qiwi;
+package com.amr.project.qiwi;
 
 import com.amr.project.dao.OrderRepository;
 import com.amr.project.model.entity.Order;

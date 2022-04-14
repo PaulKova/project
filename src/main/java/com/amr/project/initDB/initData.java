@@ -44,6 +44,7 @@ public class initData {
     private final ImageRepository imageRepository;
     private final CountryRepository countryRepository;
     private final PassEncoder passwordEncoder;
+    private final ContactFormRepository contactFormRepository;
 
     @Autowired
     public initData(ReviewRepository reviewRepository, OrderRepository ordersRepository,
@@ -55,7 +56,8 @@ public class initData {
                     ShopRepository shopRepository, AddressRepository addressRepository,
                     UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
-                    CountryRepository countryRepository, PassEncoder passwordEncoder) {
+                    CountryRepository countryRepository, PassEncoder passwordEncoder,
+                    ContactFormRepository contactFormRepository) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -75,6 +77,7 @@ public class initData {
         this.imageRepository = imageRepository;
         this.countryRepository = countryRepository;
         this.passwordEncoder = passwordEncoder;
+        this.contactFormRepository = contactFormRepository;
     }
 
     @PostConstruct
@@ -119,17 +122,6 @@ public class initData {
         Image logoImage1 = Image.builder().picture(arrayLogoImage1).isMain(true).build();
         imageRepository.save(logoImage1);
 
-        File user_avatar1 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar1.jpg");
-        byte[] arrayUserAvatar1 = Files.readAllBytes(user_avatar1.toPath());
-        Image userAvatar1 = Image.builder().picture(arrayUserAvatar1).isMain(true).build();
-        imageRepository.save(userAvatar1);
-        File user_avatar2 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar2.jpg");
-        byte[] arrayUserAvatar2 = Files.readAllBytes(user_avatar2.toPath());
-        Image userAvatar2 = Image.builder().picture(arrayUserAvatar2).isMain(true).build();
-        imageRepository.save(userAvatar2);
-        File user_avatar3 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar3.jpg");
-        byte[] arrayUserAvatar3 = Files.readAllBytes(user_avatar3.toPath());
-        Image userAvatar3 = Image.builder().picture(arrayUserAvatar3).isMain(true).build();
 //        imageRepository.save(userAvatar1);
 
 //        List<Image> imageList = new ArrayList<>();
@@ -560,14 +552,16 @@ public class initData {
                 .date(Date.from(Instant.now()))
                 .textMessage("message1textChat1")
                 .viewed(true)
-                .user(user1)
+                .sender(user1)
+                .recipient(user2)
                 .chat(null)
                 .build();
         Message message2_chat1 = Message.builder()
                 .date(Date.from(Instant.now()))
                 .textMessage("message2textChat1")
                 .viewed(true)
-                .user(user2)
+                .sender(user2)
+                .recipient(user1)
                 .chat(null)
                 .build();
 
@@ -575,18 +569,20 @@ public class initData {
                 .date(Date.from(Instant.now()))
                 .textMessage("message1textChat2")
                 .viewed(true)
-                .user(user2)
+                .sender(user2)
+                .recipient(user1)
                 .chat(null)
                 .build();
         Message message2_chat2 = Message.builder()
                 .date(Date.from(Instant.now()))
                 .textMessage("message2textChat2")
                 .viewed(true)
-                .user(user3)
+                .sender(user3)
+                .recipient(user1)
                 .chat(null)
                 .build();
-        Chat chat1 = Chat.builder().users(List.of(user1, user2)).build(); //no hash?!
-        Chat chat2 = Chat.builder().users(List.of(user2, user3)).build();
+        Chat chat1 = Chat.builder().sender(user1).recipient(user2).build(); //no hash?!
+        Chat chat2 = Chat.builder().sender(user2).recipient(user3).build();
 //        Chat chat1 = new Chat(List.of(user1, user2));
 //        Chat chat2 = new Chat(List.of(user2, user3));
 
@@ -807,5 +803,29 @@ public class initData {
         userRepository.save(admin1);
         userRepository.save(admin2);
         userRepository.save(moderator1);
+/////////////////////////////////////////////Contact Form//////////////////////////////////////////////////////
+        ContactForm contactForm1 = ContactForm.builder()
+                .name("Alex")
+                .email("Alex@mail.ru")
+                .text("I have a complaint")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .build();
+        ContactForm contactForm2 = ContactForm.builder()
+                .name("Badma")
+                .email("Badma@mail.ru")
+                .text("I have a question")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .build();
+        ContactForm contactForm3 = ContactForm.builder()
+                .name("Elena")
+                .email("Elena@mail.ru")
+                .text("I have a suggestion")
+                .dateTime(LocalDate.now().atTime(LocalTime.now()))
+                .isModerated(true)
+                .answer("ok!")
+                .build();
+        contactFormRepository.save(contactForm1);
+        contactFormRepository.save(contactForm2);
+        contactFormRepository.save(contactForm3);
     }
 }

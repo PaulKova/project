@@ -61,10 +61,6 @@ public class ShopController {
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
-
-
-
-
     @Operation(summary = "Getting shop by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the shop", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),

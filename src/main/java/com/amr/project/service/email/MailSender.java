@@ -28,6 +28,6 @@ public class MailSender {
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getText());
 
-        mailSender.send(mailMessage);
+       mailSender.send(mailMessage);
     }
 }

@@ -1,7 +1,6 @@
-package com.amr.project.Qiwi;
+package com.amr.project.qiwi;
 
 import com.amr.project.dao.OrderRepository;
-import com.amr.project.model.entity.Order;
 import com.qiwi.billpayments.sdk.model.out.BillResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

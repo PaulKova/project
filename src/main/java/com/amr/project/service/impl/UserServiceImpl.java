@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(UserDto user) {
         User user1 = userMapper.toEntity(user, new CycleAvoidingMappingContext());
-        if (user.getPassword().isEmpty()){
+        if (user.getPassword().isEmpty()) {
             user1.setPassword(getUserById(user.getId()).getPassword());
         } else {
             user.setPassword(passwordEncoder.passwordEncoder().encode(user.getPassword()));
@@ -159,4 +159,5 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
         return imageMapper.toDtoList(user.getImages(), new CycleAvoidingMappingContext());
     }
+
 }
