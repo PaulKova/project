@@ -46,8 +46,7 @@ public class PersonalData {
                     CascadeType.DETACH,
                     CascadeType.REFRESH},
             orphanRemoval = true)
-    @JoinTable(name="PersonalData_image", joinColumns=@JoinColumn(name="PersonalDataId", referencedColumnName = "id"),
-            inverseJoinColumns =@JoinColumn(name="ImageId", referencedColumnName = "id" ))
+
     @ToString.Exclude
     private List<Image> listOfImages;
 

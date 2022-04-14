@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface PersonalDataService {
 
-    List<PersonalDataDto> getByStatus(String personal_data_status);
+    List<PersonalDataDto> getByStatus(PersonalDataStatus personal_data_status);
 
     void updatePersonalData(PersonalDataDto personalDataDto);
 

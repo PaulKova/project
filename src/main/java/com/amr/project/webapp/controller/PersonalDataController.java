@@ -28,7 +28,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/personalData")
+@RequestMapping("/api")
 @CrossOrigin
 public class PersonalDataController {
 
@@ -55,7 +55,7 @@ public class PersonalDataController {
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))}),
             @ApiResponse(responseCode = "404", description = "PersonalData not found", content = @Content)})
     @GetMapping("/admin/personalData")
-    public ResponseEntity<List<PersonalDataDto>> getAllPersonalDataWithParam(@RequestParam(defaultValue="awaiting") String personal_data_status) {
+    public ResponseEntity<List<PersonalDataDto>> getAllPersonalDataWithParam(@RequestParam(name = "Status", defaultValue="WAITING") PersonalDataStatus personal_data_status) {
         List<PersonalDataDto> personalDataDto = personalDataService.getByStatus(personal_data_status);
         logger.info(GET_PERSONALDATA_LOG, personalDataDto.size());
         return new ResponseEntity<>(personalDataDto, HttpStatus.OK);
@@ -91,7 +91,7 @@ public class PersonalDataController {
             @ApiResponse(responseCode = "200", description = "PersonalData was update status",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))),
             @ApiResponse(responseCode = "404", description = "PersonalData not found", content = @Content)})
-    @PatchMapping("/admin/{id}")
+    @PatchMapping("/admin/personalData/{id}")
     public ResponseEntity<Long> updateStatus(@PathVariable Long id,
                                              @RequestParam("Status") PersonalDataStatus personalDataStatus,
                                              @RequestParam(value = "Comment") String comment) {
@@ -104,7 +104,7 @@ public class PersonalDataController {
             @ApiResponse(responseCode = "200", description = "PersonalData was deleted",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))),
             @ApiResponse(responseCode = "404", description = "PersonalData not found", content = @Content)})
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/personalData/{id}")
     public ResponseEntity<Long> deletePersonalData(@PathVariable Long id) {
         personalDataService.deletePersonalData(id);
         logger.info(DELETE_PERSONALDATA_LOG, id);
@@ -115,7 +115,7 @@ public class PersonalDataController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "PersonalData was created",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class)))})
-    @PostMapping("/")
+    @PostMapping("/personalData")
     public ResponseEntity<HttpStatus> addNewPersonalData(@RequestBody PersonalDataDto personalDataDto) {
         personalDataService.savePersonalData(personalDataDto);
         logger.info(NEW_PERSONALDATA_LOG, personalDataDto.getId());
@@ -127,12 +127,11 @@ public class PersonalDataController {
             @ApiResponse(responseCode = "200", description = "Found the personalData", content =
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = PersonalDataDto.class))}),
             @ApiResponse(responseCode = "404", description = "personalData not found", content = @Content)})
-    @GetMapping("/{id}")
+    @GetMapping("/personalData/{id}")
     public ResponseEntity<PersonalDataDto> getPersonalDataById(@PathVariable Long id) {
         PersonalDataDto personalDataDto = personalDataService.getPersonalDataById(id);
         logger.info(GET_PERSONALDATA_LOG, id);
         return new ResponseEntity<>(personalDataDto, HttpStatus.OK);
     }
-
 
 }

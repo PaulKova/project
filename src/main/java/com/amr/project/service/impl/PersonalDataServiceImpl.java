@@ -30,7 +30,7 @@ public class PersonalDataServiceImpl implements PersonalDataService {
 
 
     @Override
-    public List<PersonalDataDto> getByStatus(String personal_data_status) {
+    public List<PersonalDataDto> getByStatus(PersonalDataStatus personal_data_status) {
         List<PersonalData> personalDataList = personalDataRepository.getByStatus(personal_data_status);
         return personalDataMapper.toDtoList(personalDataList, new CycleAvoidingMappingContext());
     }
