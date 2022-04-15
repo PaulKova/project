@@ -80,10 +80,10 @@ public class PersonalDataController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         personalDataService.updatePersonalData(personalDataDto);
+        personalDataService.setWaitingAndFalse(personalDataDto);
         logger.info(PERSONALDATA_UPDATED_LOG, personalDataDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 
     @Operation(summary = "Patch a personalData by ID")
@@ -101,7 +101,6 @@ public class PersonalDataController {
     }
 
 
-
     @Operation(summary = "Delete a personalData by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "PersonalData was deleted",
@@ -114,9 +113,6 @@ public class PersonalDataController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-
-
-
     @Operation(summary = "Create a new PersonalData")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "PersonalData was created",
@@ -127,8 +123,6 @@ public class PersonalDataController {
         logger.info(NEW_PERSONALDATA_LOG, personalDataDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
     @Operation(summary = "Get personalData by id")
     @ApiResponses(value = {

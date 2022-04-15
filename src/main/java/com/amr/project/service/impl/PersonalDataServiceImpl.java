@@ -10,6 +10,7 @@ import com.amr.project.model.entity.PersonalData;
 import com.amr.project.model.entity.Shop;
 import com.amr.project.model.entity.User;
 import com.amr.project.model.enums.PersonalDataStatus;
+import com.amr.project.model.enums.Status;
 import com.amr.project.service.abstracts.PersonalDataService;
 import com.amr.project.service.email.MailSender;
 import com.amr.project.util.EmailUserAssistant;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -76,5 +78,17 @@ public class PersonalDataServiceImpl implements PersonalDataService {
         PersonalData personalData = personalDataMapper.toEntity(personalDataDto, new CycleAvoidingMappingContext());
         personalDataRepository.saveAndFlush(personalData);
     }
+
+    @Override
+    public void setWaitingAndFalse(PersonalDataDto personalDataDto) {
+        PersonalData personalData = personalDataMapper.toEntity(personalDataDto, new CycleAvoidingMappingContext());
+        personalData.setStatus(PersonalDataStatus.WAITING);
+        personalDataRepository.saveAndFlush(personalData);
+
+        User user = userRepository.getUserByPersonalData(personalData);
+            user.setIdentification(false);
+            userRepository.saveAndFlush(user);
+        }
+
 
 }
