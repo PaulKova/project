@@ -80,10 +80,10 @@ public class PersonalDataController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         personalDataService.updatePersonalData(personalDataDto);
+        personalDataService.setWaitingAndFalse(personalDataDto);
         logger.info(PERSONALDATA_UPDATED_LOG, personalDataDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 
     @Operation(summary = "Patch a personalData by ID")
@@ -99,6 +99,8 @@ public class PersonalDataController {
         logger.info(PATCH_PERSONALDATA_LOG, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
+
     @Operation(summary = "Delete a personalData by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "PersonalData was deleted",
