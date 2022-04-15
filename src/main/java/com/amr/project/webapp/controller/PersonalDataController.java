@@ -99,6 +99,9 @@ public class PersonalDataController {
         logger.info(PATCH_PERSONALDATA_LOG, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
+
+
     @Operation(summary = "Delete a personalData by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "PersonalData was deleted",
@@ -111,6 +114,9 @@ public class PersonalDataController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
+
+
+
     @Operation(summary = "Create a new PersonalData")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "PersonalData was created",
@@ -121,6 +127,8 @@ public class PersonalDataController {
         logger.info(NEW_PERSONALDATA_LOG, personalDataDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 
     @Operation(summary = "Get personalData by id")
     @ApiResponses(value = {
