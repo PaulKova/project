@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
     @Test
-//    @Order(1)
+    @Order(1)
     void getAllPersonalDataWithParam() throws Exception {
         this.mockMvc.perform(get("/api/admin/personalData"))
                 .andDo(print())
