@@ -28,9 +28,11 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -107,39 +109,26 @@ class OrderServiceImplTest {
 
     @Test
     void saveOrder() {
-        Order order = Order.builder()
-                .id(1L)
-                .build();
         OrderDto orderDto = OrderDto.builder()
                 .id(1L)
                 .build();
-//        OrderDto orderDto = new OrderDto();
-//        orderDto.setId(1L);
-//        orderService.saveOrder(orderDto);
-//        Mockito.verify(orderRepository,Mockito.times(1)).saveAndFlush(order1);
-        given(orderRepository.saveAndFlush(any(Order.class)))
-                .willReturn(order);
-        given(orderMapper.toEntity(orderDto, new CycleAvoidingMappingContext()))
-                .willReturn(order);
 
-        Mockito.verify(orderRepository, times(1)).save(order);
+        orderService.saveOrder(orderDto);
+
+        verify(orderRepository, times(1)).saveAndFlush(any());
 
     }
 
     @Test
     void updateOrder() throws NullPointerException{
-        Order order = new Order();
-        order.setId(1L);
-        order.setCurrency("100");
         OrderDto orderDto = OrderDto.builder()
                 .id(1L)
+                .currency("100")
                 .build();
-        given(orderRepository.saveAndFlush(any(Order.class)))
-                .willReturn(order);
-        given(orderMapper.toDto(eq(order), any(CycleAvoidingMappingContext.class)))
-                .willReturn(orderDto);
-        orderService.updateOrder(orderMapper.toDto(eq(order), any(CycleAvoidingMappingContext.class)));
-        verify(orderRepository, times(1)).saveAndFlush(order);
+
+        orderService.updateOrder(orderDto);
+
+        verify(orderRepository, times(1)).saveAndFlush(any());
     }
 
     @Test
