@@ -1,4 +1,4 @@
-package com.amr.project.model.dto.report;
+package com.amr.project.model.dto;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package com.amr.project.webapp.controller;
 
 
-import com.amr.project.model.dto.report.AuthenticationRequestDto;
+import com.amr.project.model.dto.AuthenticationRequestDto;
 import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.UserService;
 import com.amr.project.webapp.config.security.jwt.JwtTokenProvider;
