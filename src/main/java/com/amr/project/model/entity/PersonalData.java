@@ -24,7 +24,7 @@ public class PersonalData {
     private Long id;
 
     @Column(name = "passport",nullable = false, unique = true)
-    private int passport;
+    private Long passport;
 
     @Column(name = "dateOfIssue", nullable = false)
     private Date dateOfIssue;

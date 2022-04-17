@@ -22,6 +22,7 @@ public interface PersonalDataService {
     void deletePersonalData(Long id);
 
     void changeStatus(Long id, PersonalDataStatus personalDataStatus, String comment);
+
     void setWaitingAndFalse(PersonalDataDto personalDataDto);
 }
 

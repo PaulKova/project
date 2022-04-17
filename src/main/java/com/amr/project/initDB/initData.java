@@ -88,7 +88,7 @@ public class initData {
 
 
         PersonalData personalData1 = PersonalData.builder()
-                .passport(1234567890)
+                .passport(1234567890L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД Москвы")
                 .placeOfBirth("Москва")
@@ -96,7 +96,7 @@ public class initData {
                 .status(PersonalDataStatus.WAITING)
                 .build();
         PersonalData personalData2 = PersonalData.builder()
-                .passport(1234567891)
+                .passport(1234567891L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("Мвд Новосибирска")
                 .placeOfBirth("Новосибирск")

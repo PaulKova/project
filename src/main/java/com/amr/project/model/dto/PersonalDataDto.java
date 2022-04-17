@@ -22,7 +22,7 @@ import java.util.List;
 public class PersonalDataDto {
 
     private Long id;
-    private int passport;
+    private Long passport;
     private Date dateOfIssue;
     private String authority;
     private String placeOfBirth;

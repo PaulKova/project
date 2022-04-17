@@ -57,7 +57,7 @@ class PersonalDataServiceImplTest {
 
         PersonalData personalData1 = PersonalData.builder()
                 .id(1L)
-                .passport(1234567890)
+                .passport(1234567890L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД Москвы")
                 .placeOfBirth("Москва")
@@ -66,7 +66,7 @@ class PersonalDataServiceImplTest {
                 .build();
         PersonalData personalData2 = PersonalData.builder()
                 .id(2L)
-                .passport(1234567891)
+                .passport(1234567891L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("Мвд Новосибирска")
                 .placeOfBirth("Новосибирск")
@@ -78,7 +78,7 @@ class PersonalDataServiceImplTest {
 
         PersonalDataDto personalDataDto1 = PersonalDataDto.builder()
                 .id(1L)
-                .passport(1234567890)
+                .passport(1234567890L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД Москвы")
                 .placeOfBirth("Москва")
@@ -87,7 +87,7 @@ class PersonalDataServiceImplTest {
                 .build();
         PersonalDataDto personalDataDto2 = PersonalDataDto.builder()
                 .id(2L)
-                .passport(1234567891)
+                .passport(1234567891L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("Мвд Новосибирска")
                 .placeOfBirth("Новосибирск")
@@ -113,7 +113,7 @@ class PersonalDataServiceImplTest {
 
         PersonalData personalData1 = PersonalData.builder()
                 .id(input)
-                .passport(1234567890)
+                .passport(1234567890L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД Москвы")
                 .placeOfBirth("Москва")
@@ -123,7 +123,7 @@ class PersonalDataServiceImplTest {
 
         PersonalDataDto personalDataDto1 = PersonalDataDto.builder()
                 .id(input)
-                .passport(1234567890)
+                .passport(1234567890L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД Москвы")
                 .placeOfBirth("Москва")

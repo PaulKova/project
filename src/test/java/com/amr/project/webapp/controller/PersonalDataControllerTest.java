@@ -46,7 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     void addNewPersonalData() throws Exception {
         PersonalDataDto personalDataDto = PersonalDataDto.builder()
                 .id(3L)
-                .passport(1234567)
+                .passport(1234567L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД С. Петербург")
                 .placeOfBirth("С. Петербург")
@@ -66,7 +66,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     void updatePersonalData() throws Exception {
         PersonalDataDto personalDataDto = PersonalDataDto.builder()
                 .id(3L)
-                .passport(1234567)
+                .passport(1234567L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД г. С. Петербург")
                 .placeOfBirth("г. С. Петербург")
@@ -86,7 +86,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     void updateStatus() throws Exception {
         PersonalDataDto personalDataDto = PersonalDataDto.builder()
                 .id(1L)
-                .passport(1234567890)
+                .passport(1234567890L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД Москвы")
                 .placeOfBirth("Москва")
@@ -106,7 +106,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     void getPersonalDataById() throws Exception {
         PersonalDataDto personalDataDto = PersonalDataDto.builder()
                 .id(1L)
-                .passport(1234567890)
+                .passport(1234567890L)
                 .dateOfIssue(new Date(System.currentTimeMillis()))
                 .authority("МВД Москвы")
                 .placeOfBirth("Москва")
