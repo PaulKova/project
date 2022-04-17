@@ -28,17 +28,21 @@ public class Message {
     @Column
     private String textMessage;
 
-    @Column
-    private boolean viewed;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private User sender;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
-    private User user;
+    private User recipient;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     private Chat chat;
+
+    private boolean viewed;
 
     @Override
     public boolean equals(Object o) {
