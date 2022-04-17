@@ -58,10 +58,9 @@ public class initData {
                     ShopRepository shopRepository, AddressRepository addressRepository,
                     UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
-                    CountryRepository countryRepository, PassEncoder passwordEncoder,
-                    ContactFormRepository contactFormRepository) {
-                    CountryRepository countryRepository, PassEncoder passwordEncoder,
-                    PersonalDataRepository personalDataRepository) {
+                    CountryRepository countryRepository,
+                    ContactFormRepository contactFormRepository,
+                    PassEncoder passwordEncoder, PersonalDataRepository personalDataRepository) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
