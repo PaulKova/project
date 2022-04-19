@@ -2,6 +2,8 @@ package com.amr.project.webapp.config.security;
 
 
 import com.amr.project.webapp.config.security.handler.PassEncoder;
+import com.amr.project.webapp.config.security.jwt.JwtConfigurer;
+import com.amr.project.webapp.config.security.jwt.JwtTokenProvider;
 import com.amr.project.webapp.config.security.service.CustomAuthenticationProvider;
 import com.amr.project.webapp.config.security.service.CustomWebAuthenticationDetailsSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PassEncoder passwordEncoder;
 
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -44,28 +49,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .httpBasic().disable()
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
                 .antMatchers("/login","/logout").permitAll()
+                .antMatchers("/api/users/**").hasRole("ADMIN")
                 .antMatchers("/**").permitAll()
                 .antMatchers("/swagger/","/v3/").permitAll()
                 .antMatchers("/swagger/*").permitAll()
                 .and().formLogin()
-                .authenticationDetailsSource(authenticationDetailsSource)
+//                .authenticationDetailsSource(authenticationDetailsSource)
                 .loginPage("/login")
                 .loginPage("/login1FAQR")
                 .and().logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/login1FA");
+                .logoutSuccessUrl("/login1FA")
+                .and()
+                .apply(new JwtConfigurer(jwtTokenProvider));
     }
 
 
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        CustomAuthenticationProvider authProvider = new CustomAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder.passwordEncoder());
-        return authProvider;
-    }
+//    @Bean
+//    public DaoAuthenticationProvider authProvider() {
+//        CustomAuthenticationProvider authProvider = new CustomAuthenticationProvider();
+//        authProvider.setUserDetailsService(userDetailsService);
+//        authProvider.setPasswordEncoder(passwordEncoder.passwordEncoder());
+//        return authProvider;
+//    }
 
 }

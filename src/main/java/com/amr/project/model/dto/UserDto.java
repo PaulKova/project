@@ -29,6 +29,7 @@ public class UserDto {
     private String activationCode;
     private boolean isUsingTwoFactorAuth;
     private String secret;
+    private boolean isIdentification;
 
     //@JsonManagedReference
     private RolesDto role;

@@ -3,6 +3,7 @@ package com.amr.project.initDB;
 import com.amr.project.dao.*;
 import com.amr.project.model.entity.*;
 import com.amr.project.model.enums.Gender;
+import com.amr.project.model.enums.PersonalDataStatus;
 import com.amr.project.model.enums.Roles;
 import com.amr.project.model.enums.Status;
 import com.amr.project.webapp.config.security.handler.PassEncoder;
@@ -45,6 +46,7 @@ public class initData {
     private final CountryRepository countryRepository;
     private final PassEncoder passwordEncoder;
     private final ContactFormRepository contactFormRepository;
+    private final PersonalDataRepository personalDataRepository;
 
     @Autowired
     public initData(ReviewRepository reviewRepository, OrderRepository ordersRepository,
@@ -56,8 +58,9 @@ public class initData {
                     ShopRepository shopRepository, AddressRepository addressRepository,
                     UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
-                    CountryRepository countryRepository, PassEncoder passwordEncoder,
-                    ContactFormRepository contactFormRepository) {
+                    CountryRepository countryRepository,
+                    ContactFormRepository contactFormRepository,
+                    PassEncoder passwordEncoder, PersonalDataRepository personalDataRepository) {
         this.reviewRepository = reviewRepository;
         this.ordersRepository = ordersRepository;
         this.itemRepository = itemRepository;
@@ -78,10 +81,32 @@ public class initData {
         this.countryRepository = countryRepository;
         this.passwordEncoder = passwordEncoder;
         this.contactFormRepository = contactFormRepository;
+        this.personalDataRepository = personalDataRepository;
     }
 
     @PostConstruct
     public void initializationDB() throws IOException {
+        /////////////////////////////////////////////////PersonalData//////////////////////////////////////////////////////////
+
+
+
+        PersonalData personalData1 = PersonalData.builder()
+                .passport(1234567890L)
+                .dateOfIssue(new Date(System.currentTimeMillis()))
+                .authority("МВД Москвы")
+                .placeOfBirth("Москва")
+                .listOfImages(null)
+                .status(PersonalDataStatus.WAITING)
+                .build();
+        PersonalData personalData2 = PersonalData.builder()
+                .passport(1234567891L)
+                .dateOfIssue(new Date(System.currentTimeMillis()))
+                .authority("Мвд Новосибирска")
+                .placeOfBirth("Новосибирск")
+                .listOfImages(null)
+                .status(PersonalDataStatus.WAITING)
+                .build();
+
         /////////////////////////////////////////////////Images////////////////////////////////////////////////////////////
         File item1_image = ResourceUtils.getFile("classpath:static/images/items/item1.jpg");
         byte[] arrayItemImage1 = Files.readAllBytes(item1_image.toPath());
@@ -122,6 +147,17 @@ public class initData {
         Image logoImage1 = Image.builder().picture(arrayLogoImage1).isMain(true).build();
         imageRepository.save(logoImage1);
 
+//        File user_avatar1 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar1.jpg");
+//        byte[] arrayUserAvatar1 = Files.readAllBytes(user_avatar1.toPath());
+//        Image userAvatar1 = Image.builder().picture(arrayUserAvatar1).isMain(true).build();
+//        imageRepository.save(userAvatar1);
+//        File user_avatar2 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar2.jpg");
+//        byte[] arrayUserAvatar2 = Files.readAllBytes(user_avatar2.toPath());
+//        Image userAvatar2 = Image.builder().picture(arrayUserAvatar2).isMain(true).build();
+//        imageRepository.save(userAvatar2);
+//        File user_avatar3 = ResourceUtils.getFile("classpath:static/images/userAvatar/avatar3.jpg");
+//        byte[] arrayUserAvatar3 = Files.readAllBytes(user_avatar3.toPath());
+//        Image userAvatar3 = Image.builder().picture(arrayUserAvatar3).isMain(true).build();
 //        imageRepository.save(userAvatar1);
 
 //        List<Image> imageList = new ArrayList<>();
@@ -196,6 +232,7 @@ public class initData {
                 .messages(null)
                 .chats(null)
                 .feedbacks(null)
+                .personalData(personalData1)
                 .build();
         User user2 = User.builder()
                 .email("user2@mail.com")
@@ -219,6 +256,7 @@ public class initData {
                 .messages(null)
                 .chats(null)
                 .feedbacks(null)
+                .personalData(personalData2)
                 .build();
         User user3 = User.builder()
                 .email("user3@mail.com")
@@ -828,4 +866,6 @@ public class initData {
         contactFormRepository.save(contactForm2);
         contactFormRepository.save(contactForm3);
     }
+
+
 }
