@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
+    boolean existsByName(Shop shop);
+
     List<Shop> findFirst4ByOrderByRatingDesc();
 
 

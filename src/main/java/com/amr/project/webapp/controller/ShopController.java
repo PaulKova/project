@@ -50,10 +50,6 @@ public class ShopController {
     private final ShopService shopService;
     private final ShopMapper shopMapper;
 
-
-
-
-
     @Operation(summary = "Getting all shops")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of shops created", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShopDto.class))}),
@@ -168,7 +164,7 @@ public class ShopController {
     @Operation(summary = "Create request for a new Shop")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
-                    description = "Request is created",
+                    description = "Shop is created",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ShopDto.class))),
             @ApiResponse(responseCode = "404",
@@ -181,8 +177,8 @@ public class ShopController {
         shopDto.setModerateAccept(true);// admins accept create a shop
         shopDto.setModerated(false);
         shopService.saveShop(shopDto);
-        log.info(NEW_SHOP_LOG, shopDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        logger.info(NEW_SHOP_LOG, shopDto);
+        return new ResponseEntity<>(shopDto, HttpStatus.CREATED);
     }
 
 
@@ -203,11 +199,6 @@ public class ShopController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<HttpStatus> editShop(
             @RequestBody ShopDto shopDto) {
-        Shop shop =  shopMapper.toEntity(shopDto, new CycleAvoidingMappingContext() );
-        Optional<Shop> optionalShop = Optional.of(shop);
-        if (optionalShop.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         shopService.updateShopById(shopDto);
         log.info(SHOP_UPDATED_LOG, shopDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -220,7 +211,7 @@ public class ShopController {
             @ApiResponse(responseCode = "200",
                     description = "Shop was updated",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDto.class))),
+                            schema = @Schema(implementation = ShopDto.class))),
             @ApiResponse(responseCode = "404",
                     description = "Shop not found",
                     content = @Content)
@@ -241,7 +232,7 @@ public class ShopController {
             @ApiResponse(responseCode = "200",
                     description = "Shop was deleted",
                     content = @Content(mediaType = APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ItemDto.class))),
+                            schema = @Schema(implementation = ShopDto.class))),
             @ApiResponse(responseCode = "404",
                     description = "Shop not found",
                     content = @Content)
