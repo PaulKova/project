@@ -23,15 +23,14 @@ public class ReviewDto {
     private Date date;
     private int rating;
 
-    //@JsonManagedReference
-    private UserDto user;
-    //@JsonManagedReference
-    private ShopDto shop;
-    //@JsonManagedReference
-    private ItemDto item;
-
     private boolean isModerated;
     private boolean isModerateAccept;
     private String moderatedRejectReason;
+
+    private Long userId;
+    private Long shopId;
+    private Long itemId;
+
+
 
 }
