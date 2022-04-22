@@ -27,4 +27,5 @@ public interface ReviewService {
     List<ReviewDto> getAllShopReviewById(Long id);
 
     List<ReviewDto> getAllItemReviewById(Long id);
+
 }
