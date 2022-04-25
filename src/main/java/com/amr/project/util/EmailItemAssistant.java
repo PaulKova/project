@@ -15,12 +15,15 @@ public class EmailItemAssistant {
 
     public Mail trackedEmailItemSave(Item item) {
         Mail mail = new Mail();
-        mail.setTo(item.getShop().getEmail());
-        mail.setText("Item add : " + item.getName() + " " + item.getDescription());
+
+        String shopEmail = item.getShop().getEmail();
+        mail.setTo(shopEmail);
+        mail.setText("Item add with id : " + item.getId() + ", name : " + item.getName() + ", description " + item.getDescription());
         return mail;
     }
 
     public Mail trackedEmailItemUpdate(Item item) {
+
         Mail mail = new Mail();
 
         Item originalItem = emailServiceAssistant.getItemRepository().getById(item.getId());
@@ -39,6 +42,7 @@ public class EmailItemAssistant {
         }
         mail.setText(message);
         return mail;
+
     }
 
     public Mail trackedEmailItemDelete(Item item) {
