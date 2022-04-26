@@ -26,20 +26,21 @@ public class EmailItemAssistant {
         Mail mail = new Mail();
 
         Item originalItem = emailServiceAssistant.getItemRepository().getById(item.getId());
-        String message = "Товар был изменен: ";
+        StringBuilder message = new StringBuilder("Товар был изменен: ");
+
         if (!item.getName().equals(originalItem.getName())) {
-            message += "name: " + item.getName();
+            message.append("name: ").append(item.getName());
         }
         if (item.getCount() != (originalItem.getCount())) {
-            message += "count : " + item.getCount();
+            message.append(", count: ").append(item.getCount());
         }
         if (!item.getPrice().equals(originalItem.getPrice())) {
-            message += "price: " + item.getPrice();
+            message.append(", price: ").append(item.getPrice());
         }
         if (!item.getDescription().equals(originalItem.getDescription())) {
-            message += "Description: " + item.getName();
+            message.append(", description: ").append(item.getDescription());
         }
-        mail.setText(message);
+        mail.setText(message.toString());
         return mail;
 
     }

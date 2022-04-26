@@ -2,6 +2,7 @@ package com.amr.project.util;
 
 import com.amr.project.dao.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +14,17 @@ public class EmailServiceAssistant {
     private ItemRepository itemRepository;
     private UserRepository userRepository;
     private ShopRepository shopRepository;
+
+    @Autowired
+    public EmailServiceAssistant(OrderRepository orderRepository, CategoryRepository categoryRepository,
+                                 ItemRepository itemRepository, UserRepository userRepository,
+                                 ShopRepository shopRepository) {
+        this.orderRepository = orderRepository;
+        this.categoryRepository = categoryRepository;
+        this.itemRepository = itemRepository;
+        this.userRepository = userRepository;
+        this.shopRepository = shopRepository;
+    }
 
     public ShopRepository getShopRepository() {
         return shopRepository;
