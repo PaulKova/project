@@ -20,14 +20,14 @@ public class MailSender {
         this.mailSender = mailSender;
     }
 
-    public void send(Mail mail){
+    public void send(Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         mailMessage.setFrom(username);
-        mailMessage.setTo(mail.getTo());
+        mailMessage.setTo(username);
         mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getText());
+        mailMessage.setText(mail.getText() + " "); //String value, if "No MimeMessage content" in log
 
-       mailSender.send(mailMessage);
+        mailSender.send(mailMessage);
     }
 }

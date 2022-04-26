@@ -4,6 +4,7 @@ import com.amr.project.converter.mappers.CategoryMapper;
 import com.amr.project.dao.CategoryRepository;
 import com.amr.project.model.dto.CategoryDto;
 import com.amr.project.model.entity.Category;
+import com.amr.project.model.entity.Order;
 import com.amr.project.service.abstracts.CategoryService;
 import com.amr.project.service.email.MailSender;
 import com.amr.project.util.EmailCategoryAssistant;
@@ -51,7 +52,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(Long id) {
-        mailSender.send(emailCategoryAssistant.trackedEmailCategoryDelete(id));
+
+        Category category = categoryMapper.toEntity(getCategoryById(id), new CycleAvoidingMappingContext());
+        mailSender.send(emailCategoryAssistant.trackedEmailCategoryDelete(category));
         categoryRepository.deleteById(id);
+
     }
 }

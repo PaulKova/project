@@ -27,11 +27,11 @@ public class EmailCategoryAssistant {
         return mail;
     }
 
-    public Mail trackedEmailCategoryDelete(Long id) {
+    public Mail trackedEmailCategoryDelete(Category category) {
         Mail mail = new Mail();
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         mail.setTo(userEmail);
-        mail.setText("Category delete" + emailServiceAssistant.getCategoryRepository().getById(id).getName());
+        mail.setText("Category delete" + category.getName() + " " + category.getId());
         return mail;
     }
 }
