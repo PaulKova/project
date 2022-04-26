@@ -52,10 +52,6 @@ public class CategoryController {
     }
 
 
-
-
-
-
     @Operation(summary = "get category by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the order", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = CategoryDto.class))}),
@@ -66,10 +62,6 @@ public class CategoryController {
         logger.info(GET_CATEGORY_LOG, categoryDto.getId());
         return new ResponseEntity<>(Optional.of(categoryDto), HttpStatus.OK);
     }
-
-
-
-
 
 
     @Operation(summary = "Create a new Category")
@@ -85,10 +77,6 @@ public class CategoryController {
         logger.info(NEW_CATEGORIES_LOG, categoryDto.getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-
-
-
 
 
     @Operation(summary = "Update an Category by ID")
@@ -110,9 +98,6 @@ public class CategoryController {
     }
 
 
-
-
-
     @Operation(summary = "Delete an Category by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -124,10 +109,10 @@ public class CategoryController {
                     content = @Content)
     })
     @DeleteMapping("/categories/{id}")
-    public ResponseEntity<Long> deleteCategory(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<HttpStatus> deleteCategory(@PathVariable(name = "id") Long id) {
         categoryService.deleteCategory(id);
         logger.info(DELETE_CATEGORIES, id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

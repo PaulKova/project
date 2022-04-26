@@ -26,7 +26,7 @@ public class MailSender {
         mailMessage.setFrom(username);
         mailMessage.setTo(username);
         mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getText() + " : Some another text"); //String value, if "No MimeMessage content" in log
+        mailMessage.setText(mail.getText() + " "); //String value, if "No MimeMessage content" in log
 
         mailSender.send(mailMessage);
     }

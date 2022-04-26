@@ -52,6 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(Long id) {
+
         Category category = categoryMapper.toEntity(getCategoryById(id), new CycleAvoidingMappingContext());
         mailSender.send(emailCategoryAssistant.trackedEmailCategoryDelete(category));
         categoryRepository.deleteById(id);

@@ -15,7 +15,6 @@ public class EmailItemAssistant {
 
     public Mail trackedEmailItemSave(Item item) {
         Mail mail = new Mail();
-
         String shopEmail = item.getShop().getEmail();
         mail.setTo(shopEmail);
         mail.setText("Item add with id : " + item.getId() + ", name : " + item.getName() + ", description " + item.getDescription());
@@ -27,7 +26,7 @@ public class EmailItemAssistant {
         Mail mail = new Mail();
 
         Item originalItem = emailServiceAssistant.getItemRepository().getById(item.getId());
-        String message = "ТоваР был изменен: ";
+        String message = "Товар был изменен: ";
         if (!item.getName().equals(originalItem.getName())) {
             message += "name: " + item.getName();
         }
