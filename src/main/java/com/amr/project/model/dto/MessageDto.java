@@ -1,10 +1,16 @@
 package com.amr.project.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -16,13 +22,15 @@ import java.util.Date;
         property = "id", scope = Long.class)
 public class MessageDto {
     private Long id;
-    private Date date;
     private String textMessage;
     private boolean viewed;
 
-    //@JsonManagedReference
-    private UserDto user;
-    //@JsonManagedReference
-    private ChatDto chat;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime creationTime;
 
+    private Long chatId;
+    private Long toUserId;
+    private Long fromUserId;
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 @Data
@@ -15,17 +16,15 @@ import java.util.Calendar;
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
+
+//TODO мне кажется нужно удалить этот класс, так как он урезанная версия UserDto
 public class UserInfoDto {
     private Long id;
-
     private String phone;
     private String firstName;
     private String lastName;
     private int age;
-    private Calendar birthday;
-
-    //@JsonManagedReference
+    private LocalDate birthday;
     private GenderDto gender;
-    //@JsonManagedReference
     private UserDto user;
 }

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -17,13 +18,8 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class ChatDto {
-
     private Long id;
     private Long hash;
-
-    //@JsonBackReference
+    private Set<Long> membersId;
     private List<MessageDto> messages;
-    //@JsonBackReference
-    private List<UserDto> users;
-
 }

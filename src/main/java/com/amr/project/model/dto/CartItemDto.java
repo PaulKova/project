@@ -20,7 +20,7 @@ public class CartItemDto {
     private Long id;
     private int quantity;
     private User user;
-
+//TODO удалить этот класс
 
     //@JsonManagedReference
     private ShopDto shop;

@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class ContactFormDto {
-
     private Long id;
     private String name;
     private String email;
@@ -24,5 +23,4 @@ public class ContactFormDto {
     private LocalDateTime dateTime;
     private String answer;
     private boolean isModerated;
-
 }

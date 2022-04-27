@@ -17,13 +17,6 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class CountryDto {
-
-
     private Long id;
     private String name;
-
-    /*//@JsonBackReference
-    private List<ShopDto> shops;*/
-    //@JsonBackReference("country-city")
-    private List<CityDto> cities;
 }

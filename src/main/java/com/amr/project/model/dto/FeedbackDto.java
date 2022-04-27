@@ -19,11 +19,5 @@ public class FeedbackDto {
     private String reason;
     private String fullText;
     private LocalDateTime dateTime;
-    private String username;
-
-    //@JsonManagedReference
-    private ShopDto shop;
-    //@JsonManagedReference
-    private UserDto user;
-
+    private Long userId;
 }

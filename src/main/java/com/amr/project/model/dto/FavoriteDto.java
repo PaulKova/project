@@ -17,13 +17,8 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class FavoriteDto {
-
     private Long id;
-
-    //@JsonBackReference
-    private List<ShopDto> shops;
-    //@JsonBackReference
     private List<ItemDto> items;
-    //@JsonManagedReference
-    private UserDto user;
+    private List<ShopDto> shops;
+    private Long userId;
 }

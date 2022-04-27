@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+//TODO удалить!!!
 public enum StatusDto {
     START,
     COMPLETE,

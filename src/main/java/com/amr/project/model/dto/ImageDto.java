@@ -16,10 +16,4 @@ public class ImageDto {
     private Long id;
     private byte[] picture;
     private Boolean isMain;
-
-    //@JsonManagedReference
-    private ShopDto shop;
-
-
-
 }

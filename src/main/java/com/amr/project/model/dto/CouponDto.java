@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 
@@ -15,11 +16,11 @@ import java.util.Calendar;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class CouponDto {
-
     private Long id;
-    private Calendar start;
-    private Calendar end;
-
-    //@JsonManagedReference
-    private UserDto user;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private int discount;
+    private String name;
+    private Long userId;
+    private Long shopId;
 }

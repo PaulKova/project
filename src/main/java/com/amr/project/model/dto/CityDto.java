@@ -19,14 +19,8 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class CityDto {
-
-    //@Column(name = "cityDtoId")
     private Long id;
     private String name;
-
-    //@JsonBackReference
-    private List<AddressDto> addresses;
-    ////@JsonManagedReference("country-city")
-    private CountryDto country;
-
+    private String countryName;
+    private Long countryId;
 }

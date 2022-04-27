@@ -13,14 +13,10 @@ import lombok.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class DiscountDto {
-
     private Long id;
     private Integer minOrder;
     private Integer percentage;
     private Integer fixedDiscount;
-
-    //@JsonManagedReference
-    private ShopDto shop;
-
-
+    private Long userId;
+    private Long shopId;
 }

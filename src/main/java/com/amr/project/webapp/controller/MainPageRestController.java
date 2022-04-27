@@ -6,11 +6,14 @@ import com.amr.project.service.abstracts.ItemService;
 import com.amr.project.service.abstracts.ShopService;
 import com.amr.project.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.amr.project.converter.CycleAvoidingMappingContext;
 import org.springframework.data.domain.Pageable;
+
+import java.util.LinkedList;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +44,7 @@ public class MainPageRestController {
         MainPageDto mainPageDto = new MainPageDto(categoryService.getAllCategories(),
                 shopService.findFirst4ByOrderByRatingDesc(),
                 itemService.findFirst4ByOrderByRatingDesc());
+        LinkedList
         return new ResponseEntity<>(mainPageDto, HttpStatus.OK);
     }
 }

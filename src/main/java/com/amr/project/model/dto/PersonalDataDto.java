@@ -20,7 +20,6 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class PersonalDataDto {
-
     private Long id;
     private Long passport;
     private Date dateOfIssue;
@@ -28,5 +27,4 @@ public class PersonalDataDto {
     private String placeOfBirth;
     private List<Image> listOfImages;
     private PersonalDataStatus status;
-
 }

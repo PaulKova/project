@@ -15,7 +15,4 @@ import java.util.List;
 
 @Mapper(builder = @Builder(disableBuilder = true), componentModel = "spring", uses = UserMapper.class)
 public interface UserInfoMapper extends MapperInterface<UserInfoDto, UserInfo> {
-
-
-
 }

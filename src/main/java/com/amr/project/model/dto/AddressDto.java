@@ -20,13 +20,10 @@ public class AddressDto {
     private String cityIndex;
     private String street;
     private String house;
-
-    //@JsonManagedReference
-    private CityDto city;
-    //@JsonBackReference
-    private List<UserDto> users;
-    //@JsonBackReference
-    private List<ShopDto> shops;
-    //@JsonBackReference
-    private List<OrderDto> orders;
+    private Long cityId;
+    private String city;
+    private Long countryId;
+    private String country;
+    //добавить это поле в сущности нужно для указания дополнительной информации по адресу
+    private String additionalInfo;
 }

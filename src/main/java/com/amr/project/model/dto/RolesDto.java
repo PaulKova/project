@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+//TODO Удалить!
 public enum RolesDto {
     USER,
     MODERATOR,

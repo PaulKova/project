@@ -20,38 +20,13 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class ItemDto {
-
     private Long id;
-
     private String name;
     private BigDecimal basePrice;
     private BigDecimal price;
     private int count;
     private double rating;
     private String description;
-    private int discount;
-
-    //@JsonManagedReference
-    private UserDto user;
-    //@JsonManagedReference
-    private CategoryDto category;
-    //@JsonManagedReference
-    private CartItemDto cartItem;
-    //@JsonBackReference
     private List<ImageDto> images;
-    //@JsonBackReference
     private List<ReviewDto> reviews;
-    //@JsonBackReference
-    private List<FavoriteDto> favorites;
-    //@JsonBackReference
-    private List<OrderDto> orders;
-    //@JsonManagedReference
-    private ShopDto shop;
-    //@JsonBackReference
-    private List<SalesHistoryDto> history;
-
-    private boolean isModerated;
-    private boolean isModerateAccept;
-    private String moderatedRejectReason;
-    private boolean isPretendedToBeDeleted;
 }
