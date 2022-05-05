@@ -39,7 +39,6 @@ public class initData {
     private final UserRepository userRepository;
     private final ShopRepository shopRepository;
     private final AddressRepository addressRepository;
-    private final UserInfoRepository userInfoRepository;
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
     private final CountryRepository countryRepository;
@@ -55,7 +54,6 @@ public class initData {
                     CityRepository cityRepository, ChatRepository chatRepository,
                     CategoryRepository categoryRepository, UserRepository userRepository,
                     ShopRepository shopRepository, AddressRepository addressRepository,
-                    UserInfoRepository userInfoRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
                     CountryRepository countryRepository,
                     ContactFormRepository contactFormRepository,
@@ -73,7 +71,6 @@ public class initData {
         this.userRepository = userRepository;
         this.shopRepository = shopRepository;
         this.addressRepository = addressRepository;
-        this.userInfoRepository = userInfoRepository;
         this.messageRepository = messageRepository;
         this.imageRepository = imageRepository;
         this.countryRepository = countryRepository;
@@ -223,12 +220,10 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
-                .userInfo(null)
                 .favorite(null)
                 .address(address1)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -253,12 +248,10 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
-                .userInfo(null)
                 .favorite(null)
                 .address(null)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -283,12 +276,10 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
-                .userInfo(null)
                 .favorite(null)
                 .address(null)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -316,12 +307,10 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
-                .userInfo(null)
                 .favorite(null)
                 .address(null)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -684,7 +673,7 @@ public class initData {
 
 /////////////////////////////////////////////////Orders////////////////////////////////////////////////////////////
         Order order1 = Order.builder()
-                .orderDate(Calendar.getInstance())
+                .orderDate(LocalDate.now().atTime(LocalTime.now()))
                 .expectedDeliveryDate(Calendar.getInstance())
                 .grandTotal(item1.getPrice().add(item2.getPrice()))
                 .currency("dollar")
@@ -695,7 +684,7 @@ public class initData {
                 //.itemsInOrder(Set.of(item1, item2))
                 .build();
         Order order2 = Order.builder()
-                .orderDate(Calendar.getInstance())
+                .orderDate(LocalDate.now().atTime(LocalTime.now()))
                 .expectedDeliveryDate(Calendar.getInstance())
                 .grandTotal(item3.getPrice().add(item2.getPrice()))
                 .currency("dollar")
@@ -759,7 +748,6 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.ADMIN)
-                .userInfo(null)
                 .favorite(null)
                 .address(address1)
                 .images(null)
@@ -787,7 +775,6 @@ public class initData {
                 .isUsing2FA(true)
                 .secret("secret?")
                 .role(Roles.ADMIN)
-                .userInfo(null)
                 .favorite(null)
                 .address(address1)
                 .images(null)
@@ -815,7 +802,6 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.MODERATOR)
-                .userInfo(null)
                 .favorite(null)
                 .address(address2)
                 .images(null)
