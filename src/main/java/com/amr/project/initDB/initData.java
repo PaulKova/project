@@ -40,7 +40,6 @@ public class initData {
     private final ShopRepository shopRepository;
     private final AddressRepository addressRepository;
     private final UserInfoRepository userInfoRepository;
-    private final CartItemRepository cartItemRepository;
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
     private final CountryRepository countryRepository;
@@ -56,7 +55,7 @@ public class initData {
                     CityRepository cityRepository, ChatRepository chatRepository,
                     CategoryRepository categoryRepository, UserRepository userRepository,
                     ShopRepository shopRepository, AddressRepository addressRepository,
-                    UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
+                    UserInfoRepository userInfoRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
                     CountryRepository countryRepository,
                     ContactFormRepository contactFormRepository,
@@ -75,7 +74,6 @@ public class initData {
         this.shopRepository = shopRepository;
         this.addressRepository = addressRepository;
         this.userInfoRepository = userInfoRepository;
-        this.cartItemRepository = cartItemRepository;
         this.messageRepository = messageRepository;
         this.imageRepository = imageRepository;
         this.countryRepository = countryRepository;
@@ -224,7 +222,6 @@ public class initData {
                 .address(address1)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -248,7 +245,6 @@ public class initData {
                 .address(null)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -272,7 +268,6 @@ public class initData {
                 .address(null)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -299,7 +294,6 @@ public class initData {
                 .address(null)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -347,7 +341,6 @@ public class initData {
                 .reviews(null)
                 .logo(null)
                 .user(user1)
-                .cartItem(null)
                 .feedbacks(null)
                 .discounts(null)
                 .favorites(null)
@@ -370,7 +363,6 @@ public class initData {
                 .reviews(null)
                 .logo(null)
                 .user(user2)
-                .cartItem(null)
                 .feedbacks(null)
                 .discounts(null)
                 .favorites(null)
@@ -393,7 +385,6 @@ public class initData {
                 .reviews(null)
                 .logo(null)
                 .user(user3)
-                .cartItem(null)
                 .feedbacks(null)
                 .discounts(null)
                 .favorites(null)
@@ -430,7 +421,6 @@ public class initData {
                 .description("description")
                 .discount(0)
                 .category(category1)
-                .cartItem(null)
                 .images(null) //detached entity passed to persist: com.amr.project.model.entity.Image
                 .reviews(null)
                 .favorites(null)
@@ -450,7 +440,6 @@ public class initData {
                 .description("description")
                 .discount(0)
                 .category(category1)
-                .cartItem(null)
                 .images(null)
                 .reviews(null)
                 .favorites(null)
@@ -470,7 +459,6 @@ public class initData {
                 .description("description")
                 .discount(0)
                 .category(category2)
-                .cartItem(null)
                 .images(null)
                 .reviews(null)
                 .favorites(null)
@@ -490,7 +478,6 @@ public class initData {
                 .description("description")
                 .discount(0)
                 .category(category2)
-                .cartItem(null)
                 .images(null)
                 .reviews(null)
                 .favorites(null)
@@ -510,7 +497,6 @@ public class initData {
                 .description("description")
                 .discount(0)
                 .category(category3)
-                .cartItem(null)
                 .images(null)
                 .reviews(null)
                 .favorites(null)
@@ -530,7 +516,6 @@ public class initData {
                 .description("description")
                 .discount(0)
                 .category(category3)
-                .cartItem(null)
                 .images(null)
                 .reviews(null)
                 .favorites(null)
@@ -747,26 +732,6 @@ public class initData {
         userInfoRepository.save(userInfo2);
         userInfoRepository.save(userInfo3);
 
-/////////////////////////////////////////////////CartItem////////////////////////////////////////////////////////////
-        CartItem cartItem1 = CartItem.builder()
-                .quantity(5)
-                .shop(null)
-                .user(user1)
-                .build();
-        CartItem cartItem2 = CartItem.builder()
-                .quantity(2)
-                .shop(null)
-                .user(user2)
-                .build();
-        CartItem cartItem3 = CartItem.builder()
-                .quantity(3)
-                .shop(null)
-                .user(user3)
-                .build();
-        cartItemRepository.save(cartItem1);
-        cartItemRepository.save(cartItem2);
-        cartItemRepository.save(cartItem3);
-
 
 /////////////////////////////////////////////////Admin/Moderator//////////////////////////////////////////////////////
         User admin1 = User.builder()
@@ -783,7 +748,6 @@ public class initData {
                 .address(address1)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -806,7 +770,6 @@ public class initData {
                 .address(address1)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -829,7 +792,6 @@ public class initData {
                 .address(address2)
                 .images(null)
                 .coupons(null)
-                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)

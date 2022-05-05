@@ -43,8 +43,7 @@ public class MainPageRestController {
     public ResponseEntity<MainPageDto> getMainPage() {
         MainPageDto mainPageDto = new MainPageDto(categoryService.getAllCategories(),
                 shopService.findFirst4ByOrderByRatingDesc(),
-                itemService.findFirst4ByOrderByRatingDesc());
-        LinkedList
+                itemService.findFirst4ByOrderByRatingDesc(), "");
         return new ResponseEntity<>(mainPageDto, HttpStatus.OK);
     }
 }

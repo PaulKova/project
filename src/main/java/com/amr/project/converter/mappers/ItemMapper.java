@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(builder = @Builder(disableBuilder = true), componentModel = "spring", uses = {CategoryMapper.class, OrderMapper.class,
         ShopMapper.class, FavoriteMapper.class, ImageMapper.class, ReviewMapper.class,
-        CartItemMapper.class, UserMapper.class})
+        UserMapper.class})
 public interface ItemMapper extends MapperInterface<ItemDto, Item> {
 
 }

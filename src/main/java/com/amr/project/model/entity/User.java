@@ -114,18 +114,6 @@ public class User implements UserDetails {
             orphanRemoval = true
     )
     @ToString.Exclude
-    private List<CartItem> carts;
-
-
-    @OneToMany(
-            mappedBy = "user",
-            cascade = {CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH,
-                    CascadeType.DETACH},
-            orphanRemoval = true
-    )
-    @ToString.Exclude
     private List<Order> orders;
 
 

@@ -54,11 +54,6 @@ public class Item {
     private Category category;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private CartItem cartItem;
-
-
     @OneToMany(
             cascade = {CascadeType.MERGE,
                     CascadeType.PERSIST,

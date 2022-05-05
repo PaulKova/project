@@ -1,6 +1,5 @@
 package com.amr.project.service.abstracts;
 
-import com.amr.project.model.dto.CartItemDto;
 import com.amr.project.model.dto.ChatDto;
 import com.amr.project.model.entity.Chat;
 import com.amr.project.model.entity.User;
