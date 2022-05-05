@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -16,22 +17,34 @@ import java.util.Objects;
 //@NoArgsConstructor
 @AllArgsConstructor
 public class Coupon {
-    //TODO разовый скидочный купон для покупателя, добавить поля (например размер скидки)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "start")
-    private Calendar start;
+    private LocalDateTime start;
 
     @Column(name = "end")
-    private Calendar end;
+    private LocalDateTime end;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Shop shop;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "discount")
+    private int discount;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     private User user;
+
+    @Column(name = "is_used")
+    private boolean isUsed;
 
     @Override
     public boolean equals(Object o) {

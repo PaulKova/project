@@ -30,6 +30,9 @@ public class Discount {
     @Column(name = "fixed_discount")
     private Integer fixedDiscount;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude

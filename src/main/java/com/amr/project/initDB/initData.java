@@ -305,28 +305,7 @@ public class initData {
         userRepository.save(user4);
 
 
-/////////////////////////////////////////////////Coupons////////////////////////////////////////////////////////////
-//        User user1Coupons = userRepository.findByEmail("user1@mail.com");
-//        User user2Coupons = userRepository.findByEmail("user2@mail.com");
-//        User user3Coupons = userRepository.findByEmail("user3@mail.com");
-        Coupon coupon1 = Coupon.builder()
-                .start(Calendar.getInstance())
-                .end(Calendar.getInstance())
-                .user(user1)
-                .build();
-        Coupon coupon2 = Coupon.builder()
-                .start(Calendar.getInstance())
-                .end(Calendar.getInstance())
-                .user(user2)
-                .build();
-        Coupon coupon3 = Coupon.builder()
-                .start(Calendar.getInstance())
-                .end(Calendar.getInstance())
-                .user(user3)
-                .build();
-        couponRepository.save(coupon1);
-        couponRepository.save(coupon2);
-        couponRepository.save(coupon3);
+
 
 /////////////////////////////////////////////////Shop////////////////////////////////////////////////////////////
         Shop shop1 = Shop.builder()
@@ -398,7 +377,37 @@ public class initData {
         shopRepository.save(shop1);
         shopRepository.save(shop2);
         shopRepository.save(shop3);
-
+/////////////////////////////////////////////////Coupons////////////////////////////////////////////////////////////
+//        User user1Coupons = userRepository.findByEmail("user1@mail.com");
+//        User user2Coupons = userRepository.findByEmail("user2@mail.com");
+//        User user3Coupons = userRepository.findByEmail("user3@mail.com");
+        Coupon coupon1 = Coupon.builder()
+                .start(LocalDate.of(2001,1,1).atTime(1,1))
+                .end(LocalDate.now().atTime(LocalTime.now()))
+                .user(user1)
+                .shop(shop1)
+                .name("Рокета")
+                .discount(100)
+                .build();
+        Coupon coupon2 = Coupon.builder()
+                .start(LocalDate.of(2002,2,2).atTime(2,2))
+                .end(LocalDate.now().atTime(LocalTime.now()))
+                .user(user2)
+                .shop(shop2)
+                .name("Звезда")
+                .discount(200)
+                .build();
+        Coupon coupon3 = Coupon.builder()
+                .start(LocalDate.of(2003,3,3).atTime(3,3))
+                .end(LocalDate.now().atTime(LocalTime.now()))
+                .user(user3)
+                .shop(shop3)
+                .name("Приз")
+                .discount(300)
+                .build();
+        couponRepository.save(coupon1);
+        couponRepository.save(coupon2);
+        couponRepository.save(coupon3);
 /////////////////////////////////////////////////Category////////////////////////////////////////////////////////////
         Category category1 = Category.builder().name("cat1").build();
         Category category2 = Category.builder().name("cat2").build();
@@ -559,14 +568,17 @@ public class initData {
                 .percentage(5)
                 .fixedDiscount(2)
                 .shop(shop1)
+                .user(user1)
                 .build();
         Discount discount2 = Discount.builder()
                 .minOrder(3500)
                 .percentage(15)
                 .fixedDiscount(2)
                 .shop(shop2)
+                .user(user2)
                 .build();
         user1.setDiscounts(Set.of(discount1));
+        user2.setDiscounts(Set.of(discount2));
         discountRepository.save(discount1);
         discountRepository.save(discount2);
 
