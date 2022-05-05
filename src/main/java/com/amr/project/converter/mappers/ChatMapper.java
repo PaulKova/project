@@ -3,9 +3,12 @@ package com.amr.project.converter.mappers;
 import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.MapperInterface;
 import com.amr.project.model.dto.ChatDto;
+import com.amr.project.model.dto.FavoriteDto;
 import com.amr.project.model.entity.Chat;
+import com.amr.project.model.entity.Favorite;
 import org.mapstruct.*;
 
+import java.util.List;
 import java.util.Set;
 
 //TODO: выяснить, почему не происходит маппинга (для проверки см.сгенерированный файл "ChatMapperImpl"

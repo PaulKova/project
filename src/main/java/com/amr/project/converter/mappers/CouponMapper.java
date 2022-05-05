@@ -2,12 +2,11 @@ package com.amr.project.converter.mappers;
 
 import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.MapperInterface;
+import com.amr.project.model.dto.ChatDto;
 import com.amr.project.model.dto.CouponDto;
+import com.amr.project.model.entity.Chat;
 import com.amr.project.model.entity.Coupon;
-import org.mapstruct.Builder;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -21,4 +20,11 @@ public interface CouponMapper extends MapperInterface<CouponDto, Coupon> {
     })
     @Override
     CouponDto toDto(Coupon entity, CycleAvoidingMappingContext cycleAvoidingMappingContext);
+
+    @Override
+    List<CouponDto> toDtoList(List<Coupon> listEntities, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
+
+    default CouponDto map(Coupon entity) {
+        return toDto(entity, new CycleAvoidingMappingContext());
+    }
 }
