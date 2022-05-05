@@ -176,7 +176,7 @@ public class ItemController {
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<ItemDto> markToDelete(@PathVariable(name = "id") Long id) {
         ItemDto itemDto = itemService.getItemById(id);
-        itemDto.setPretendedToBeDeleted(true);
+        //itemDto.setPretendedToBeDeleted(true);
         logger.info(ITEM_TO_DELETE, itemDto.getId());
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }

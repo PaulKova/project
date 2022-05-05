@@ -17,8 +17,8 @@ public interface ItemMapper extends MapperInterface<ItemDto, Item> {
 
     @Override
     List <ItemDto> toDtoList (List<com.amr.project.model.entity.Item> listEntities, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
-
-    @Override
-    List<Item> toEntityList(List<ItemDto> listDtos, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
+//
+//    @Override
+//    List<Item> toEntityList(List<ItemDto> listDtos, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
 }

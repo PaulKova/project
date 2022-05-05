@@ -32,19 +32,10 @@ public interface ShopMapper extends MapperInterface<ShopDto, Shop> {
         return coupon.getId();
     }
 
-    @Override
-    @Mappings({
-            @Mapping(target = "user.id", source = "dto.userId")
-    })
-    Shop toEntity(ShopDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
+//    @Override
+//    @Mappings({
+//            @Mapping(target = "user.id", source = "dto.userId")
+//    })
+//    Shop toEntity(ShopDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
-    @Override
-    @Mappings({
-            @Mapping(target = "userId", source = "entity.user.id"),
-            @Mapping(target = "couponIds", source = "entity.coupons", qualifiedByName = "couponToIds")
-    })
-    List<ShopDto> toDtoList(List<Shop> listEntities, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
-
-    @Override
-    List<Shop> toEntityList(List<ShopDto> listDtos, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 }

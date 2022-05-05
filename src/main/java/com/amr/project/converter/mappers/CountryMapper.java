@@ -14,6 +14,8 @@ import java.util.List;
 @Mapper(builder = @Builder(disableBuilder = true), componentModel = "spring", uses = {CityMapper.class, ShopMapper.class})
 public interface CountryMapper extends MapperInterface<CountryDto, Country> {
 
+    Country map(String value);
+    String map(Country value);
 //    Country map(String value);
 //    String map(Country value);
 

@@ -18,10 +18,10 @@ public interface FeedbackMapper extends MapperInterface<FeedbackDto, Feedback> {
     })
     FeedbackDto toDto(Feedback entity,CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
-    @Override
-    @Mappings({
-            @Mapping(target = "user.id", source = "dto.userId")
-    })
-    Feedback toEntity(FeedbackDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
+//    @Override
+//    @Mappings({
+//            @Mapping(target = "user.id", source = "dto.userId")
+//    })
+//    Feedback toEntity(FeedbackDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
 }

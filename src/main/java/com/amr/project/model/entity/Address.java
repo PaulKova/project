@@ -36,10 +36,6 @@ public class Address {
     @ToString.Exclude
     private City city;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private Country country;
-
     @OneToMany(
             mappedBy = "address",
             cascade = {CascadeType.MERGE,

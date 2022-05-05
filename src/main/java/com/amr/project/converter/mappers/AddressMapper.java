@@ -26,6 +26,7 @@ public interface AddressMapper extends MapperInterface<AddressDto, Address> {
     })
     AddressDto toDto(Address entity, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
-    @Override
-    Address toEntity(AddressDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
+    String map(City value);
+//    @Override
+//    Address toEntity(AddressDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 }

@@ -4,12 +4,13 @@ import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.MapperInterface;
 import com.amr.project.model.dto.OrderDto;
 import com.amr.project.model.dto.UserDto;
+import com.amr.project.model.entity.Country;
 import com.amr.project.model.entity.Coupon;
 import com.amr.project.model.entity.Order;
 import com.amr.project.model.entity.User;
 import org.mapstruct.*;
 
-@Mapper(builder = @Builder(disableBuilder = true), componentModel = "spring", uses = { AddressMapper.class})
+@Mapper(builder = @Builder(disableBuilder = true), componentModel = "spring", uses = { AddressMapper.class, CountryMapper.class})
 public interface OrderMapper extends MapperInterface<OrderDto, Order> {
 
     @Override

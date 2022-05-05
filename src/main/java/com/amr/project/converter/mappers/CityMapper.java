@@ -26,15 +26,14 @@ public interface CityMapper extends MapperInterface<CityDto, City> {
     })
     CityDto toDto(City entity, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
-    String map(City value);
     City map(String value);
 
-    @Override
-    @Mappings({
-            @Mapping(target = "country.name", source = "dto.countryName"),
-            @Mapping(target = "country.id", source = "dto.countryId")
-    })
-    City toEntity(CityDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
+//    @Override
+//    @Mappings({
+//            @Mapping(target = "country.name", source = "dto.countryName"),
+//            @Mapping(target = "country.id", source = "dto.countryId")
+//    })
+//    City toEntity(CityDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
     @Override
     @Mappings({
@@ -43,11 +42,11 @@ public interface CityMapper extends MapperInterface<CityDto, City> {
     })
     List<CityDto> toDtoList(List<com.amr.project.model.entity.City> listEntities, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
-    @Override
-    @Mappings({
-            @Mapping(target = "country.name", source = "dto.countryName"),
-            @Mapping(target = "country.id", source = "dto.countryId")
-    })
-    List<City> toEntityList(List<CityDto> listDtos, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
+//    @Override
+//    @Mappings({
+//            @Mapping(target = "country.name", source = "dto.countryName"),
+//            @Mapping(target = "country.id", source = "dto.countryId")
+//    })
+//    List<City> toEntityList(List<CityDto> listDtos, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
 }

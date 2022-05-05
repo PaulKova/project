@@ -27,13 +27,13 @@ public interface ReviewMapper extends MapperInterface<ReviewDto, Review> {
     ReviewDto toDto(Review entity, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
 
-    @Override
-    @Mappings({
-            @Mapping(target = "user.id", source = "dto.userId"),
-            @Mapping(target = "item.id", source = "dto.itemId"),
-            @Mapping(target = "shop.id", source = "dto.shopId"),
-            @Mapping(target = "user.username", source = "dto.userName")
-    })
-    Review toEntity(ReviewDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
+//    @Override
+//    @Mappings({
+//            @Mapping(target = "user.id", source = "dto.userId"),
+//            @Mapping(target = "item.id", source = "dto.itemId"),
+//            @Mapping(target = "shop.id", source = "dto.shopId"),
+//            @Mapping(target = "user.username", source = "dto.userName")
+//    })
+//    Review toEntity(ReviewDto dto, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
 }

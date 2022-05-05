@@ -15,26 +15,26 @@ public interface UserMapper extends MapperInterface<UserDto, User> {
 
     @Override
     @Mappings({
-            @Mapping(target = "couponIds", source = "entity.coupons", qualifiedByName = "couponToIds"),
-            @Mapping(target = "orderIds", source = "entity.orders", qualifiedByName = "orderToIds"),
-            @Mapping(target = "shopIds", source = "entity.shops", qualifiedByName = "shopToIds"),
-            @Mapping(target = "chatIds", source = "entity.chats", qualifiedByName = "chatToIds")
+            @Mapping(target = "couponIds", source = "entity.coupons", qualifiedByName = "couponToIds1"),
+            @Mapping(target = "orderIds", source = "entity.orders", qualifiedByName = "orderToIds1"),
+            @Mapping(target = "shopIds", source = "entity.shops", qualifiedByName = "shopToIds1"),
+            @Mapping(target = "chatIds", source = "entity.chats", qualifiedByName = "chatToIds1")
     })
     UserDto toDto(User entity, CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
-    @Named("couponToIds")
+    @Named("couponToIds1")
     public static Long couponToIds(Coupon coupon) {
         return coupon.getId();
     }
-    @Named("orderToIds")
+    @Named("orderToIds1")
     public static Long orderToIds(Order order) {
         return order.getId();
     }
-    @Named("shopToIds")
+    @Named("shopToIds1")
     public static Long shopToIds(Shop shop) {
         return shop.getId();
     }
-    @Named("chatToIds")
+    @Named("chatToIds1")
     public static Long chatToIds(Chat chat) {
         return chat.getId();
     }
