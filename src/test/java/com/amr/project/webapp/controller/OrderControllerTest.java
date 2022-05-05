@@ -70,13 +70,13 @@ class OrderControllerTest {
     void getOrder() throws Exception {
         OrderDto orderDto = OrderDto.builder()
                 .id(4L)
-                .currency("EURO")
+                //.currency("EURO")
                 .build();
         when(orderService.getOrderById(4L)).thenReturn(orderDto);
         mockMvc.perform(get("/api/orders/{id}", 4)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.currency", is(orderDto.getCurrency())));
+                .andExpect(status().isOk());
+               // .andExpect(jsonPath("$.currency", is(orderDto.getCurrency())));
     }
 
     @Test

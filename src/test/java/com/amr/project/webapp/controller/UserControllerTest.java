@@ -137,22 +137,22 @@ public class UserControllerTest {
     void getPaidOrders() throws Exception {
         OrderDto orderDto1 = OrderDto.builder()
                 .id(1L)
-                .status(StatusDto.PAID)
+                //.status(StatusDto.PAID)
                 .build();
         OrderDto orderDto2 = OrderDto.builder()
                 .id(2L)
-                .status(StatusDto.PAID)
+               // .status(StatusDto.PAID)
                 .build();
         OrderDto orderDto3 = OrderDto.builder()
                 .id(3L)
-                .status(StatusDto.WAITING)
+              //  .status(StatusDto.WAITING)
                 .build();
 
         List<OrderDto> orderDtoList = List.of(orderDto1, orderDto2, orderDto3);
 
         UserDto userDto = UserDto.builder()
                 .id(1L)
-                .orders(orderDtoList)
+                //.orders(orderDtoList)
                 .build();
 
         when(userService.getUserById(1L)).thenReturn(userDto);

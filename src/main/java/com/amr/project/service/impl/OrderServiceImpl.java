@@ -5,6 +5,7 @@ import com.amr.project.dao.OrderRepository;
 import com.amr.project.model.dto.OrderDto;
 import com.amr.project.model.dto.StatusDto;
 import com.amr.project.model.entity.Order;
+import com.amr.project.model.enums.Status;
 import com.amr.project.service.email.MailSender;
 import com.amr.project.service.abstracts.OrderService;
 import com.amr.project.util.EmailOrderAssistant;
@@ -20,7 +21,6 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
-
     private final MailSender mailSender;
     private final EmailOrderAssistant emailAssistantService;
 
@@ -62,45 +62,46 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(id);
     }
 
-    @Override
-    public void changeStatusToStart(Long order_id) {
-        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
-        order.setStatus(StatusDto.START);
-        updateOrder(order);
-    }
+//    @Override
+//    public void changeStatusToStart(Long order_id) {
+//        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
+//        order.setStatus(StatusDto.START);
+//        updateOrder(order);
+//    }
 
-    @Override
-    public void changeStatusToComplete(Long order_id) {
-        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
-        order.setStatus(StatusDto.COMPLETE);
-        updateOrder(order);
-    }
+//    @Override
+//    public void changeStatusToComplete(Long order_id) {
+//        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
+//        order.setStatus(StatusDto.COMPLETE);
+//        updateOrder(order);
+//    }
 
     @Override
     public void changeStatusToWaiting(Long order_id) {
-        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
-        order.setStatus(StatusDto.WAITING);
+        Order order1 = orderRepository.getById(order_id);
+        order1.setStatus(Status.WAITING);
+        OrderDto order = orderMapper.toDto(order1, new CycleAvoidingMappingContext());
         updateOrder(order);
     }
 
-    @Override
-    public void changeStatusToPaid(Long order_id) {
-        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
-        order.setStatus(StatusDto.PAID);
-        updateOrder(order);
-    }
-
-    @Override
-    public void changeStatusToSent(Long order_id) {
-        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
-        order.setStatus(StatusDto.SENT);
-        updateOrder(order);
-    }
-
-    @Override
-    public void changeStatusToDelivered(Long order_id) {
-        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
-        order.setStatus(StatusDto.DELIVERED);
-        updateOrder(order);
-    }
+//    @Override
+//    public void changeStatusToPaid(Long order_id) {
+//        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
+//        order.setStatus(StatusDto.PAID);
+//        updateOrder(order);
+//    }
+//
+//    @Override
+//    public void changeStatusToSent(Long order_id) {
+//        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
+//        order.setStatus(StatusDto.SENT);
+//        updateOrder(order);
+//    }
+//
+//    @Override
+//    public void changeStatusToDelivered(Long order_id) {
+//        OrderDto order = orderMapper.toDto(orderRepository.getById(order_id), new CycleAvoidingMappingContext());
+//        order.setStatus(StatusDto.DELIVERED);
+//        updateOrder(order);
+//    }
 }

@@ -209,6 +209,12 @@ public class initData {
 
 /////////////////////////////////////////////////User////////////////////////////////////////////////////////////
         User user1 = User.builder()
+                .age(44)
+                .phone("+5388881")
+                .firstName("Alex1")
+                .lastName("Vazovski1")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
                 .email("user1@mail.com")
                 .username("user1")
                 .password(passwordEncoder.passwordEncoder().encode("user1"))
@@ -222,6 +228,7 @@ public class initData {
                 .address(address1)
                 .images(null)
                 .coupons(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -232,6 +239,12 @@ public class initData {
                 .personalData(personalData1)
                 .build();
         User user2 = User.builder()
+                .age(44)
+                .phone("+5388882")
+                .firstName("Alex2")
+                .lastName("Vazovski2")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.FEMALE)
                 .email("user2@mail.com")
                 .username("user2")
                 .password(passwordEncoder.passwordEncoder().encode("user2"))
@@ -245,6 +258,7 @@ public class initData {
                 .address(null)
                 .images(null)
                 .coupons(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -255,6 +269,12 @@ public class initData {
                 .personalData(personalData2)
                 .build();
         User user3 = User.builder()
+                .age(44)
+                .phone("+5388883")
+                .firstName("Alex3")
+                .lastName("Vazovski3")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.UNKNOWN)
                 .email("user3@mail.com")
                 .username("user3")
                 .password(passwordEncoder.passwordEncoder().encode("user3"))
@@ -268,6 +288,7 @@ public class initData {
                 .address(null)
                 .images(null)
                 .coupons(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -281,6 +302,12 @@ public class initData {
         userRepository.save(user3);
 
         User user4 = User.builder()
+                .age(25)
+                .phone("+5388899")
+                .firstName("Alex4")
+                .lastName("Vazovski4")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
                 .email("user4@mail.com")
                 .username("user4")
                 .password(passwordEncoder.passwordEncoder().encode("user4"))
@@ -294,6 +321,7 @@ public class initData {
                 .address(null)
                 .images(null)
                 .coupons(null)
+                .carts(null)
                 .orders(null)
                 .reviews(null)
                 .shops(null)
@@ -712,41 +740,17 @@ public class initData {
                 .build();
         reviewRepository.save(reviewShop);
 
-/////////////////////////////////////////////////UserInfo////////////////////////////////////////////////////////////
-        UserInfo userInfo1 = UserInfo.builder()
-                .age(44)
-                .phone("+5388881")
-                .firstName("Alex1")
-                .lastName("Vazovski1")
-                .birthday(Calendar.getInstance())
-                .gender(Gender.MALE)
-                .user(user1)
-                .build();
-        UserInfo userInfo2 = UserInfo.builder()
-                .age(44)
-                .phone("+5388882")
-                .firstName("Alex2")
-                .lastName("Vazovski2")
-                .birthday(Calendar.getInstance())
-                .gender(Gender.FEMALE)
-                .user(user2)
-                .build();
-        UserInfo userInfo3 = UserInfo.builder()
-                .age(44)
-                .phone("+5388883")
-                .firstName("Alex3")
-                .lastName("Vazovski3")
-                .birthday(Calendar.getInstance())
-                .gender(Gender.UNKNOWN)
-                .user(user3)
-                .build();
-        userInfoRepository.save(userInfo1);
-        userInfoRepository.save(userInfo2);
-        userInfoRepository.save(userInfo3);
+
 
 
 /////////////////////////////////////////////////Admin/Moderator//////////////////////////////////////////////////////
         User admin1 = User.builder()
+                .age(21)
+                .phone("+7388881")
+                .firstName("Chuck")
+                .lastName("Norris")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
                 .email("admin1@mail.com")
                 .username("admin1")
                 .password(passwordEncoder.passwordEncoder().encode("admin1"))
@@ -769,6 +773,12 @@ public class initData {
                 .feedbacks(null)
                 .build();
         User admin2 = User.builder()
+                .age(34)
+                .phone("+1388881")
+                .firstName("Anatoliy")
+                .lastName("Vasserman")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
                 .email("admin2@mail.com")
                 .username("admin2")
                 .password(passwordEncoder.passwordEncoder().encode("admin2"))
@@ -791,6 +801,12 @@ public class initData {
                 .feedbacks(null)
                 .build();
         User moderator1 = User.builder()
+                .age(49)
+                .phone("+3388881")
+                .firstName("Whoopi")
+                .lastName("Goldberg")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.FEMALE)
                 .email("moderator1@mail.com")
                 .username("moderator1")
                 .password(passwordEncoder.passwordEncoder().encode("moderator1"))

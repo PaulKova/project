@@ -71,11 +71,11 @@ class OrderServiceImplTest {
 
         OrderDto orderDto1 = OrderDto.builder()
                 .id(1L)
-                .status(StatusDto.START)
+                //.status(StatusDto.START)
                 .build();
         OrderDto orderDto2 = OrderDto.builder()
                 .id(2L)
-                .status(StatusDto.WAITING)
+                ///.status(StatusDto.WAITING)
                 .build();
         List<OrderDto> orderDto = new ArrayList<>(List.of(orderDto1, orderDto2));
 
@@ -123,7 +123,7 @@ class OrderServiceImplTest {
     void updateOrder() throws NullPointerException{
         OrderDto orderDto = OrderDto.builder()
                 .id(1L)
-                .currency("100")
+               // .currency("100")
                 .build();
 
         orderService.updateOrder(orderDto);

@@ -4,7 +4,6 @@ import com.amr.project.model.Mail;
 import com.amr.project.model.entity.Coupon;
 import com.amr.project.model.entity.Discount;
 import com.amr.project.model.entity.User;
-import com.amr.project.model.entity.UserInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,35 +21,34 @@ public class EmailUserAssistant {
         StringBuilder message = new StringBuilder("User changes: ");
 
         User userOriginal = emailServiceAssistant.getUserRepository().getUserByEmail(user.getEmail());
-        UserInfo userInfoOriginal = userOriginal.getUserInfo();
 
-        if (!userInfoOriginal.getUser().getUsername().equals(user.getUsername())) {
+        if (!userOriginal.getUsername().equals(user.getUsername())) {
             message.append("username: ").append(user.getUsername());
         }
-        if (!userInfoOriginal.getUser().getEmail().equals(user.getEmail())) {
+        if (!userOriginal.getEmail().equals(user.getEmail())) {
             message.append("email : ").append(user.getEmail());
         }
-        if (!userInfoOriginal.getUser().getPassword().equals(user.getPassword())) {
+        if (!userOriginal.getPassword().equals(user.getPassword())) {
             message.append("password been changed");
         }
         //
-        if (!userInfoOriginal.getPhone().equals(user.getUserInfo().getPhone())) {
-            message.append("Phone: ").append(user.getUserInfo().getPhone());
+        if (!userOriginal.getPhone().equals(user.getPhone())) {
+            message.append("Phone: ").append(user.getPhone());
         }
-        if (!userInfoOriginal.getFirstName().equals(user.getUserInfo().getFirstName())) {
-            message.append("FirstName: ").append(user.getUserInfo().getFirstName());
+        if (!userOriginal.getFirstName().equals(user.getFirstName())) {
+            message.append("FirstName: ").append(user.getFirstName());
         }
-        if (!userInfoOriginal.getLastName().equals(user.getUserInfo().getLastName())) {
-            message.append("LastName: ").append(user.getUserInfo().getLastName());
+        if (!userOriginal.getLastName().equals(user.getLastName())) {
+            message.append("LastName: ").append(user.getLastName());
         }
-        if (userInfoOriginal.getAge() != (user.getUserInfo().getAge())) {
-            message.append("Age: ").append(user.getUserInfo().getAge());
+        if (userOriginal.getAge() != (user.getAge())) {
+            message.append("Age: ").append(user.getAge());
         }
-        if (!userInfoOriginal.getGender().equals(user.getUserInfo().getGender())) {
-            message.append("Gender: ").append(user.getUserInfo().getGender());
+        if (!userOriginal.getGender().equals(user.getGender())) {
+            message.append("Gender: ").append(user.getGender());
         }
-        if (!userInfoOriginal.getBirthday().equals(user.getUserInfo().getBirthday())) {
-            message.append("Birthday: ").append(user.getUserInfo().getBirthday());
+        if (!userOriginal.getBirthday().equals(user.getBirthday())) {
+            message.append("Birthday: ").append(user.getBirthday());
         }
 
         Set<Discount> discountsOriginal = userOriginal.getDiscounts();

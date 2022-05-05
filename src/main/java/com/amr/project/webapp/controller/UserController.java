@@ -2,9 +2,12 @@ package com.amr.project.webapp.controller;
 
 import com.amr.project.converter.mappers.UserMapper;
 import com.amr.project.model.dto.OrderDto;
+import com.amr.project.model.dto.PersonalDataDto;
 import com.amr.project.model.dto.StatusDto;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
+import com.amr.project.model.enums.PersonalDataStatus;
+import com.amr.project.model.enums.Status;
 import com.amr.project.service.abstracts.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -124,7 +127,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!file.isEmpty()) {
-            userDto.setImages(userService.getUserWithPicture(user, file.getBytes()));
+          //  userDto.setImages(userService.getUserWithPicture(user, file.getBytes()));
         }
         userService.updateUser(userDto);
         logger.info(USER_UPDATED_LOG, userDto.getId());
@@ -155,11 +158,8 @@ public class UserController {
                     {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = OrderDto.class))}),
             @ApiResponse(responseCode = "404", description = "Order not found", content = @Content)})
     @GetMapping("users/{id}/my_paid_orders")
-    public ResponseEntity<List<OrderDto>> getPaidOrders(@PathVariable Long id) {
-        UserDto userDto = userService.getUserById(id);
-        List<OrderDto> orderDto = userDto.getOrders().stream()
-                .filter(orderDto1 -> orderDto1.getStatus().equals(StatusDto.PAID))
-                .collect(Collectors.toList());
+    public ResponseEntity<List<OrderDto>> getPaidOrders(@PathVariable Long id, @RequestParam(name = "Status", defaultValue = "PAID") Status status) {
+        List<OrderDto> orderDto = userService.getUserOrders(id, status);
         logger.info(GET_PAID_ORDERS_LOG, id);
         return ResponseEntity.ok(orderDto);
     }
