@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class Order {
     private Long id;
 
     @Column(name = "data")
-    private Calendar orderDate;//дата заказа
+    private LocalDateTime orderDate;//дата заказа
 
     @Column(name = "delyv_data")
     private Calendar expectedDeliveryDate;//ожидаемая дата доставки

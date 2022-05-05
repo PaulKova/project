@@ -2,15 +2,21 @@ package com.amr.project.service.impl;
 
 import com.amr.project.converter.CycleAvoidingMappingContext;
 import com.amr.project.converter.mappers.ImageMapper;
+import com.amr.project.converter.mappers.OrderMapper;
 import com.amr.project.converter.mappers.UserMapper;
 import com.amr.project.dao.ImageRepository;
+import com.amr.project.dao.OrderRepository;
 import com.amr.project.dao.UserRepository;
 import com.amr.project.model.Mail;
 import com.amr.project.model.dto.ImageDto;
+import com.amr.project.model.dto.OrderDto;
 import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.Image;
+import com.amr.project.model.entity.Order;
+import com.amr.project.model.entity.PersonalData;
 import com.amr.project.model.entity.User;
 import com.amr.project.model.enums.Roles;
+import com.amr.project.model.enums.Status;
 import com.amr.project.service.abstracts.UserService;
 import com.amr.project.service.email.MailSender;
 import com.amr.project.util.EmailUserAssistant;
@@ -34,12 +40,14 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final ImageRepository imageRepository;
     private final ImageMapper imageMapper;
+    private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
 
     @Autowired
     public UserServiceImpl(MailSender mailSender, EmailUserAssistant emailUserAssistant,
                            PassEncoder passwordEncoder, UserRepository userRepository,
                            UserMapper userMapper, ImageRepository imageRepository,
-                           ImageMapper imageMapper) {
+                           ImageMapper imageMapper, OrderRepository orderRepository, OrderMapper orderMapper) {
         this.mailSender = mailSender;
         this.emailUserAssistant = emailUserAssistant;
         this.passwordEncoder = passwordEncoder;
@@ -47,6 +55,8 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
         this.imageRepository = imageRepository;
         this.imageMapper = imageMapper;
+        this.orderRepository = orderRepository;
+        this.orderMapper = orderMapper;
     }
 
     public static String APP_NAME = "SpringRegistration";
@@ -98,7 +108,7 @@ public class UserServiceImpl implements UserService {
 
         if (user1.getEmail() != null) {
             String message = "<a href=http://localhost:8888/registrationConfirm?" +
-                    "&code=" + user.getActivationCode() +
+                    // "&code=" + user.getActivationCode() +
                     "> + Verify email and activate account</a>";
             Mail verificationMail = new Mail();
             verificationMail.setTo(user1.getEmail());
@@ -160,4 +170,10 @@ public class UserServiceImpl implements UserService {
         return imageMapper.toDtoList(user.getImages(), new CycleAvoidingMappingContext());
     }
 
+    @Override
+    public List<OrderDto> getUserOrders(Long id, Status status) {
+        List<Order> orderList = orderRepository.findByUserAndStatus(id, status);
+        return orderMapper.toDtoList(orderList, new CycleAvoidingMappingContext());
+
+    }
 }

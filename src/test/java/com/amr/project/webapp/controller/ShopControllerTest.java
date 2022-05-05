@@ -39,7 +39,7 @@ class ShopControllerTest {
                 .name("Ромашка")
                 .email("rom@mail.ru")
                 .description("Магазин продуктов")
-                .isModerated(false)
+             //   .isModerated(false)
                 .build();
 
         this.mockMvc.perform(post("/api/shops/request/to_create")

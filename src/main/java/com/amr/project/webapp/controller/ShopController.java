@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,7 +36,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 @CrossOrigin
 public class ShopController {
-
+    private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
     private static final String ID = "shopId";
     private static final String SHOP_UPDATED_LOG = "Shop:{} was updated";
     private static final String GET_SHOP_LOG = "Shop:{} is get";
@@ -57,7 +59,7 @@ public class ShopController {
     @GetMapping("/")
     public ResponseEntity<List<ShopDto>> getAllShops() {
         List<ShopDto> shops = shopService.findExistsShops();
-        log.info(GET_SHOPS_LOG, shops.size());
+        logger.info(GET_SHOPS_LOG, shops.size());
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
@@ -68,12 +70,9 @@ public class ShopController {
     @GetMapping("/{id}")
     public ResponseEntity<ShopDto> getShop(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
-        log.info(GET_SHOP_LOG, shopDto);
+        logger.info(GET_SHOP_LOG, shopDto);
         return new ResponseEntity<>(shopDto, HttpStatus.OK);
     }
-
-
-
 
 
 
@@ -84,7 +83,7 @@ public class ShopController {
     @GetMapping("/top")
     public ResponseEntity<List<ShopDto>> getFistForShopsByRating() {
         List<ShopDto> shopDtos = shopService.findFirst4ByOrderByRatingDesc();
-        log.info(GET_TOP_SHOPS_LOG, shopDtos.size());
+        logger.info(GET_TOP_SHOPS_LOG, shopDtos.size());
         return new ResponseEntity<>(shopDtos, HttpStatus.OK);
     }
 
@@ -100,7 +99,7 @@ public class ShopController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ShopDto>> getShopsPretendedToDelete() {
         List<ShopDto> shops = shopService.getPretendedToDelete();
-        log.info(SHOPS_TO_DELETE, shops.size());
+        logger.info(SHOPS_TO_DELETE, shops.size());
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
@@ -116,7 +115,7 @@ public class ShopController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<List<ShopDto>> getShopsToCreate() {
         List<ShopDto> shopDto = shopService.findShopsForCreate();
-        log.info(SHOPS_TO_CREATE, shopDto.size());
+        logger.info(SHOPS_TO_CREATE, shopDto.size());
         return new ResponseEntity<>(shopDto, HttpStatus.OK);
     }
 
@@ -153,9 +152,9 @@ public class ShopController {
     @PostMapping(value = "/request/to_create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<HttpStatus> userMarkShopToCreate(@RequestBody ShopDto shopDto) {
-        shopDto.setModerated(true); // user mark a shop to create
+      //  shopDto.setModerated(true); // user mark a shop to create
         shopService.saveShop(shopDto);
-        log.info(GET_PRETENDED_TO_CREATE_SHOPS_LOG, shopDto.getId());
+        logger.info(GET_PRETENDED_TO_CREATE_SHOPS_LOG, shopDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -174,8 +173,8 @@ public class ShopController {
     @PostMapping("/admin/create")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public ResponseEntity<ShopDto> requestToCreateShop(@RequestBody ShopDto shopDto) {
-        shopDto.setModerateAccept(true);// admins accept create a shop
-        shopDto.setModerated(false);
+       // shopDto.setModerateAccept(true);// admins accept create a shop
+      //  shopDto.setModerated(false);
         shopService.saveShop(shopDto);
         logger.info(NEW_SHOP_LOG, shopDto);
         return new ResponseEntity<>(shopDto, HttpStatus.CREATED);
@@ -200,7 +199,7 @@ public class ShopController {
     public ResponseEntity<HttpStatus> editShop(
             @RequestBody ShopDto shopDto) {
         shopService.updateShopById(shopDto);
-        log.info(SHOP_UPDATED_LOG, shopDto.getId());
+        logger.info(SHOP_UPDATED_LOG, shopDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -220,8 +219,8 @@ public class ShopController {
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<Long> markAsDeleteShop(@PathVariable(name = "id") Long id) {
         ShopDto shopDto = shopService.getShopById(id);
-        shopDto.setPretendedToBeDeleted(true);
-        log.info(GET_PRETENDED_TO_DELETE_SHOPS_LOG, id);
+       // shopDto.setPretendedToBeDeleted(true);
+        logger.info(GET_PRETENDED_TO_DELETE_SHOPS_LOG, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
@@ -241,7 +240,7 @@ public class ShopController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deleteShop(@PathVariable(name = "id") Long id) {
         shopService.deleteShopById(id);
-        log.info(DELETE_SHOP, id);
+        logger.info(DELETE_SHOP, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

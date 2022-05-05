@@ -1,3 +1,4 @@
+/*
 package com.amr.project.initDB;
 
 import com.amr.project.dao.*;
@@ -39,7 +40,6 @@ public class initData {
     private final UserRepository userRepository;
     private final ShopRepository shopRepository;
     private final AddressRepository addressRepository;
-    private final UserInfoRepository userInfoRepository;
     private final CartItemRepository cartItemRepository;
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
@@ -56,7 +56,7 @@ public class initData {
                     CityRepository cityRepository, ChatRepository chatRepository,
                     CategoryRepository categoryRepository, UserRepository userRepository,
                     ShopRepository shopRepository, AddressRepository addressRepository,
-                    UserInfoRepository userInfoRepository, CartItemRepository cartItemRepository,
+                    CartItemRepository cartItemRepository,
                     MessageRepository messageRepository, ImageRepository imageRepository,
                     CountryRepository countryRepository,
                     ContactFormRepository contactFormRepository,
@@ -74,7 +74,6 @@ public class initData {
         this.userRepository = userRepository;
         this.shopRepository = shopRepository;
         this.addressRepository = addressRepository;
-        this.userInfoRepository = userInfoRepository;
         this.cartItemRepository = cartItemRepository;
         this.messageRepository = messageRepository;
         this.imageRepository = imageRepository;
@@ -211,6 +210,12 @@ public class initData {
 
 /////////////////////////////////////////////////User////////////////////////////////////////////////////////////
         User user1 = User.builder()
+                .age(44)
+                .phone("+5388881")
+                .firstName("Alex1")
+                .lastName("Vazovski1")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
                 .email("user1@mail.com")
                 .username("user1")
                 .password(passwordEncoder.passwordEncoder().encode("user1"))
@@ -219,7 +224,6 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
-                .userInfo(null)
                 .favorite(null)
                 .address(address1)
                 .images(null)
@@ -235,6 +239,12 @@ public class initData {
                 .personalData(personalData1)
                 .build();
         User user2 = User.builder()
+                .age(44)
+                .phone("+5388882")
+                .firstName("Alex2")
+                .lastName("Vazovski2")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.FEMALE)
                 .email("user2@mail.com")
                 .username("user2")
                 .password(passwordEncoder.passwordEncoder().encode("user2"))
@@ -243,7 +253,6 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
-                .userInfo(null)
                 .favorite(null)
                 .address(null)
                 .images(null)
@@ -259,6 +268,12 @@ public class initData {
                 .personalData(personalData2)
                 .build();
         User user3 = User.builder()
+                .age(44)
+                .phone("+5388883")
+                .firstName("Alex3")
+                .lastName("Vazovski3")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.UNKNOWN)
                 .email("user3@mail.com")
                 .username("user3")
                 .password(passwordEncoder.passwordEncoder().encode("user3"))
@@ -267,7 +282,6 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
-                .userInfo(null)
                 .favorite(null)
                 .address(null)
                 .images(null)
@@ -286,6 +300,12 @@ public class initData {
         userRepository.save(user3);
 
         User user4 = User.builder()
+                .age(25)
+                .phone("+5388899")
+                .firstName("Alex4")
+                .lastName("Vazovski4")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
                 .email("user4@mail.com")
                 .username("user4")
                 .password(passwordEncoder.passwordEncoder().encode("user4"))
@@ -294,7 +314,6 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.USER)
-                .userInfo(null)
                 .favorite(null)
                 .address(null)
                 .images(null)
@@ -342,7 +361,9 @@ public class initData {
                 .description("shop1_description")
                 .count(0)
                 .rating(0)
-/*                .country(Germany)*/
+*/
+/*                .country(Germany)*//*
+
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -365,7 +386,9 @@ public class initData {
                 .description("shop2_description")
                 .count(0)
                 .rating(0)
-/*                .country(USA)*/
+*/
+/*                .country(USA)*//*
+
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -388,7 +411,9 @@ public class initData {
                 .description("shop3_description")
                 .count(0)
                 .rating(0)
-/*                .country(USA)*/
+*/
+/*                .country(USA)*//*
+
                 .items(null)
                 .reviews(null)
                 .logo(null)
@@ -716,36 +741,36 @@ public class initData {
         reviewRepository.save(reviewShop);
 
 /////////////////////////////////////////////////UserInfo////////////////////////////////////////////////////////////
-        UserInfo userInfo1 = UserInfo.builder()
-                .age(44)
-                .phone("+5388881")
-                .firstName("Alex1")
-                .lastName("Vazovski1")
-                .birthday(Calendar.getInstance())
-                .gender(Gender.MALE)
-                .user(user1)
-                .build();
-        UserInfo userInfo2 = UserInfo.builder()
-                .age(44)
-                .phone("+5388882")
-                .firstName("Alex2")
-                .lastName("Vazovski2")
-                .birthday(Calendar.getInstance())
-                .gender(Gender.FEMALE)
-                .user(user2)
-                .build();
-        UserInfo userInfo3 = UserInfo.builder()
-                .age(44)
-                .phone("+5388883")
-                .firstName("Alex3")
-                .lastName("Vazovski3")
-                .birthday(Calendar.getInstance())
-                .gender(Gender.UNKNOWN)
-                .user(user3)
-                .build();
-        userInfoRepository.save(userInfo1);
-        userInfoRepository.save(userInfo2);
-        userInfoRepository.save(userInfo3);
+//        UserInfo userInfo1 = UserInfo.builder()
+//                .age(44)
+//                .phone("+5388881")
+//                .firstName("Alex1")
+//                .lastName("Vazovski1")
+//                .birthday(Calendar.getInstance())
+//                .gender(Gender.MALE)
+//                .user(user1)
+//                .build();
+//        UserInfo userInfo2 = UserInfo.builder()
+//                .age(44)
+//                .phone("+5388882")
+//                .firstName("Alex2")
+//                .lastName("Vazovski2")
+//                .birthday(Calendar.getInstance())
+//                .gender(Gender.FEMALE)
+//                .user(user2)
+//                .build();
+//        UserInfo userInfo3 = UserInfo.builder()
+//                .age(44)
+//                .phone("+5388883")
+//                .firstName("Alex3")
+//                .lastName("Vazovski3")
+//                .birthday(Calendar.getInstance())
+//                .gender(Gender.UNKNOWN)
+//                .user(user3)
+//                .build();
+//        userInfoRepository.save(userInfo1);
+//        userInfoRepository.save(userInfo2);
+//        userInfoRepository.save(userInfo3);
 
 /////////////////////////////////////////////////CartItem////////////////////////////////////////////////////////////
         CartItem cartItem1 = CartItem.builder()
@@ -770,6 +795,12 @@ public class initData {
 
 /////////////////////////////////////////////////Admin/Moderator//////////////////////////////////////////////////////
         User admin1 = User.builder()
+                .age(21)
+                .phone("+7388881")
+                .firstName("Chuck")
+                .lastName("Norris")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
                 .email("admin1@mail.com")
                 .username("admin1")
                 .password(passwordEncoder.passwordEncoder().encode("admin1"))
@@ -778,7 +809,6 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.ADMIN)
-                .userInfo(null)
                 .favorite(null)
                 .address(address1)
                 .images(null)
@@ -793,6 +823,12 @@ public class initData {
                 .feedbacks(null)
                 .build();
         User admin2 = User.builder()
+                .age(34)
+                .phone("+1388881")
+                .firstName("Anatoliy")
+                .lastName("Vasserman")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.MALE)
                 .email("admin2@mail.com")
                 .username("admin2")
                 .password(passwordEncoder.passwordEncoder().encode("admin2"))
@@ -801,7 +837,6 @@ public class initData {
                 .isUsing2FA(true)
                 .secret("secret?")
                 .role(Roles.ADMIN)
-                .userInfo(null)
                 .favorite(null)
                 .address(address1)
                 .images(null)
@@ -816,6 +851,12 @@ public class initData {
                 .feedbacks(null)
                 .build();
         User moderator1 = User.builder()
+                .age(49)
+                .phone("+3388881")
+                .firstName("Whoopi")
+                .lastName("Goldberg")
+                .birthday(Calendar.getInstance())
+                .gender(Gender.FEMALE)
                 .email("moderator1@mail.com")
                 .username("moderator1")
                 .password(passwordEncoder.passwordEncoder().encode("moderator1"))
@@ -824,7 +865,6 @@ public class initData {
                 .isUsing2FA(false)
                 .secret("secret?")
                 .role(Roles.MODERATOR)
-                .userInfo(null)
                 .favorite(null)
                 .address(address2)
                 .images(null)
@@ -869,3 +909,4 @@ public class initData {
 
 
 }
+*/
