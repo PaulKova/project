@@ -36,6 +36,9 @@ public class Address {
     @ToString.Exclude
     private City city;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Country country;
 
     @OneToMany(
             mappedBy = "address",
@@ -69,6 +72,8 @@ public class Address {
             mappedBy = "address")
     @ToString.Exclude
     private List<Order> orders;
+
+    private String additionalInfo;
 
     @Override
     public boolean equals(Object o) {
